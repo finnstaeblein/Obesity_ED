@@ -38,52 +38,54 @@ export function setupInteractions() {
       toggleRawData(e.target.checked);
     });
   }
-  const activitySlider = document.getElementById('activity-slider');
-  const activityValue = document.getElementById('activity-value');
-  const activitySubmitBtn = document.getElementById('activity-submit-btn');
-  const activityResult = document.getElementById('activity-result');
+  // This was old code for reader to use a slider to make a guess
+  // const activitySlider = document.getElementById('activity-slider');
+  // const activityValue = document.getElementById('activity-value');
+  // const activitySubmitBtn = document.getElementById('activity-submit-btn');
+  // const activityResult = document.getElementById('activity-result');
 
-  if (activitySlider && activityValue) {
-    const updateSliderBackground = (value) => {
-      const percentage = value;
-      activitySlider.style.background = `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`;
-    };
+  // if (activitySlider && activityValue) {
+  //   const updateSliderBackground = (value) => {
+  //     const percentage = value;
+  //     activitySlider.style.background = `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`;
+  //   };
 
-    updateSliderBackground(activitySlider.value);
+  //   updateSliderBackground(activitySlider.value);
 
-    activitySlider.addEventListener('input', (e) => {
-      const value = parseInt(e.target.value);
-      activityValue.textContent = value;
-      updateSliderBackground(value);
-    });
-  }
+  //   activitySlider.addEventListener('input', (e) => {
+  //     const value = parseInt(e.target.value);
+  //     activityValue.textContent = value;
+  //     updateSliderBackground(value);
+  //   });
+  // }
 
-  if (activitySubmitBtn) {
-    activitySubmitBtn.addEventListener('click', () => {
-      const guess = parseInt(activitySlider.value);
+  // if (activitySubmitBtn) {
+  //   activitySubmitBtn.addEventListener('click', () => {
+  //     const guess = parseInt(activitySlider.value);
 
-      setUserActivityGuess(guess);
+  //     setUserActivityGuess(guess);
 
-      const inactivitySection = document.getElementById('inactivity-section');
-      if (inactivitySection) {
-        inactivitySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+  //     const inactivitySection = document.getElementById('inactivity-section');
+  //     if (inactivitySection) {
+  //       inactivitySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //     }
 
-      activitySubmitBtn.disabled = true;
-      activitySubmitBtn.style.opacity = '0.5';
-      activitySubmitBtn.style.cursor = 'not-allowed';
-    });
-  }
+  //     activitySubmitBtn.disabled = true;
+  //     activitySubmitBtn.style.opacity = '0.5';
+  //     activitySubmitBtn.style.cursor = 'not-allowed';
+  //   });
+  // }
 
   const optionButtons = document.querySelectorAll('.option-button');
   const beliefNextBtn = document.getElementById('belief-next-btn');
   let selectedOption = null;
 
+  // This is the code for the survey results
   const surveyResults = [
-    { key: 'exercise', label: 'Not getting enough exercise', mainReason: 61, veryImportant: 75 },
-    { key: 'diet', label: 'Eating too much or lack of willpower', mainReason: 21, veryImportant: 59 },
-    { key: 'food', label: 'The kinds of foods available or marketed', mainReason: 10, veryImportant: 50 },
-    { key: 'genetics', label: 'Genetics and hereditary factors', mainReason: 8, veryImportant: 32 }
+    { key: 'exercise', label: 'Not getting enough exercise', veryImportant: 75, somewhatImportant: 20, notImportant: 2, dontKnow: 1 },
+    { key: 'diet', label: 'Lack of willpower over eating',  veryImportant: 59, somewhatImportant: 31, notImportant: 5, dontKnow: 2 },
+    { key: 'food', label: 'Kinds of foods marketed at restaurants and groceries', veryImportant: 35, somewhatImportant: 7, notImportant: 5, dontKnow: 2 },
+    { key: 'genetics', label: 'Genetics and hereditary factors', veryImportant: 32, somewhatImportant: 48, notImportant: 11, dontKnow: 5 }
   ];
 
   optionButtons.forEach(button => {
@@ -105,13 +107,12 @@ export function setupInteractions() {
         if (beliefResult) {
           beliefResult.className = '';
           beliefResult.innerHTML = `
-            <div class="chart-container-belief">
-              <h4 class="chart-subtitle">What Americans say is the main reason:</h4>
+            <div>
+              <h4 class="card-title">Percent saying this is a very important reason many Americans are very overweight</h4>
               <div class="bar-chart" id="belief-bar-chart"></div>
             </div>
           `;
           beliefResult.style.display = 'block';
-
           createBeliefBarChart(selectedOption);
         }
       }, 300);
@@ -122,7 +123,7 @@ export function setupInteractions() {
     const chartContainer = document.getElementById('belief-bar-chart');
     if (!chartContainer) return;
 
-    const maxValue = Math.max(...surveyResults.map(d => d.mainReason));
+    const maxValue = 100;
 
     surveyResults.forEach(item => {
       const barWrapper = document.createElement('div');
@@ -147,11 +148,11 @@ export function setupInteractions() {
       if (item.key === 'exercise') {
         bar.classList.add('bar-highlighted');
       }
-      bar.style.width = `${(item.mainReason / maxValue) * 100}%`;
+      bar.style.width = `${(item.veryImportant / maxValue) * 100}%`;
 
       const barValue = document.createElement('span');
       barValue.className = 'bar-value';
-      barValue.textContent = `${item.mainReason}%`;
+      barValue.textContent = `${item.veryImportant}%`;
 
       bar.appendChild(barValue);
       barContainer.appendChild(bar);

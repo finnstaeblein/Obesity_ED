@@ -1,4 +1,4 @@
-import { countryData, obesityTrends, topObeseCountries, getObesityForYear, trendYears, populationData } from './data.js';
+import { countryData, obesityTrends, topObeseCountries, getObesityForYear, trendYears, populationData, PAL_TEE_UPF_HDI_Data_Elsa } from './data.js';
 
 // Create a single global tooltip for all charts
 const globalTooltip = d3.select('body').append('div')
@@ -252,6 +252,9 @@ export function createTrendChart(containerId, highlightRange = null) {
     .attr('fill', '#dc2626');
 }
 
+
+// Not relevant but when I remove it hides my maps
+
 export function createInactivityChart(containerId, userGuess = null, highlightCountry = null) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -328,7 +331,6 @@ export function createInactivityChart(containerId, userGuess = null, highlightCo
     .attr('fill', '#374151')
     .text(d => d.inactivity + '%');
 }
-
 export function createScatterPlot(containerId, userGuess = null, showTrendLine = false, highlightCountry = null) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -435,7 +437,6 @@ export function createScatterPlot(containerId, userGuess = null, showTrendLine =
     .attr('fill', '#374151')
     .text('Obesity Rate');
 }
-
 export function createInactivityScatterPlot(containerId, highlightCountry = null) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -537,7 +538,6 @@ export function createInactivityScatterPlot(containerId, highlightCountry = null
     .attr('fill', '#374151')
     .text('Obesity Rate');
 }
-
 export function createUPFChart(containerId, showTrendLine = false, highlightCountry = null) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -625,7 +625,50 @@ export function createUPFChart(containerId, showTrendLine = false, highlightCoun
     .text('Obesity Rate');
 }
 
+// end of not relevant code
 
+const economyColors = {
+  'highHDI': '#3b82f6',
+  'midHDI': '#14b8a6',
+  'lowHDI': '#84cc16',
+  'AGP': '#f97316',  
+  'HORT': '#fbbf24',
+  'HG': '#dc2626',
+};
+
+const economyOrder = [
+  'highHDI',
+  'midHDI',
+  'lowHDI',
+  'HORT',
+  'AGP',
+  'HG'
+];
+
+const economyLabels = {
+  'highHDI': 'high HDI',
+  'midHDI': 'mid HDI',
+  'lowHDI': 'low HDI',
+  'HG': 'hunter-gatherer',
+  'HORT': 'horticulturalist',
+  'AGP': 'agropastoralist'
+};
+
+// Tooltip
+const tooltip = d3.select('body').append('div')
+.attr('class', 'map-tooltip')
+.style('position', 'absolute')
+.style('visibility', 'hidden')
+.style('background-color', 'rgba(0, 0, 0, 0.85)')
+.style('color', '#fff')
+.style('padding', '8px 12px')
+.style('border-radius', '6px')
+.style('font-size', '13px')
+.style('pointer-events', 'none')
+.style('z-index', '1000')
+.style('box-shadow', '0 2px 8px rgba(0,0,0,0.2)');
+
+// ------------------------------------------------------------
 export function createDataCollectionMap(containerId) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -646,39 +689,12 @@ export function createDataCollectionMap(containerId) {
 
   const path = d3.geoPath().projection(projection);
 
-  const economyColors = {
-    'hunter-gatherer': '#ef4444',
-    'agropastoralist': '#f97316',
-    'horticulturalist': '#84cc16',
-    'low HDI': '#14b8a6',
-    'mid HDI': '#991b1b',
-    'high HDI': '#3b82f6'
-  };
-
-  const economyOrder = [
-    'high HDI',
-    'agropastoralist',
-    'mid HDI',
-    'low HDI',
-    'hunter-gatherer',
-    'horticulturalist'
-  ];
-
-  const economyLabels = {
-    'high HDI': 'highHDI',
-    'agropastoralist': 'AGP',
-    'mid HDI': 'midHDI',
-    'low HDI': 'lowHDI',
-    'hunter-gatherer': 'HG',
-    'horticulturalist': 'HORT'
-  };
-
   d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
     const countries = topojson.feature(world, world.objects.countries);
 
-    const mapGroup = svg.append('g')
-      .attr('transform', `translate(0, 0)`);
+    const mapGroup = svg.append('g');
 
+    // Draw world map
     mapGroup.append('g')
       .selectAll('path')
       .data(countries.features)
@@ -688,53 +704,30 @@ export function createDataCollectionMap(containerId) {
       .attr('stroke', '#4a5568')
       .attr('stroke-width', 0.5);
 
-    // Group data by location to get counts and aggregate info
-    const locationMap = new Map();
+    // Radius scale based on sample size N_M + N_F
+    const maxN = d3.max(PAL_TEE_UPF_HDI_Data_Elsa, d => 
+      (Number(d.N_M) || 0) + (Number(d.N_F) || 0)
+    );
 
-    populationData.forEach(pop => {
-      const key = `${pop.lat},${pop.lon}`;
-      if (!locationMap.has(key)) {
-        locationMap.set(key, {
-          lat: pop.lat,
-          lon: pop.lon,
-          name: pop.name,
-          economyFull: pop.economyFull,
-          count: 0
-        });
-      }
-      locationMap.get(key).count++;
-    });
-
-    const uniqueLocations = Array.from(locationMap.values());
-
-    // Create radius scale based on sample size
-    const maxCount = d3.max(uniqueLocations, d => d.count);
     const radiusScale = d3.scaleSqrt()
-      .domain([0, maxCount])
-      .range([4, 12]);
+      .domain([0, maxN])
+      .range([4, 14]);
 
-    // Create tooltip div
-    const tooltip = d3.select('body').append('div')
-      .attr('class', 'map-tooltip')
-      .style('position', 'absolute')
-      .style('visibility', 'hidden')
-      .style('background-color', 'rgba(0, 0, 0, 0.85)')
-      .style('color', '#fff')
-      .style('padding', '8px 12px')
-      .style('border-radius', '6px')
-      .style('font-size', '13px')
-      .style('pointer-events', 'none')
-      .style('z-index', '1000')
-      .style('box-shadow', '0 2px 8px rgba(0,0,0,0.2)');
+    // Plot each population directly
+    PAL_TEE_UPF_HDI_Data_Elsa.forEach(pop => {
+      const lat = Number(pop.lat);
+      const lon = Number(pop.lon);
+      if (isNaN(lat) || isNaN(lon)) return;
 
-    uniqueLocations.forEach(loc => {
-      const [x, y] = projection([loc.lon, loc.lat]);
+      const totalN = (Number(pop.N_M) || 0) + (Number(pop.N_F) || 0);
+
+      const [x, y] = projection([lon, lat]);
 
       mapGroup.append('circle')
         .attr('cx', x)
         .attr('cy', y)
-        .attr('r', radiusScale(loc.count))
-        .attr('fill', economyColors[loc.economyFull])
+        .attr('r', radiusScale(totalN))
+        .attr('fill', economyColors[pop.Economy])
         .attr('stroke', '#fff')
         .attr('stroke-width', 1.5)
         .attr('opacity', 0.85)
@@ -745,7 +738,7 @@ export function createDataCollectionMap(containerId) {
             .attr('stroke-width', 2.5);
 
           tooltip
-            .html(`<strong>${loc.name}</strong><br/>N = ${loc.count}`)
+            .html(`<strong>${pop.Population}</strong><br/>N = ${totalN}<br/> Economy: ${pop.Economy}` )
             .style('visibility', 'visible');
         })
         .on('mousemove', function(event) {
@@ -762,6 +755,7 @@ export function createDataCollectionMap(containerId) {
         });
     });
 
+    // Legend
     const legend = svg.append('g')
       .attr('transform', `translate(${mapWidth + 20}, 80)`);
 
@@ -795,6 +789,7 @@ export function createDataCollectionMap(containerId) {
   });
 }
 
+
 export function createMetricBoxPlot(containerId, metric = 'pal', showRawData = false) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
@@ -809,15 +804,6 @@ export function createMetricBoxPlot(containerId, metric = 'pal', showRawData = f
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  const economyColors = {
-    'highHDI': '#3b82f6',
-    'AGP': '#f97316',
-    'midHDI': '#dc2626',
-    'lowHDI': '#14b8a6',
-    'HG': '#84cc16',
-    'HORT': '#fbbf24'
-  };
 
   const economyOrder = ['highHDI', 'AGP', 'midHDI', 'lowHDI', 'HG', 'HORT'];
 
@@ -1141,14 +1127,14 @@ export function createMetricScatterPlot(containerId, metric = 'pal') {
     .style('pointer-events', 'none')
     .style('z-index', '1000');
 
-  const economyColors = {
-    'highHDI': '#3b82f6',
-    'AGP': '#f97316',
-    'midHDI': '#dc2626',
-    'lowHDI': '#14b8a6',
-    'HG': '#84cc16',
-    'HORT': '#fbbf24'
-  };
+  // const economyColors = {
+  //   'highHDI': '#3b82f6',
+  //   'AGP': '#f97316',
+  //   'midHDI': '#dc2626',
+  //   'lowHDI': '#14b8a6',
+  //   'HG': '#84cc16',
+  //   'HORT': '#fbbf24'
+  // };
 
   const x = d3.scaleLinear()
     .domain([0, 230])
@@ -1414,14 +1400,14 @@ export function createUPFScatterPlot(containerId) {
     .append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  const economyColors = {
-    'highHDI': '#3b82f6',
-    'AGP': '#f97316',
-    'midHDI': '#dc2626',
-    'lowHDI': '#14b8a6',
-    'HG': '#84cc16',
-    'HORT': '#fbbf24'
-  };
+  // const economyColors = {
+  //   'highHDI': '#3b82f6',
+  //   'AGP': '#f97316',
+  //   'midHDI': '#dc2626',
+  //   'lowHDI': '#14b8a6',
+  //   'HG': '#84cc16',
+  //   'HORT': '#fbbf24'
+  // };
 
   const dataWithUPF = populationData.filter(d => d.upf !== null);
 
