@@ -177,11 +177,14 @@
               <h3 class="chart-title" id="inactivity-chart-title">Total energy expenditure (TEE) by Economy Type</h3>
             </div>
             <div class="chart-controls-row" id="metric-selector-container" style="display: none;">
+
               <div class="left-controls">
                 <span class="control-label-inline">Y-axis metric:</span>
                 <div class="metric-toggle">
                   <button class="metric-toggle-btn active" data-metric="tee">TEE</button>
                   <button class="metric-toggle-btn" data-metric="pal">PAL</button>
+                  <button class="metric-toggle-btn" data-metric="PercUPF">PercUPF</button>
+                  <button class="metric-toggle-btn" data-metric="fat">Body Fat</button>
                 </div>
                 <label class="checkbox-control" id="raw-data-control">
                   <input type="checkbox" id="show-raw-data-checkbox" checked>
@@ -192,6 +195,8 @@
                 <button class="view-tab" data-view="scatter">Scatterplot</button>
                 <button class="view-tab active" data-view="box">Box Plot</button>
               </div>
+
+              
             </div>
             <div id="inactivity-chart"></div>
           </div>

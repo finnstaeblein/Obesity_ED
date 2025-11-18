@@ -1715,172 +1715,6 @@ export function createPALScatterPlot(containerId) {
     .text('Female');
 }
 
-export function createMultiCountryTrend(containerId, selectedCountries = ['United States'], ageGroup = 'adults', yearStart = 1975, yearEnd = 2022, currentYear = null) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-
-  const margin = { top: 40, right: 120, bottom: 50, left: 60 };
-  const width = (container.clientWidth || 600) - margin.left - margin.right;
-  const height = 350 - margin.top - margin.bottom;
-
-  const svg = d3.select(`#${containerId}`)
-    .append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  // Add title
-  svg.append('text')
-    .attr('x', 0)
-    .attr('y', -20)
-    .attr('text-anchor', 'start')
-    .attr('font-size', '16px')
-    .attr('font-weight', '700')
-    .attr('fill', '#5c2e1e')
-    .text(`Obesity Trends: ${ageGroup.charAt(0).toUpperCase() + ageGroup.slice(1)} (${yearStart}–${yearEnd})`);
-
-  const filteredYears = trendYears.filter(y => y >= yearStart && y <= yearEnd);
-
-  const lineData = selectedCountries.map(country => {
-    return {
-      country: country,
-      values: filteredYears.map(year => ({
-        year: year,
-        obesity: getObesityForYear(country, year, ageGroup)
-      }))
-    };
-  });
-
-  const x = d3.scaleLinear()
-    .domain([yearStart, yearEnd])
-    .range([0, width]);
-
-  const maxObesity = d3.max(lineData, d => d3.max(d.values, v => v.obesity));
-  const y = d3.scaleLinear()
-    .domain([0, Math.ceil(maxObesity / 5) * 5])
-    .range([height, 0]);
-
-  const colorScale = d3.scaleOrdinal()
-    .domain(selectedCountries)
-    .range(['#dc2626', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316']);
-
-  const line = d3.line()
-    .x(d => x(d.year))
-    .y(d => y(d.obesity))
-    .curve(d3.curveMonotoneX);
-
-  lineData.forEach((countryLine, index) => {
-    const isUSA = countryLine.country === 'United States';
-
-    svg.append('path')
-      .datum(countryLine.values)
-      .attr('fill', 'none')
-      .attr('stroke', colorScale(countryLine.country))
-      .attr('stroke-width', isUSA ? 4 : 2)
-      .attr('stroke-opacity', isUSA ? 1 : 0.8)
-      .attr('d', line);
-
-    svg.selectAll(`.dot-${index}`)
-      .data(countryLine.values)
-      .join('circle')
-      .attr('class', `dot-${index}`)
-      .attr('cx', d => x(d.year))
-      .attr('cy', d => y(d.obesity))
-      .attr('r', isUSA ? 5 : 3)
-      .attr('fill', colorScale(countryLine.country))
-      .attr('stroke', '#fff')
-      .attr('stroke-width', isUSA ? 2 : 1)
-      .append('title')
-      .text(d => `${countryLine.country}\n${d.year}: ${d.obesity.toFixed(1)}%`);
-  });
-
-  // Add current year indicator line if provided
-  if (currentYear !== null && currentYear >= yearStart && currentYear <= yearEnd) {
-    const lineGroup = svg.append('g')
-      .attr('class', 'year-indicator');
-
-    lineGroup.append('line')
-      .attr('x1', x(currentYear))
-      .attr('x2', x(currentYear))
-      .attr('y1', 0)
-      .attr('y2', height)
-      .attr('stroke', '#5c2e1e')
-      .attr('stroke-width', 3)
-      .attr('stroke-dasharray', '8,4')
-      .attr('opacity', 0.7);
-
-    lineGroup.append('text')
-      .attr('x', x(currentYear))
-      .attr('y', -5)
-      .attr('text-anchor', 'middle')
-      .attr('font-size', '12px')
-      .attr('font-weight', '700')
-      .attr('fill', '#5c2e1e')
-      .text(currentYear);
-  }
-
-  svg.append('g')
-    .attr('transform', `translate(0,${height})`)
-    .call(d3.axisBottom(x).tickFormat(d3.format('d')))
-    .selectAll('text')
-    .attr('font-family', 'Fredoka')
-    .attr('font-weight', '600');
-
-  svg.append('text')
-    .attr('x', width / 2)
-    .attr('y', height + 40)
-    .attr('text-anchor', 'middle')
-    .attr('font-family', 'Fredoka')
-    .attr('font-size', '14px')
-    .attr('font-weight', '700')
-    .attr('fill', '#5c2e1e')
-    .text('Year');
-
-  svg.append('g')
-    .call(d3.axisLeft(y).tickFormat(d => d + '%'))
-    .selectAll('text')
-    .attr('font-family', 'Fredoka')
-    .attr('font-weight', '600');
-
-  svg.append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('x', -height / 2)
-    .attr('y', -45)
-    .attr('text-anchor', 'middle')
-    .attr('font-family', 'Fredoka')
-    .attr('font-size', '14px')
-    .attr('font-weight', '700')
-    .attr('fill', '#5c2e1e')
-    .text('Obesity Rate');
-
-  const legend = svg.append('g')
-    .attr('transform', `translate(${width + 20}, 0)`);
-
-  lineData.forEach((countryLine, i) => {
-    const isUSA = countryLine.country === 'United States';
-    const legendRow = legend.append('g')
-      .attr('transform', `translate(0, ${i * 25})`);
-
-    legendRow.append('line')
-      .attr('x1', 0)
-      .attr('x2', 20)
-      .attr('y1', 10)
-      .attr('y2', 10)
-      .attr('stroke', colorScale(countryLine.country))
-      .attr('stroke-width', isUSA ? 4 : 2);
-
-    legendRow.append('text')
-      .attr('x', 25)
-      .attr('y', 14)
-      .attr('font-family', 'Fredoka')
-      .attr('font-size', '12px')
-      .attr('font-weight', isUSA ? '700' : '500')
-      .attr('fill', '#5c2e1e')
-      .text(countryLine.country);
-  });
-}
-
 export function updateFilters(filters) {
   currentFilters = { ...currentFilters, ...filters };
 }
@@ -2205,6 +2039,7 @@ export function createInactivityChart(containerId, userGuess = null, highlightCo
     .attr('fill', '#374151')
     .text(d => d.inactivity + '%');
 }
+//__________________________________________
 
 // PIPER -- I think these are the world maps for your section:
 export function createWorldMap(containerId, highlightCountry = null, year = 2022) {
@@ -2702,6 +2537,172 @@ export function createUPFChart(containerId, showTrendLine = false, highlightCoun
     .attr('font-size', '12px')
     .attr('fill', '#374151')
     .text('Obesity Rate');
+}
+
+export function createMultiCountryTrend(containerId, selectedCountries = ['United States'], ageGroup = 'adults', yearStart = 1975, yearEnd = 2022, currentYear = null) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+
+  const margin = { top: 40, right: 120, bottom: 50, left: 60 };
+  const width = (container.clientWidth || 600) - margin.left - margin.right;
+  const height = 350 - margin.top - margin.bottom;
+
+  const svg = d3.select(`#${containerId}`)
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  // Add title
+  svg.append('text')
+    .attr('x', 0)
+    .attr('y', -20)
+    .attr('text-anchor', 'start')
+    .attr('font-size', '16px')
+    .attr('font-weight', '700')
+    .attr('fill', '#5c2e1e')
+    .text(`Obesity Trends: ${ageGroup.charAt(0).toUpperCase() + ageGroup.slice(1)} (${yearStart}–${yearEnd})`);
+
+  const filteredYears = trendYears.filter(y => y >= yearStart && y <= yearEnd);
+
+  const lineData = selectedCountries.map(country => {
+    return {
+      country: country,
+      values: filteredYears.map(year => ({
+        year: year,
+        obesity: getObesityForYear(country, year, ageGroup)
+      }))
+    };
+  });
+
+  const x = d3.scaleLinear()
+    .domain([yearStart, yearEnd])
+    .range([0, width]);
+
+  const maxObesity = d3.max(lineData, d => d3.max(d.values, v => v.obesity));
+  const y = d3.scaleLinear()
+    .domain([0, Math.ceil(maxObesity / 5) * 5])
+    .range([height, 0]);
+
+  const colorScale = d3.scaleOrdinal()
+    .domain(selectedCountries)
+    .range(['#dc2626', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316']);
+
+  const line = d3.line()
+    .x(d => x(d.year))
+    .y(d => y(d.obesity))
+    .curve(d3.curveMonotoneX);
+
+  lineData.forEach((countryLine, index) => {
+    const isUSA = countryLine.country === 'United States';
+
+    svg.append('path')
+      .datum(countryLine.values)
+      .attr('fill', 'none')
+      .attr('stroke', colorScale(countryLine.country))
+      .attr('stroke-width', isUSA ? 4 : 2)
+      .attr('stroke-opacity', isUSA ? 1 : 0.8)
+      .attr('d', line);
+
+    svg.selectAll(`.dot-${index}`)
+      .data(countryLine.values)
+      .join('circle')
+      .attr('class', `dot-${index}`)
+      .attr('cx', d => x(d.year))
+      .attr('cy', d => y(d.obesity))
+      .attr('r', isUSA ? 5 : 3)
+      .attr('fill', colorScale(countryLine.country))
+      .attr('stroke', '#fff')
+      .attr('stroke-width', isUSA ? 2 : 1)
+      .append('title')
+      .text(d => `${countryLine.country}\n${d.year}: ${d.obesity.toFixed(1)}%`);
+  });
+
+  // Add current year indicator line if provided
+  if (currentYear !== null && currentYear >= yearStart && currentYear <= yearEnd) {
+    const lineGroup = svg.append('g')
+      .attr('class', 'year-indicator');
+
+    lineGroup.append('line')
+      .attr('x1', x(currentYear))
+      .attr('x2', x(currentYear))
+      .attr('y1', 0)
+      .attr('y2', height)
+      .attr('stroke', '#5c2e1e')
+      .attr('stroke-width', 3)
+      .attr('stroke-dasharray', '8,4')
+      .attr('opacity', 0.7);
+
+    lineGroup.append('text')
+      .attr('x', x(currentYear))
+      .attr('y', -5)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '12px')
+      .attr('font-weight', '700')
+      .attr('fill', '#5c2e1e')
+      .text(currentYear);
+  }
+
+  svg.append('g')
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x).tickFormat(d3.format('d')))
+    .selectAll('text')
+    .attr('font-family', 'Fredoka')
+    .attr('font-weight', '600');
+
+  svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', height + 40)
+    .attr('text-anchor', 'middle')
+    .attr('font-family', 'Fredoka')
+    .attr('font-size', '14px')
+    .attr('font-weight', '700')
+    .attr('fill', '#5c2e1e')
+    .text('Year');
+
+  svg.append('g')
+    .call(d3.axisLeft(y).tickFormat(d => d + '%'))
+    .selectAll('text')
+    .attr('font-family', 'Fredoka')
+    .attr('font-weight', '600');
+
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', -height / 2)
+    .attr('y', -45)
+    .attr('text-anchor', 'middle')
+    .attr('font-family', 'Fredoka')
+    .attr('font-size', '14px')
+    .attr('font-weight', '700')
+    .attr('fill', '#5c2e1e')
+    .text('Obesity Rate');
+
+  const legend = svg.append('g')
+    .attr('transform', `translate(${width + 20}, 0)`);
+
+  lineData.forEach((countryLine, i) => {
+    const isUSA = countryLine.country === 'United States';
+    const legendRow = legend.append('g')
+      .attr('transform', `translate(0, ${i * 25})`);
+
+    legendRow.append('line')
+      .attr('x1', 0)
+      .attr('x2', 20)
+      .attr('y1', 10)
+      .attr('y2', 10)
+      .attr('stroke', colorScale(countryLine.country))
+      .attr('stroke-width', isUSA ? 4 : 2);
+
+    legendRow.append('text')
+      .attr('x', 25)
+      .attr('y', 14)
+      .attr('font-family', 'Fredoka')
+      .attr('font-size', '12px')
+      .attr('font-weight', isUSA ? '700' : '500')
+      .attr('fill', '#5c2e1e')
+      .text(countryLine.country);
+  });
 }
 
 
