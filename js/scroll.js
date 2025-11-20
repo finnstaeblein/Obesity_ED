@@ -22,13 +22,13 @@ const state = {
 
 // Preset configurations for each step of the unified chart
 const chartPresets = {
-  1: { xVar: 'HDI_score', yVar: 'TEE', chartType: 'box' },      // TEE over Economy
-  2: { xVar: 'HDI_score', yVar: 'PAL', chartType: 'box' },      // PAL over Economy
-  3: { xVar: 'HDI_score', yVar: 'PercUPF', chartType: 'box' },  // UPF over Economy
-  4: { xVar: 'HDI_score', yVar: 'Fat', chartType: 'box' },      // Fat over Economy
-  5: { xVar: 'TEE', yVar: 'Fat', chartType: 'scatter' },        // Fat vs TEE
-  6: { xVar: 'PAL', yVar: 'Fat', chartType: 'scatter' },        // Fat vs PAL
-  7: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'scatter' },    // Fat vs UPF
+  1: { xVar: 'Economy_Type', yVar: 'TEE', chartType: 'auto' },      // TEE over Economy
+  2: { xVar: 'Economy_Type', yVar: 'PAL', chartType: 'auto' },      // PAL over Economy
+  3: { xVar: 'Economy_Type', yVar: 'PercUPF', chartType: 'auto' },  // UPF over Economy
+  4: { xVar: 'Economy_Type', yVar: 'Fat', chartType: 'auto' },      // Fat over Economy
+  5: { xVar: 'TEE', yVar: 'Fat', chartType: 'auto' },        // Fat vs TEE
+  6: { xVar: 'PAL', yVar: 'Fat', chartType: 'auto' },        // Fat vs PAL
+  7: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' },    // Fat vs UPF
   8: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }        // Exploration (user controlled)
 };
 
@@ -87,6 +87,11 @@ function updateChart(sectionKey, step) {
         // Data collection map
         if (chartTitle) chartTitle.textContent = 'Data Collection Locations';
         if (controlsContainer) controlsContainer.style.display = 'none';
+
+        // Remove missing data section when navigating to map
+        const noDataSection = document.querySelector('.no-data-section');
+        if (noDataSection) noDataSection.remove();
+
         createDataCollectionMap('inactivity-chart');
       } else if (step >= 1 && step <= 8) {
         // Steps 1-8 use the unified chart
@@ -116,11 +121,6 @@ function updateChart(sectionKey, step) {
 
         // Show controls for all unified chart steps
         if (controlsContainer) controlsContainer.style.display = 'flex';
-
-        // Show chart type toggle only when X is HDI_score
-        if (chartTypeControl) {
-          chartTypeControl.style.display = preset.xVar === 'HDI_score' ? 'flex' : 'none';
-        }
 
         // Update UI controls to reflect preset
         updateUnifiedControls(preset);
@@ -203,6 +203,20 @@ export function setupNavigation() {
       } else {
         // On last card, navigate to next section
         navigateToNextSection(sectionId);
+      }
+    });
+  });
+
+  // Handle skip link clicks
+  document.querySelectorAll('.skip-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetStep = parseInt(link.dataset.targetStep);
+      navigateToCard('inactivity-section', targetStep);
+
+      const section = document.getElementById('inactivity-section');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
@@ -309,7 +323,6 @@ function updateUnifiedControls(preset) {
   const scatterBtn = document.getElementById('scatter-view-btn');
   const populationSelect = document.getElementById('population-select');
   const selectedPopulationsContainer = document.getElementById('selected-populations');
-  const viewTabs = document.querySelector('.view-tabs');
 
   if (ySelect) ySelect.value = preset.yVar;
   if (xSelect) xSelect.value = preset.xVar;
@@ -323,20 +336,21 @@ function updateUnifiedControls(preset) {
     if (preset.chartType === 'box') {
       boxBtn.classList.add('active');
       scatterBtn.classList.remove('active');
-    } else {
+    } else if (preset.chartType === 'scatter') {
       scatterBtn.classList.add('active');
       boxBtn.classList.remove('active');
+    } else {
+      // For 'auto', determine based on X-axis variable
+      if (preset.xVar === 'Economy_Type') {
+        boxBtn.classList.add('active');
+        scatterBtn.classList.remove('active');
+      } else {
+        scatterBtn.classList.add('active');
+        boxBtn.classList.remove('active');
+      }
     }
   }
 
-  // Update view tabs disabled state based on x-axis
-  if (viewTabs) {
-    if (preset.xVar === 'HDI_score') {
-      viewTabs.classList.remove('disabled');
-    } else {
-      viewTabs.classList.add('disabled');
-    }
-  }
 }
 
 // Setup event listeners for unified chart controls
@@ -349,7 +363,6 @@ function setupUnifiedChartControls() {
   const scatterBtn = document.getElementById('scatter-view-btn');
   const populationSelect = document.getElementById('population-select');
   const selectedPopulationsContainer = document.getElementById('selected-populations');
-  const viewTabs = document.querySelector('.view-tabs');
 
   // Populate population dropdown
   if (populationSelect && populationSelect.options.length <= 1) {
@@ -361,17 +374,6 @@ function setupUnifiedChartControls() {
     });
   }
 
-  // Update disabled state of view tabs based on x-axis
-  const updateViewTabsState = () => {
-    const xVar = xSelect ? xSelect.value : 'HDI_score';
-    if (viewTabs) {
-      if (xVar === 'HDI_score') {
-        viewTabs.classList.remove('disabled');
-      } else {
-        viewTabs.classList.add('disabled');
-      }
-    }
-  };
 
   // Render selected population tags
   const renderPopulationTags = () => {
@@ -410,18 +412,15 @@ function setupUnifiedChartControls() {
 
     // Determine chart type
     let chartType = 'auto';
-    if (xVar === 'HDI_score') {
+    if (xVar === 'Economy_Type') {
       if (boxBtn && boxBtn.classList.contains('active')) {
         chartType = 'box';
       } else if (scatterBtn && scatterBtn.classList.contains('active')) {
         chartType = 'scatter';
       }
     } else {
-      chartType = 'scatter'; // Force scatter when X is not HDI_score
+      chartType = 'scatter'; // Force scatter when X is not Economy_Type
     }
-
-    // Update view tabs disabled state
-    updateViewTabsState();
 
     setUnifiedChartFilters({
       xVar,
@@ -439,7 +438,20 @@ function setupUnifiedChartControls() {
     ySelect.onchange = updateChart;
   }
   if (xSelect) {
-    xSelect.onchange = updateChart;
+    xSelect.onchange = () => {
+      // Automatically switch chart type based on X-axis
+      const xVar = xSelect.value;
+      if (xVar === 'Economy_Type') {
+        // When X is Economy_Type, default to box plot
+        if (boxBtn) boxBtn.classList.add('active');
+        if (scatterBtn) scatterBtn.classList.remove('active');
+      } else {
+        // When X is not Economy_Type, use scatter plot
+        if (scatterBtn) scatterBtn.classList.add('active');
+        if (boxBtn) boxBtn.classList.remove('active');
+      }
+      updateChart();
+    };
   }
   if (maleCb) {
     maleCb.onchange = updateChart;
@@ -449,7 +461,6 @@ function setupUnifiedChartControls() {
   }
   if (boxBtn) {
     boxBtn.onclick = () => {
-      if (viewTabs && viewTabs.classList.contains('disabled')) return;
       boxBtn.classList.add('active');
       if (scatterBtn) scatterBtn.classList.remove('active');
       updateChart();
@@ -457,7 +468,6 @@ function setupUnifiedChartControls() {
   }
   if (scatterBtn) {
     scatterBtn.onclick = () => {
-      if (viewTabs && viewTabs.classList.contains('disabled')) return;
       scatterBtn.classList.add('active');
       if (boxBtn) boxBtn.classList.remove('active');
       updateChart();
@@ -475,9 +485,8 @@ function setupUnifiedChartControls() {
     };
   }
 
-  // Initial render of tags and view tabs state
+  // Initial render of tags
   renderPopulationTags();
-  updateViewTabsState();
 
   // Listen for highlight changes from clicking data points
   document.addEventListener('highlightChanged', (event) => {

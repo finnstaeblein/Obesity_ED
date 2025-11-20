@@ -367,7 +367,10 @@ export function createMetricBoxPlot(containerId, metric = 'pal', showRawData = f
         });
       
         rawPoints.forEach(p => {
-          const shapeX = center + (Math.random() - 0.5) * x.bandwidth() * 0.3; // add jitter
+          // Deterministic jitter based on population name and sex
+          const seed = (p.Population + p.sex).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+          const deterministicRandom = (seed % 1000) / 1000; // Value between 0 and 1
+          const shapeX = center + (deterministicRandom - 0.5) * x.bandwidth() * 0.3; // add jitter
           const shapeY = y(p.value);
           const size = 6;
       
@@ -2713,7 +2716,8 @@ const varMapping = {
   'PAL': { male: 'PAL_M', female: 'PAL_F', label: 'PAL', tooltip: 'Physical Activity Level ratio' },
   'PercUPF': { male: 'PercUPF', female: 'PercUPF', label: 'UPF (%)', tooltip: 'Percentage of energy from ultra-processed foods' },
   'Fat': { male: 'Fat_M', female: 'Fat_F', label: 'Body Fat (%)', tooltip: 'Body fat percentage' },
-  'HDI_score': { male: 'HDI_score', female: 'HDI_score', label: 'HDI Score', tooltip: 'Human Development Index score' }
+  'Economy_Type': { male: 'Economy', female: 'Economy', label: 'Economy Type', tooltip: 'Economy type classification based on HDI and subsistence strategy' },
+  'HDI_rank': { male: 'HDI_rank', female: 'HDI_rank', label: 'HDI Rank', tooltip: 'Human Development Index ranking (lower is better)' }
 };
 
 export function createUnifiedInteractiveChart(containerId) {
@@ -2747,7 +2751,7 @@ export function createUnifiedInteractiveChart(containerId) {
     const mapping = varMapping[varName];
     if (!mapping) return null;
 
-    // For shared variables like PercUPF and HDI_score
+    // For shared variables like PercUPF and Economy_Type
     if (mapping.male === mapping.female) {
       return parseValue(d[mapping.male]);
     }
@@ -2755,36 +2759,24 @@ export function createUnifiedInteractiveChart(containerId) {
     return sex === 'M' ? parseValue(d[mapping.male]) : parseValue(d[mapping.female]);
   }
 
-  // Determine if we should show box plot (when X is HDI_score or economy-based)
+  // Determine if we should show box plot (when X is Economy_Type or when chartType is explicitly 'box')
   const showBoxPlot = currentFilters.chartType === 'box' ||
-    (currentFilters.chartType === 'auto' && currentFilters.xVar === 'HDI_score');
+    (currentFilters.chartType === 'auto' && currentFilters.xVar === 'Economy_Type');
 
   // Expand data into individual points for M and F
   const expandedData = [];
 
-  // When X is HDI_score, we only need yVal since we can position by economy
-  const isXAxisHDI = currentFilters.xVar === 'HDI_score';
-
-  // Pseudo HDI scores for economies without actual HDI values
-  const economyPseudoHDI = {
-    'HORT': 0.35,
-    'AGP': 0.25,
-    'HG': 0.15
-  };
+  // When X is Economy_Type, we only need yVal since we position by economy category
+  const isXAxisEconomy = currentFilters.xVar === 'Economy_Type';
 
   PAL_TEE_UPF_HDI_Data_Elsa.forEach(d => {
     // Add male data point if selected
     if (currentFilters.sexes.includes('M')) {
-      let xVal = getVarValue(d, currentFilters.xVar, 'M');
+      const xVal = getVarValue(d, currentFilters.xVar, 'M');
       const yVal = getVarValue(d, currentFilters.yVar, 'M');
 
-      // For HDI_score on X, assign pseudo HDI for traditional economies
-      if (isXAxisHDI && xVal === null && economyPseudoHDI[d.Economy] !== undefined) {
-        xVal = economyPseudoHDI[d.Economy];
-      }
-
-      // When X is HDI_score, only yVal needs to be non-null (xVal can be pseudo)
-      const shouldInclude = isXAxisHDI ? yVal !== null : (xVal !== null && yVal !== null);
+      // When X is Economy_Type, only yVal needs to be non-null (xVal is the economy category)
+      const shouldInclude = isXAxisEconomy ? yVal !== null : (xVal !== null && yVal !== null);
 
       if (shouldInclude) {
         expandedData.push({
@@ -2802,16 +2794,11 @@ export function createUnifiedInteractiveChart(containerId) {
 
     // Add female data point if selected
     if (currentFilters.sexes.includes('F')) {
-      let xVal = getVarValue(d, currentFilters.xVar, 'F');
+      const xVal = getVarValue(d, currentFilters.xVar, 'F');
       const yVal = getVarValue(d, currentFilters.yVar, 'F');
 
-      // For HDI_score on X, assign pseudo HDI for traditional economies
-      if (isXAxisHDI && xVal === null && economyPseudoHDI[d.Economy] !== undefined) {
-        xVal = economyPseudoHDI[d.Economy];
-      }
-
-      // When X is HDI_score, only yVal needs to be non-null (xVal can be pseudo)
-      const shouldInclude = isXAxisHDI ? yVal !== null : (xVal !== null && yVal !== null);
+      // When X is Economy_Type, only yVal needs to be non-null (xVal is the economy category)
+      const shouldInclude = isXAxisEconomy ? yVal !== null : (xVal !== null && yVal !== null);
 
       if (shouldInclude) {
         expandedData.push({
@@ -2865,9 +2852,9 @@ export function createUnifiedInteractiveChart(containerId) {
     const hasFemaleY = currentFilters.sexes.includes('F') &&
       getVarValue(d, currentFilters.yVar, 'F') !== null;
 
-    // When X is HDI_score, only Y value is needed (we assign pseudo HDI for traditional economies)
-    const maleHasData = isXAxisHDI ? hasMaleY : (hasMaleX && hasMaleY);
-    const femaleHasData = isXAxisHDI ? hasFemaleY : (hasFemaleX && hasFemaleY);
+    // When X is Economy_Type, only Y value is needed (X is the economy category)
+    const maleHasData = isXAxisEconomy ? hasMaleY : (hasMaleX && hasMaleY);
+    const femaleHasData = isXAxisEconomy ? hasFemaleY : (hasFemaleX && hasFemaleY);
 
     if (currentFilters.sexes.includes('M') && !maleHasData) {
       populationsWithoutData.push({ Population: d.Population, Economy: d.Economy, sex: 'M' });
@@ -2954,7 +2941,10 @@ export function createUnifiedInteractiveChart(containerId) {
       // Draw raw data points with jitter
       box.data.forEach(d => {
         const isHighlighted = highlightedPopulations.includes(d.Population);
-        const shapeX = center + (Math.random() - 0.5) * boxWidth * 0.3;
+        // Deterministic jitter based on population name and sex
+        const seed = (d.Population + d.sex).split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+        const deterministicRandom = (seed % 1000) / 1000; // Value between 0 and 1
+        const shapeX = center + (deterministicRandom - 0.5) * boxWidth * 0.3;
         const shapeY = y(d.yVal);
         const size = isHighlighted ? 8 : 6;
         const opacity = isHighlighted ? 1 : 0.85;
@@ -3073,7 +3063,7 @@ export function createUnifiedInteractiveChart(containerId) {
     addTooltipIcon(yAxisLabelGroup, 80, -5, varMapping[currentFilters.yVar].tooltip);
 
   } else {
-    // Scatter plot
+    // Scatter plot - always use numeric scales
     const xExtent = d3.extent(filteredData, d => d.xVal);
     const yExtent = d3.extent(filteredData, d => d.yVal);
     const xPadding = (xExtent[1] - xExtent[0]) * 0.1;
@@ -3086,6 +3076,11 @@ export function createUnifiedInteractiveChart(containerId) {
     const y = d3.scaleLinear()
       .domain([Math.max(0, yExtent[0] - yPadding), yExtent[1] + yPadding])
       .range([height, 0]);
+
+    // Use xVal directly for positioning
+    filteredData.forEach(d => {
+      d.xPosition = x(d.xVal);
+    });
 
     // Draw regression lines by sex
     const males = filteredData.filter(d => d.sex === 'M');
@@ -3176,7 +3171,7 @@ export function createUnifiedInteractiveChart(containerId) {
 
       if (d.sex === 'M') {
         svg.append('circle')
-          .attr('cx', x(d.xVal))
+          .attr('cx', d.xPosition)
           .attr('cy', y(d.yVal))
           .attr('r', size)
           .attr('fill', economyColors[d.Economy])
@@ -3204,7 +3199,7 @@ export function createUnifiedInteractiveChart(containerId) {
         const triangleSize = isHighlighted ? 140 : 100;
         svg.append('path')
           .attr('d', d3.symbol().type(d3.symbolTriangle).size(triangleSize))
-          .attr('transform', `translate(${x(d.xVal)},${y(d.yVal)})`)
+          .attr('transform', `translate(${d.xPosition},${y(d.yVal)})`)
           .attr('fill', economyColors[d.Economy])
           .attr('stroke', strokeColor)
           .attr('stroke-width', strokeWidth)
@@ -3434,9 +3429,14 @@ export function createUnifiedInteractiveChart(containerId) {
     }
   }
 
-  // Add section for populations without data below chart
+  // Add section for populations without data below controls
+  // First remove any existing no-data section
+  d3.select('.no-data-section').remove();
+
   if (populationsWithoutData.length > 0) {
-    const noDataGroup = d3.select(`#${containerId}`)
+    // Append to the chart-wrapper (parent of chart and controls)
+    const chartWrapper = d3.select(`#${containerId}`).node().parentNode;
+    const noDataGroup = d3.select(chartWrapper)
       .append('div')
       .attr('class', 'no-data-section')
       .style('margin-top', '10px')

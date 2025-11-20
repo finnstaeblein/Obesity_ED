@@ -183,21 +183,10 @@
                   <div class="control-item">
                     <label class="control-label-small">Y-axis:</label>
                     <select id="unified-y-select" class="unified-select">
-                      <option value="TEE">TEE</option>
-                      <option value="PAL">PAL</option>
-                      <option value="PercUPF">UPF %</option>
-                      <option value="Fat" selected>Body Fat</option>
-                      <option value="HDI_score">HDI Score</option>
-                    </select>
-                  </div>
-                  <div class="control-item">
-                    <label class="control-label-small">X-axis:</label>
-                    <select id="unified-x-select" class="unified-select">
-                      <option value="HDI_score" selected>Economy (HDI)</option>
-                      <option value="TEE">TEE</option>
-                      <option value="PAL">PAL</option>
-                      <option value="PercUPF">UPF %</option>
-                      <option value="Fat">Body Fat</option>
+                      <option value="TEE">Total Energy Expenditure (TEE) MJ/day</option>
+                      <option value="PAL">Physical Activity Level (PAL)</option>
+                      <option value="PercUPF">Percentage of Energy Intake from Ultra-processed Foods</option>
+                      <option value="Fat" selected>Body Fat Percentage</option>
                     </select>
                   </div>
                   <div class="control-item">
@@ -213,7 +202,18 @@
                       </label>
                     </div>
                   </div>
-                  <div class="control-item" id="chart-type-control">
+                  <div class="control-item">
+                    <label class="control-label-small">X-axis:</label>
+                    <select id="unified-x-select" class="unified-select">
+                      <option value="Economy_Type" selected>Economy Type</option>
+                      <option value="HDI_rank">Human Development Index (HDI) Rank</option>
+                      <option value="TEE">Total Energy Expenditure (TEE) MJ/day</option>
+                      <option value="PAL">Physical Activity Level (PAL)</option>
+                      <option value="PercUPF">Percentage of Energy Intake from Ultra-processed Foods</option>
+                      <option value="Fat">Body Fat Percentage</option>
+                    </select>
+                  </div>
+                  <div class="control-item" id="chart-type-control" style="display: none;">
                     <label class="control-label-small">View:</label>
                     <div class="view-tabs-wrapper">
                       <div class="view-tabs">
@@ -255,6 +255,9 @@
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
               </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
+              </div>
             </div>
           </div>
 
@@ -268,6 +271,9 @@
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
+              </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
               </div>
             </div>
           </div>
@@ -283,6 +289,9 @@
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
               </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
+              </div>
             </div>
           </div>
 
@@ -296,6 +305,9 @@
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
+              </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
               </div>
             </div>
           </div>
@@ -311,6 +323,9 @@
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
               </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
+              </div>
             </div>
           </div>
 
@@ -324,6 +339,9 @@
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
+              </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
               </div>
             </div>
           </div>
@@ -339,6 +357,9 @@
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
               </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
+              </div>
             </div>
           </div>
 
@@ -352,6 +373,9 @@
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
                 <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
+              </div>
+              <div class="skip-link-container">
+                <a href="#" class="skip-link" data-target-step="8">Skip to interactive graph →</a>
               </div>
             </div>
           </div>

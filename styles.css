@@ -684,6 +684,29 @@ body {
   color: #2d1810;
 }
 
+.skip-link-container {
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.skip-link {
+  display: inline-block;
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.skip-link:hover {
+  color: #2563eb;
+  background-color: rgba(59, 130, 246, 0.1);
+  text-decoration: underline;
+}
+
 .card-text-bold {
   font-weight: 600;
 }
