@@ -1,4 +1,4 @@
-import { createWorldMap, createInactivityChart, createInactivityScatterPlot, createUPFChart, createDataCollectionMap, createMetricBoxPlot, createMetricScatterPlot, createUPFScatterPlot, createUPFBodyFatScatterPlot, createInteractiveScatterPlot, updateFilters, createUnifiedInteractiveChart, setUnifiedChartFilters, getUnifiedChartFilters, toggleHighlight } from './charts.js';
+import { createWorldMap, createDataCollectionMap, createUnifiedInteractiveChart, setUnifiedChartFilters, getUnifiedChartFilters, toggleHighlight } from './charts.js';
 import { PAL_TEE_UPF_HDI_Data_Elsa } from './data.js';
 
 // Get all unique population names for the selector
@@ -51,14 +51,7 @@ const state = {
   map: { step: 0, totalSteps: 4, currentYear: 2022 },
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
-  inactivity: { step: 0, totalSteps: 5, userGuess: null, viewMode: 'box', metric: 'tee', showRawData: true },
-  upf: { step: 0, totalSteps: 2 },
-  interactiveFilters: {
-    xVar: 'upf',
-    yVar: 'bodyFat',
-    economies: ['highHDI', 'AGP', 'midHDI', 'HG', 'lowHDI', 'HORT'],
-    sexes: ['M', 'F']
-  }
+  inactivity: { step: 0, totalSteps: 5 }
 };
 
 // Preset configurations for each step of the unified chart
@@ -164,15 +157,6 @@ function updateChart(sectionKey, step) {
         // Setup control listeners for all chart steps (users can modify)
         setupUnifiedChartControls();
       }
-      break;
-    case 'scatter':
-      break;
-    case 'upf':
-      createUPFChart(
-        'upf-chart',
-        step >= 1,
-        step >= 1 ? 'United States' : null
-      );
       break;
   }
 }
@@ -307,43 +291,6 @@ export function navigateToCard(sectionId, step) {
   const sectionKey = sectionId.replace('-section', '');
   state[sectionKey].step = step;
   updateSection(sectionId);
-}
-
-function setupInteractiveFilters() {
-  const ySelect = document.getElementById('y-variable-select');
-  const xSelect = document.getElementById('x-variable-select');
-  const economyCheckboxes = document.querySelectorAll('.economy-checkbox');
-  const sexCheckboxes = document.querySelectorAll('.sex-checkbox');
-
-  if (!ySelect || !xSelect) return;
-
-  ySelect.value = state.interactiveFilters.yVar;
-  xSelect.value = state.interactiveFilters.xVar;
-
-  const updatePlot = () => {
-    const selectedEconomies = Array.from(economyCheckboxes)
-      .filter(cb => cb.checked)
-      .map(cb => cb.value);
-
-    const selectedSexes = Array.from(sexCheckboxes)
-      .filter(cb => cb.checked)
-      .map(cb => cb.value === 'M' ? 'M' : 'F');
-
-    state.interactiveFilters = {
-      xVar: xSelect.value,
-      yVar: ySelect.value,
-      economies: selectedEconomies,
-      sexes: selectedSexes
-    };
-
-    updateFilters(state.interactiveFilters);
-    createInteractiveScatterPlot('inactivity-chart');
-  };
-
-  ySelect.addEventListener('change', updatePlot);
-  xSelect.addEventListener('change', updatePlot);
-  economyCheckboxes.forEach(cb => cb.addEventListener('change', updatePlot));
-  sexCheckboxes.forEach(cb => cb.addEventListener('change', updatePlot));
 }
 
 // Update UI controls to reflect current preset
