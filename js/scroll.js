@@ -50,6 +50,7 @@ function updateChartFromControls() {
 const state = {
   map: { step: 0, totalSteps: 4, currentYear: 2022 },
   'combined-question': { step: 0, totalSteps: 2 },
+  bridge: { step: 0, totalSteps: 1 },
   inactivity: { step: 0, totalSteps: 5, userGuess: null, viewMode: 'box', metric: 'tee', showRawData: true },
   upf: { step: 0, totalSteps: 2 },
   interactiveFilters: {
@@ -68,7 +69,7 @@ const chartPresets = {
   4: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
 };
 
-const sectionOrder = ['map-section', 'combined-question-section', 'inactivity-section', 'conclusion-section'];
+const sectionOrder = ['map-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section'];
 
 function updateSection(sectionId) {
   const section = document.getElementById(sectionId);
