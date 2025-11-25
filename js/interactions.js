@@ -38,44 +38,7 @@ export function setupInteractions() {
       toggleRawData(e.target.checked);
     });
   }
-  // This was old code for reader to use a slider to make a guess
-  // const activitySlider = document.getElementById('activity-slider');
-  // const activityValue = document.getElementById('activity-value');
-  // const activitySubmitBtn = document.getElementById('activity-submit-btn');
-  // const activityResult = document.getElementById('activity-result');
-
-  // if (activitySlider && activityValue) {
-  //   const updateSliderBackground = (value) => {
-  //     const percentage = value;
-  //     activitySlider.style.background = `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`;
-  //   };
-
-  //   updateSliderBackground(activitySlider.value);
-
-  //   activitySlider.addEventListener('input', (e) => {
-  //     const value = parseInt(e.target.value);
-  //     activityValue.textContent = value;
-  //     updateSliderBackground(value);
-  //   });
-  // }
-
-  // if (activitySubmitBtn) {
-  //   activitySubmitBtn.addEventListener('click', () => {
-  //     const guess = parseInt(activitySlider.value);
-
-  //     setUserActivityGuess(guess);
-
-  //     const inactivitySection = document.getElementById('inactivity-section');
-  //     if (inactivitySection) {
-  //       inactivitySection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  //     }
-
-  //     activitySubmitBtn.disabled = true;
-  //     activitySubmitBtn.style.opacity = '0.5';
-  //     activitySubmitBtn.style.cursor = 'not-allowed';
-  //   });
-  // }
-
+  
   const optionButtons = document.querySelectorAll('.option-button');
   const beliefNextBtn = document.getElementById('belief-next-btn');
   let selectedOption = null;
