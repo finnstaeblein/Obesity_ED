@@ -78,19 +78,30 @@ const economyLabels = {
   'AGP': 'agropastoralist'
 };
 
+const economyDescriptions = {
+  'HG': 'Hunter-gatherer: living by hunting, fishing, and foraging rather than farming.',
+  'AGP': 'Pastoralist / agropastoralist: herding livestock as the core of daily life.',
+  'HORT': 'Horticulturalist: small-scale farming using manual tools.',
+  'lowHDI': 'Small-scale agriculturalist: farming with limited mechanization.',
+  'midHDI': 'Industrialized: living in modern economies with wage labor, markets, and high integration into national infrastructure.',
+  'highHDI': 'Industrialized: living in modern economies with wage labor, markets, and high integration into national infrastructure.'
+};
+
 // Tooltip
 const dataValueTooltip = d3.select('body').append('div')
 .attr('class', 'map-tooltip')
 .style('position', 'absolute')
 .style('visibility', 'hidden')
-.style('background-color', 'rgba(0, 0, 0, 0.85)')
+.style('background-color', 'rgba(0, 0, 0, 0.9)')
 .style('color', '#fff')
-.style('padding', '8px 12px')
+.style('padding', '10px 14px')
 .style('border-radius', '6px')
 .style('font-size', '13px')
+.style('line-height', '1.5')
 .style('pointer-events', 'none')
 .style('z-index', '1000')
-.style('box-shadow', '0 2px 8px rgba(0,0,0,0.2)');
+.style('box-shadow', '0 2px 8px rgba(0,0,0,0.3)')
+.style('max-width', '320px');
 
 // ------------------------------------------------------------
 export function createDataCollectionMap(containerId) {
@@ -99,7 +110,7 @@ export function createDataCollectionMap(containerId) {
 
   const width = container.clientWidth || 800;
   const height = 500;
-  const legendWidth = 180;
+  const legendWidth = 230;
   const mapWidth = width - legendWidth - 40;
 
   const svg = d3.select(`#${containerId}`)
@@ -129,13 +140,13 @@ export function createDataCollectionMap(containerId) {
       .attr('stroke-width', 0.5);
 
     // Radius scale based on sample size N_M + N_F
-    const maxN = d3.max(PAL_TEE_UPF_HDI_Data_Elsa, d => 
+    const maxN = d3.max(PAL_TEE_UPF_HDI_Data_Elsa, d =>
       (Number(d.N_M) || 0) + (Number(d.N_F) || 0)
     );
 
     const radiusScale = d3.scaleSqrt()
       .domain([0, maxN])
-      .range([4, 14]);
+      .range([3, 16]);
 
     // Plot each population directly
     PAL_TEE_UPF_HDI_Data_Elsa.forEach(pop => {
@@ -159,15 +170,68 @@ export function createDataCollectionMap(containerId) {
         d3.select(this)
           .transition()
           .duration(120)
-          .attr('r', radiusScale(totalN) + 3)   // grow on hover
+          .attr('r', radiusScale(totalN) + 3)
           .attr('opacity', 1);
 
+          // Build comprehensive tooltip
+          let tooltipHTML = `<strong>${pop.Population}</strong><br>`;
+          tooltipHTML += `<strong>Economy:</strong> ${economyLabels[pop.Economy]}<br>`;
+
+          if (pop.HDI_score) {
+            tooltipHTML += `<strong>HDI:</strong> ${pop.HDI_score} (rank ${pop.HDI_rank})<br>`;
+          }
+
+          tooltipHTML += `<br><strong>Sample Sizes:</strong><br>`;
+          if (pop.N_M) {
+            tooltipHTML += `Male: ${pop.N_M}<br>`;
+          }
+          if (pop.N_F) {
+            tooltipHTML += `Female: ${pop.N_F}<br>`;
+          }
+          tooltipHTML += `Total: ${totalN}<br>`;
+
+          // Add key measurements if available
+          tooltipHTML += `<br><strong>Measurements:</strong><br>`;
+
+          if (pop.Fat_M || pop.Fat_F) {
+            tooltipHTML += `<strong>Body Fat %:</strong> `;
+            if (pop.Fat_M && pop.Fat_F) {
+              tooltipHTML += `M: ${Number(pop.Fat_M).toFixed(1)}%, F: ${Number(pop.Fat_F).toFixed(1)}%<br>`;
+            } else if (pop.Fat_M) {
+              tooltipHTML += `M: ${Number(pop.Fat_M).toFixed(1)}%<br>`;
+            } else {
+              tooltipHTML += `F: ${Number(pop.Fat_F).toFixed(1)}%<br>`;
+            }
+          }
+
+          if (pop.PAL_M || pop.PAL_F) {
+            tooltipHTML += `<strong>PAL:</strong> `;
+            if (pop.PAL_M && pop.PAL_F) {
+              tooltipHTML += `M: ${Number(pop.PAL_M).toFixed(2)}, F: ${Number(pop.PAL_F).toFixed(2)}<br>`;
+            } else if (pop.PAL_M) {
+              tooltipHTML += `M: ${Number(pop.PAL_M).toFixed(2)}<br>`;
+            } else {
+              tooltipHTML += `F: ${Number(pop.PAL_F).toFixed(2)}<br>`;
+            }
+          }
+
+          if (pop.TEE_M || pop.TEE_F) {
+            tooltipHTML += `<strong>TEE (MJ/day):</strong> `;
+            if (pop.TEE_M && pop.TEE_F) {
+              tooltipHTML += `M: ${Number(pop.TEE_M).toFixed(1)}, F: ${Number(pop.TEE_F).toFixed(1)}<br>`;
+            } else if (pop.TEE_M) {
+              tooltipHTML += `M: ${Number(pop.TEE_M).toFixed(1)}<br>`;
+            } else {
+              tooltipHTML += `F: ${Number(pop.TEE_F).toFixed(1)}<br>`;
+            }
+          }
+
+          if (pop.PercUPF) {
+            tooltipHTML += `<strong>UPF %:</strong> ${pop.PercUPF}%<br>`;
+          }
+
           dataValueTooltip
-          .html(`
-            <strong>${pop.Population}</strong><br>
-            Sample size: ${totalN}<br>
-            Economy: ${pop.Economy}
-          `)
+          .html(tooltipHTML)
           .style('visibility', 'visible');
       })
       .on('mousemove', function(event) {
@@ -186,21 +250,21 @@ export function createDataCollectionMap(containerId) {
       });
     });
 
-    // Legend
-    const legend = svg.append('g')
-      .attr('transform', `translate(${mapWidth + 20}, 80)`);
+    // Economy Legend
+    const economyLegend = svg.append('g')
+      .attr('transform', `translate(${mapWidth + 20}, 20)`);
 
-    legend.append('text')
+    economyLegend.append('text')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('font-size', '16px')
+      .attr('font-size', '14px')
       .attr('font-weight', '700')
       .attr('fill', '#2d1810')
-      .text('Economy');
+      .text('Economy Type');
 
     economyOrder.forEach((type, i) => {
-      const legendRow = legend.append('g')
-        .attr('transform', `translate(0, ${25 + i * 28})`);
+      const legendRow = economyLegend.append('g')
+        .attr('transform', `translate(0, ${20 + i * 24})`);
 
       legendRow.append('circle')
         .attr('cx', 8)
@@ -210,12 +274,55 @@ export function createDataCollectionMap(containerId) {
         .attr('stroke', '#fff')
         .attr('stroke-width', 1.5);
 
-      legendRow.append('text')
+      const labelText = legendRow.append('text')
         .attr('x', 22)
-        .attr('y', 5)
-        .attr('font-size', '13px')
+        .attr('y', 4)
+        .attr('font-size', '12px')
         .attr('fill', '#2d1810')
         .text(economyLabels[type]);
+
+      // Add tooltip icon with description
+      const textWidth = labelText.node().getComputedTextLength();
+      addTooltipIcon(legendRow, 22 + textWidth + 8, 0, economyDescriptions[type]);
+    });
+
+    // Size Legend
+    const sizeLegend = svg.append('g')
+      .attr('transform', `translate(${mapWidth + 20}, ${20 + economyOrder.length * 24 + 40})`);
+
+    sizeLegend.append('text')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('font-size', '14px')
+      .attr('font-weight', '700')
+      .attr('fill', '#2d1810')
+      .text('Sample Size');
+
+    // Show example sizes
+    const exampleSizes = [10, 50, 100, 500, 1000, 2000];
+    const validExampleSizes = exampleSizes.filter(size => size <= maxN);
+
+    validExampleSizes.forEach((size, i) => {
+      const legendRow = sizeLegend.append('g')
+        .attr('transform', `translate(0, ${20 + i * 24})`);
+
+      const radius = radiusScale(size);
+
+      legendRow.append('circle')
+        .attr('cx', 8)
+        .attr('cy', 0)
+        .attr('r', radius)
+        .attr('fill', '#9ca3af')
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 1.5)
+        .attr('opacity', 0.7);
+
+      legendRow.append('text')
+        .attr('x', 22)
+        .attr('y', 4)
+        .attr('font-size', '12px')
+        .attr('fill', '#2d1810')
+        .text(`n = ${size}`);
     });
   });
 }

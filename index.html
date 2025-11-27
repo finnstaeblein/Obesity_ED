@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Obesity Crisis</title>
+  <title>The Obesity Myth</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://d3js.org/d3-geo.v3.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
   <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
   <div class="app-container">
     <!-- Hero Section -->
     <section id="hero-section" class="hero-section">
       <div class="hero-content">
-        <h1 class="hero-title">Running in Place:<br>The Myth Around Solving Obesity</h1>
-        <p class="card-text">Obesity has surged around the world for more than forty years. Before exploring possible explanations, it's worth seeing the trend for yourself, and how different countries have moved along it.</p>
+        <h1 class="hero-title">The Obesity Myth:</h1>
+        <h2 class="hero-subtitle">Why Our Assumptions About Obesity Deserve a Closer Look</h2>
+        <p class="card-text">Obesity has risen alongside economic development, but the question of what drives that rise
+          is still contested. Scroll to explore why what Americans believe about obesity might not match the data.</p>
         <div class="scroll-cta">
           <button id="explore-now-btn" class="explore-now-btn">
             <span class="explore-text">Explore Now</span>
             <div class="explore-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#f4d9a6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5 L12 19 M6 13 L12 19 L18 13"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#f4d9a6" stroke-width="3" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 5 L12 19 M6 13 L12 19 L18 13" />
               </svg>
             </div>
           </button>
@@ -45,13 +50,14 @@
             <div class="card-content">
               <div class="step-indicator">1/4</div>
               <p class="card-text">
-                Obesity rates vary dramatically around the world. Some countries have rates below 5%, while others exceed 35%.
+                Obesity rates vary dramatically around the world. Some countries have rates below 5%, while others
+                exceed 35%.
               </p>
               <div class="timeline-controls">
                 <button id="play-btn" class="play-btn">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path id="play-icon" d="M8 5v14l11-7z"/>
-                    <path id="pause-icon" d="M6 4h4v16H6zm8 0h4v16h-4z" style="display: none;"/>
+                    <path id="play-icon" d="M8 5v14l11-7z" />
+                    <path id="pause-icon" d="M6 4h4v16H6zm8 0h4v16h-4z" style="display: none;" />
                   </svg>
                   <span id="play-text">Play Timeline</span>
                 </button>
@@ -81,7 +87,8 @@
             <div class="card-content">
               <div class="step-indicator">3/6</div>
               <p class="card-text card-text-bold">
-                The United States has one of the highest obesity rates in the world at <span class="text-highlight">36.2%</span>.
+                The United States has one of the highest obesity rates in the world at <span
+                  class="text-highlight">36.2%</span>.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="map-section">← Previous</button>
@@ -135,9 +142,14 @@
               <div class="step-indicator">1/2</div>
               <h2 class="section-heading">What is causing this rise? </h2>
               <p class="card-text">
-                At its core, obesity occurs when energy intake is consistently higher than energy expenditure. The harder question is which side of this balance has changed in modern populations. Public health organizations typically point to two possibilities: people may be burning less energy through daily activity, or they may be consuming more energy as diets shift. <a href="#source-1" class="footnote-link">[1]</a> </p>
-
-              <h2 class="card-title">What do most Americans say is a very important reason many Americans are very overweight?</h2>
+                At its core, obesity occurs when energy intake is consistently higher than energy expenditure. The
+                harder question is which side of this balance has changed in modern populations. Public health
+                organizations typically point to two possibilities: people may be burning less energy through daily
+                activity, or they may be consuming more energy as diets shift <a href="#source-1"
+                  class="footnote-link">[1]</a>. To see how this aligns with public perception, consider what Americans
+                say is the main reason many people are very overweight.</p>
+              <h2 class="card-title">What do most Americans say is a very important reason many Americans are very
+                overweight?</h2>
               <div class="options-container">
                 <button class="option-button" data-option="exercise">Not getting enough exercise</button>
                 <button class="option-button" data-option="diet">Eating too much or lack of willpower</button>
@@ -146,7 +158,8 @@
               </div>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="combined-question-section" disabled>← Previous</button>
-                <button class="nav-btn next-btn" data-section="combined-question-section" id="belief-next-btn" disabled>Next →</button>
+                <button class="nav-btn next-btn" data-section="combined-question-section" id="belief-next-btn"
+                  disabled>Next →</button>
               </div>
             </div>
           </div>
@@ -155,7 +168,14 @@
               <div class="step-indicator">2/2</div>
               <h3 class="section-heading">Lower activity in industrialized societies?</h3>
               <p class="card-text">
-                A common hypothesis is that industrialized countries are less physically active than traditional farming or foraging groups, and that activity levels may have changed as societies modernized. According to a 2006 survey, many Americans believe reduced activity is the primary reason people are overweight. <a href="#source-2" class="footnote-link">[2]</a>
+                A 2006 Pew survey captured Americans’ beliefs about what was causing obesity. Most respondents pointed
+                to personal behavior as the main driver, and they overwhelmingly pointed to one explanation in
+                particular: not getting enough exercise. In fact, they rated lack of activity as the most important
+                reason people are overweight, ahead of diet, marketing, or genetics <a href="#source-2"
+                  class="footnote-link">[2]</a>. While the study was conducted almost a decade ago, it highlights what
+                was at least at that time a common hypothesis shared with health organizations, that industrialized
+                countries are less physically active than traditional farming or foraging groups, and that activity
+                levels may have changed as societies modernized <a href="#source-1" class="footnote-link">[1]</a>.
               </p>
               <div id="belief-result" class="result-message"></div>
               <div class="nav-buttons">
@@ -171,12 +191,48 @@
     <!-- Bridging Text Section -->
     <section id="bridge-section" class="conclusion-section">
       <div class="conclusion-content">
-        <h2 class="conclusion-heading">Testing the Activity Hypothesis</h2>
+        <h2 class="conclusion-heading">Examining the Activity Hypothesis</h2>
         <p class="conclusion-text">
-          To test whether reduced physical activity explains obesity differences across populations, we need data that directly measures energy expenditure. Fortunately, a recent cross-cultural study provides exactly that—tracking total daily energy expenditure across 34 populations ranging from hunter-gatherer societies to industrialized nations.
+          Given how common this assumption is, the next step is to look at it with data. Given how common this
+          assumption is, the next step is to look at it with actual measurements rather than beliefs. A recent cross
+          cultural study published in PNAS did this by using the doubly labeled water method, the leading approach for
+          measuring total daily energy expenditure in real-world settings. The researchers drew from the International
+          Atomic Energy Agency’s global database of doubly labeled water measurements and expanded it by adding three
+          additional pastoralist groups: the Aymara in Bolivia, the Tuvan in Siberia, and the Daasanach in northern
+          Kenya.
+          <p />
+        <p class="conclusion-text">The initial dataset contained more than 10,000 adults. The team then filtered out
+          anyone with missing sex, reported health conditions, athletic status, implausibly high energy expenditure, or
+          ages outside 18 to 60. This produced a final analytic sample of 4,213 adults across 34 population groups.
+          These
+          groups are specific community samples, not nationally representative estimates. The goal was to compare energy
+          expenditure across different subsistence ecologies and economic contexts, not to characterize whole countries.
+          <p />
+        <p class="conclusion-text">The populations span hunter gatherers, pastoralists, horticulturalists, small
+          scale farmers, and industrialized groups. Because nonindustrialized groups do not have formal Human
+          Development
+          Index scores, the researchers placed them on the HDI spectrum based on their level of market integration.
+          Industrialized populations were categorized using standard UN HDI thresholds for low, medium, and high
+          development. HDI values were then converted into rank order, so the analysis uses each population’s relative
+          position along the development spectrum.
         </p>
-        <p class="conclusion-text">
-          The following visualizations explore whether activity levels systematically differ across economic development categories, and whether those differences align with patterns in body fat percentage.
+        <p class="conclusion-text">Basal energy expenditure came from indirect calorimetry when available or from
+          size-based predictive equations when not. Activity energy expenditure and physical activity level were derived
+          from the total and basal expenditure values.
+        </p>
+        <p class="conclusion-text">Because access to the individual level dataset requires a formal research
+          application, this analysis uses only the publicly available population means. Working with means makes it
+          possible to compare broad patterns across populations, but it introduces important limitations. The underlying
+          distributions for each group are not available, so measures such as standard deviations, confidence intervals,
+          or within-group variability cannot be calculated. As a result, the analysis can identify population-level
+          trends
+          across economic and lifestyle contexts, but it cannot capture how much variation exists within each group or
+          how
+          precise the reported averages are.
+        </p>
+        <p class="conclusion-text">The visualizations below examine how activity levels vary across economic
+          contexts and whether those differences track with body fat percentage or whether another factor explains body
+          fat more strongly.
         </p>
         <div class="nav-buttons" style="margin-top: 30px;">
           <button class="nav-btn prev-btn" data-section="bridge-section">← Previous</button>
@@ -191,7 +247,8 @@
         <div class="graph-side">
           <div class="chart-wrapper">
             <div class="chart-header">
-              <h3 class="chart-title" id="inactivity-chart-title">Total test energy expenditure (TEE) by Economy Type</h3>
+              <h3 class="chart-title" id="inactivity-chart-title">Total test energy expenditure (TEE) by Economy Type
+              </h3>
             </div>
             <div id="inactivity-chart"></div>
             <div class="chart-controls-row" id="unified-controls-container" style="display: none;">
@@ -237,7 +294,8 @@
                         <button class="view-tab active" data-view="box" id="box-view-btn">Box</button>
                         <button class="view-tab" data-view="scatter" id="scatter-view-btn">Scatter</button>
                       </div>
-                      <div class="disabled-tooltip" id="view-disabled-tooltip">Select "Economy (HDI)" as X-axis to enable box plot view</div>
+                      <div class="disabled-tooltip" id="view-disabled-tooltip">Select "Economy (HDI)" as X-axis to
+                        enable box plot view</div>
                     </div>
                   </div>
                 </div>
@@ -263,10 +321,16 @@
               <div class="step-indicator">1/5</div>
               <h4 class="card-title">Data collection and Filtering</h4>
               <p class="card-text">
-                The map to the left shows where data was collected from the <b>34 different populations</b>. Each point represents a population group, color-coded by their economic development level according to the Human Development Index (HDI).
-              </p>
-              <p class="card-text">
-                The research team had an initial dataset of 10,590 adults, and filtered for participants with known sex and no health conditions, removed athletes, and focused on ages 18-60. This left <b>4,213 adults</b>. These groups ranged from hunter-gatherer and small-scale farming communities to fully industrialized societies.
+                The map shows where the 34 sampled communities are located. A few patterns are worth keeping in mind as
+                you interpret the results. High-HDI groups are heavily represented, especially in Europe, the US, and
+                East Asia. These samples are larger and give more stable averages. In contrast, the subsistence groups
+                (hunter gatherers, horticulturalists, and agropastoralist) appear in only a handful of regions and often
+                with smaller sample sizes. They are key for comparing different lifestyles, but each point represents
+                one community, not an entire country.
+
+                This uneven distribution means the analysis can compare broad differences across economic and lifestyle
+                contexts, but high-HDI groups carry more statistical weight and subsistence groups provide only a few
+                anchor points.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -282,7 +346,16 @@
               <div class="step-indicator">2/5</div>
               <h4 class="card-title">Body fat by HDI rank</h4>
               <p class="card-text">
-                When we plot <strong>body fat percentage by HDI rank</strong> (where lower rank = higher development), we see a clear relationship: populations from more developed countries (lower HDI rank numbers) tend to have higher body fat percentages.
+                The plot shows that higher-HDI populations generally sit at the lower-rank end and tend to have higher
+                body fat percentages, while subsistence groups cluster at the higher-rank end with lower body fat. There
+                is still substantial variation within each category, especially among high-HDI populations, but the
+                overall slope points upward as development increases.
+              </p>
+              <p class="card-text">
+                What this might suggest is that some factor linked to economic development is associated with higher
+                body fat at the population level. This doesn’t tell us what the cause is, and it doesn’t rule out
+                multiple explanations, but it sets up the next step: looking at whether activity levels follow a similar
+                pattern or whether the stronger pattern appears elsewhere in the data.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -299,7 +372,21 @@
               <div class="step-indicator">3/5</div>
               <h4 class="card-title">Body fat vs Physical Activity Level (PAL)</h4>
               <p class="card-text">
-                Is there a relationship between physical activity and body fat? When we plot <strong>body fat % vs PAL</strong>, we see a weak relationship: higher physical activity levels do not consistently predict lower body fat percentages across populations.
+                This plot compares body fat percentage with Physical Activity Level (PAL), which is total energy
+                expenditure divided by basal energy expenditure. PAL gives a size-adjusted measure of daily activity.
+              </p>
+              <p class="card-text">
+                Across populations, the relationship here is weak. Some groups with higher PAL have lower body fat, but
+                others do not, and the points are widely scattered for both men and women. High-HDI populations show
+                especially broad variation: some are fairly active with moderate body fat, while others have similar PAL
+                values but higher body fat.
+              </p>
+              <p class="card-text">
+                What we can take from this is limited but useful. If physical activity were a dominant driver of
+                population-level differences in body fat, we would expect a clearer downward trend. Instead, the
+                variability suggests that activity alone does not explain why some populations have much higher body fat
+                than others. This doesn’t rule out an effect of activity, it just means the pattern is not strong or
+                consistent at this scale.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -316,7 +403,17 @@
               <div class="step-indicator">4/5</div>
               <h4 class="card-title">Body fat vs Ultra-Processed Food (UPF)</h4>
               <p class="card-text">
-                Here's where the pattern becomes clearer. When we plot <strong>body fat % vs UPF intake</strong>, we see a stronger, more consistent relationship: populations with higher ultra-processed food consumption tend to have higher body fat percentages. This data was available for 25 of the 34 populations.
+                This plot compares body fat percentage with the share of ultra processed foods (UPF) in the diet. Unlike
+                the activity plots, the points line up more clearly here. Populations with higher UPF intake tend to
+                have higher body fat, and this pattern shows up for both men and women. There is still variation, some
+                groups eat relatively little UPF and differ in body fat, and some high UPF groups sit below the trend
+                line, but the overall slope is stronger than what we saw for PAL or TEE.
+              </p>
+              <p class="card-text">
+                It’s also worth noting that UPF data were available for only 25 of the 34 populations, so the coverage
+                is not complete. Even with that limitation, the relationship appears more consistent than the activity
+                based measures. This doesn’t prove that UPF is the cause, but it suggests that dietary composition may
+                align more closely with differences in body fat across populations than physical activity does.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -333,7 +430,8 @@
               <div class="step-indicator">5/5</div>
               <h4 class="card-title">Explore the data</h4>
               <p class="card-text">
-                Use the controls above to explore different relationships in the data. Select which variables to plot, filter by sex, and search for specific populations to highlight.
+                Use the controls above to explore different relationships in the data. Select which variables to plot,
+                filter by sex, and search for specific populations to highlight.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -351,43 +449,77 @@
       <div class="conclusion-content">
         <h2 class="conclusion-heading">Conclusion</h2>
         <p class="conclusion-text">
-          Taken together, these results point to a clearer picture of how obesity varies across populations. Physical activity levels, once adjusted for body size, show only modest differences across economic settings. This makes it unlikely that shifts in daily movement alone explain why some populations have much higher obesity rates than others. The limited dietary data show a more consistent pattern: populations with higher intake of ultra-processed foods tend to have higher body-fat percentages. While this does not prove causation, it suggests that differences in diet composition may help explain variation in obesity more than differences in activity.
+          Taken together, the population-level data present a clearer picture of how obesity varies across different
+          economic and lifestyle contexts. Once body size is accounted for, physical activity levels show only modest
+          variation between populations. That makes it unlikely that changes in daily movement alone explain the large
+          differences in obesity rates across societies. By contrast, in the subset of populations for which dietary
+          data exist, there is a more consistent link: higher intake of ultra-processed foods (UPFs) appears associated
+          with higher body-fat percentage. This does not prove causation, but it suggests dietary composition may matter
+          more than activity in shaping obesity differences at population scale.
         </p>
 
         <h2 class="conclusion-heading">Why this matters</h2>
         <p class="conclusion-text">
-          Understanding which factors align more closely with obesity has direct implications for public health messaging, policy, and resource allocation. If physical activity is only weakly linked to population-level differences in obesity, strategies that rely heavily on encouraging people to "move more" may have limited impact on reducing national obesity levels. In contrast, if dietary patterns—particularly the availability and consumption of ultra-processed foods—show stronger and more consistent associations, then interventions focused on food environments, regulation, and access may be more effective. For policymakers and health organizations, distinguishing between these explanations is essential for designing approaches that match the scale and nature of the problem.
+          Public understanding of obesity tends to emphasize activity (move more, sit less) and personal responsibility.
+          Survey data show many Americans attribute weight problems to lack of exercise or willpower. But this framing
+          may reflect not only intuition, it may also reflect the influence of industry: some historical analyses
+          suggest that certain food and beverage companies funded studies and public campaigns that highlighted physical
+          inactivity as the root cause of obesity <a href="#source-3" class="footnote-link">[3]</a>.
         </p>
+
+        <p class="conclusion-text">
+          If dietary factors, especially the prevalence of UPFs, have a stronger link to obesity across populations than
+          activity, then strategies focused mainly on individual behavior or exercise may miss a larger lever. Instead
+          of placing the burden solely on individuals to "move more," public health efforts might be more effective if
+          they address structural and environmental drivers: availability, marketing, formulation, and consumption of
+          UPFs.</p>
+
+        <p class="conclusion-text">
+          That's not to say individuals don't matter. Diet and activity both influence health. But orienting policy and
+          resources around the stronger population-level signal could lead to larger-scale impact.</p>
 
         <h2 class="conclusion-heading">Limitations</h2>
         <p class="conclusion-text">
           Several limitations of the dataset and analysis should be noted.
         </p>
+        <ul class="conclusion-text">
+          <li>The dietary data cover only a portion of the sample (25 of the 34 populations).</li>
+          <li>The analysis relies on population means, not individual-level data, so within-population variation and
+            uncertainty (such as confidence intervals or standard deviations) cannot be assessed.</li>
+          <li>The data are cross-sectional, reflecting differences between populations at one point in time. This
+            prevents us from inferring how changes over time influence body fat.</li>
+          <li>The associations observed are correlational, and unmeasured factors (such as genetics or other lifestyle
+            variables) may contribute to the patterns.</li>
+          <li>Energy-expenditure measurements come from different studies and methods, which may introduce measurement
+            heterogeneity.</li>
+        </ul>
+
         <p class="conclusion-text">
-          <strong>Population means only:</strong> The publicly available data include only population-level averages, not individual measurements. This limits the ability to examine within-population variation or model individual-level predictors.
-        </p>
-        <p class="conclusion-text">
-          <strong>Cross-sectional comparisons:</strong> The data compare different populations at one point in time. They do not track changes within the same populations over time, making it difficult to infer temporal trends in activity or diet.
-        </p>
-        <p class="conclusion-text">
-          <strong>Heterogeneous dietary methods:</strong> UPF values were compiled from a variety of published sources. Different studies used different dietary assessment tools—such as 24-hour recalls, food-frequency questionnaires, or national surveys—which introduces variability in how UPF intake was measured.
-        </p>
-        <p class="conclusion-text">
-          <strong>Limited diet coverage:</strong> Dietary information was available for only 25 of the 34 populations. Important comparisons may be missing, and results may not generalize to all groups in the dataset.
-        </p>
-        <p class="conclusion-text">
-          <strong>Observational data:</strong> The associations reported here, including those between UPF and body fat, are correlational. They cannot determine causation or rule out unmeasured variables.
-        </p>
-        <p class="conclusion-text">
-          <strong>Energy-expenditure constraints:</strong> TEE, AEE, and PAL estimates come from different studies and field methods. While doubly labeled water is the gold standard for TEE, its use varies across populations, and methods for estimating PAL differ.
-        </p>
-        <p class="conclusion-text">
-          These limitations do not undermine the core patterns observed, but they clarify the scope of what the data can support. The results highlight the need for more consistent dietary data and longitudinal measurements of energy balance, particularly in rapidly industrializing settings.
+          While these limitations exist, the patterns still point toward a need for better dietary data, long-term
+          studies, and policy approaches that address food environments directly. Earlier industry messaging often
+          emphasized activity, but moving forward it will be important for governments and communities to take a
+          stronger role in challenging that narrative. Framing obesity as a structural issue rather than an individual
+          failure can open the door to more funding, better regulation, and broader efforts to reduce UPF exposure and
+          support healthier diets.
         </p>
 
         <h2 class="conclusion-heading">Sources</h2>
         <p class="sources-text" id="source-1">
-          <span class="source-number">[1]</span> Pontzer, Herman, et al. "Energy Expenditure, Dietary Energy Intake, and Body Composition Across Populations." <em>Proceedings of the National Academy of Sciences</em>, vol. 122, no. 3, 2025, e2420902122. <em>PNAS</em>, <a href="https://doi.org/10.1073/pnas.2420902122" target="_blank" rel="noopener noreferrer">https://doi.org/10.1073/pnas.2420902122</a>.
+          <span class="source-number">[1]</span> Pontzer, Herman, et al. "Energy Expenditure, Dietary Energy Intake, and
+          Body Composition Across Populations." <em>Proceedings of the National Academy of Sciences</em>, vol. 122, no.
+          3, 2025, e2420902122. <em>PNAS</em>, <a href="https://doi.org/10.1073/pnas.2420902122" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1073/pnas.2420902122</a>.
+        </p>
+        <p class="sources-text" id="source-2">
+          <span class="source-number">[2]</span> "Americans See Weight Problems Everywhere But In the Mirror."
+          <em>Pew Research Center</em>, 11 Apr. 2006,
+          <a href="https://www.pewresearch.org/social-trends/2006/04/11/americans-see-weight-problems-everywhere-but-in-the-mirror/" target="_blank" rel="noopener noreferrer">https://www.pewresearch.org/social-trends/2006/04/11/americans-see-weight-problems-everywhere-but-in-the-mirror/</a>.
+        </p>
+        <p class="sources-text" id="source-3">
+          <span class="source-number">[3]</span> Nixon, Laura, et al. "We're Part of the Solution: Evolution of the Food and Beverage Industry's Framing of Obesity Concerns Between 2000 and 2012."
+          <em>American Journal of Public Health</em>, vol. 105, no. 11, Nov. 2015, pp. 2228–2236.
+          <em>PMC</em>,
+          <a href="https://doi.org/10.2105/AJPH.2015.302819" target="_blank" rel="noopener noreferrer">https://doi.org/10.2105/AJPH.2015.302819</a>.
         </p>
       </div>
     </section>
@@ -399,4 +531,5 @@
   <script type="module" src="./js/interactions.js"></script>
   <script type="module" src="./js/main.js"></script>
 </body>
+
 </html>

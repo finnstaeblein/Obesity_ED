@@ -21,7 +21,7 @@ body {
 .hero-section {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   padding: 1.5rem;
   background: #f4d9a6;
@@ -47,12 +47,23 @@ body {
   paint-order: stroke fill;
 }
 
+
+
 .hero-subtitle {
-  font-size: 1.25rem;
-  line-height: 1.8;
-  color: #2d1810;
-  margin-bottom: 2.5rem;
-  max-width: 48rem;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #d97757;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  -webkit-text-stroke: 5px #5c2e1e;
+  paint-order: stroke fill;
+}
+
+.hero-content .card-text {
+  text-align: left;
+  max-width: 50rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1039,6 +1050,7 @@ body {
   border-radius: 0.25rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-left: 10px;
 }
 
 .bar-container {
@@ -1188,7 +1200,7 @@ body {
 }
 
 .footnote-link {
-  color: #93c5fd;
+  color: #3b82f6;
   text-decoration: none;
   font-size: 0.85em;
   vertical-align: super;
@@ -1198,7 +1210,7 @@ body {
 }
 
 .footnote-link:hover {
-  color: #60a5fa;
+  color: #0b3e90;
   text-decoration: underline;
 }
 

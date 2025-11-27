@@ -93,7 +93,7 @@ export function setupInteractions() {
       barWrapper.className = 'bar-wrapper';
 
       const labelDiv = document.createElement('div');
-      labelDiv.className = 'bar-label';
+      labelDiv.className = 'card-text';
       labelDiv.textContent = item.label;
 
       if (userGuess && item.key === userGuess) {
