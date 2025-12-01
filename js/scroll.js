@@ -48,7 +48,9 @@ function updateChartFromControls() {
 }
 
 const state = {
+  'global-trends': { step: 0, totalSteps: 1 },
   map: { step: 0, totalSteps: 4, currentYear: 2022 },
+  'exploring-data': { step: 0, totalSteps: 1 },
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
   inactivity: { step: 0, totalSteps: 5 }
@@ -62,7 +64,7 @@ const chartPresets = {
   4: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
 };
 
-const sectionOrder = ['map-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section'];
+const sectionOrder = ['global-trends-section', 'map-section', 'exploring-data-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section'];
 
 function updateSection(sectionId) {
   const section = document.getElementById(sectionId);
@@ -106,7 +108,15 @@ function updateSection(sectionId) {
 function updateChart(sectionKey, step) {
   switch (sectionKey) {
     case 'map':
-      createWorldMap('world-map', step === 2 ? 'United States' : null, state.map.currentYear);
+      // Hide the map for all steps - show placeholder
+      const mapContainer = document.getElementById('world-map');
+      if (mapContainer) {
+        mapContainer.innerHTML = '';
+      }
+      const trendContainer = document.getElementById('multi-country-trend');
+      if (trendContainer) {
+        trendContainer.innerHTML = '';
+      }
       break;
     case 'inactivity':
       const chartTitle = document.getElementById('inactivity-chart-title');

@@ -642,6 +642,14 @@ body {
   border-radius: 1rem;
   padding: 1.5rem;
   height: fit-content;
+  min-height: 500px;
+}
+
+.chart-wrapper:has(#world-map:empty) {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chart-title {
