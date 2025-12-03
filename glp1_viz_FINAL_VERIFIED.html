@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLP-1 Access & Obesity: State-Level Analysis</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+        }
+        .chart-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #34495e;
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+        }
+        select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="range"] {
+            width: 200px;
+            padding: 0;
+            margin: 0;
+        }
+        .state-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .state-info h2 {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+        }
+        .stat {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .stat:last-child {
+            border-bottom: none;
+        }
+        .stat-label {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        .stat-value {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        circle:hover {
+            stroke-width: 3px;
+            opacity: 1;
+        }
+        circle.selected {
+            stroke: #e74c3c;
+            stroke-width: 3px;
+        }
+        .axis text {
+            font-size: 12px;
+        }
+        .axis-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tooltip {
+            position: absolute;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            border-radius: 4px;
+            font-size: 13px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            max-width: 200px;
+        }
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GLP-1 Access vs. Obesity: State-Level Analysis</h1>
+        <p class="subtitle">
+            Interactive exploration of GLP-1 prescription patterns across all 50 U.S. states.
+        </p>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="regionFilter">Filter by Region:</label>
+                <select id="regionFilter">
+                    <option value="all">All Regions</option>
+                    <option value="South">South</option>
+                    <option value="Northeast">Northeast</option>
+                    <option value="Midwest">Midwest</option>
+                    <option value="West">West</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="obesityFilter">Min Obesity Rate: <span id="obesityValue">0%</span></label>
+                <input type="range" id="obesityFilter" min="0" max="45" value="0" step="1">
+            </div>
+        </div>
+
+        <div class="dashboard">
+            <div class="chart-container">
+                <div class="chart-title">GLP-1 Prescriptions vs. Obesity Rate by State</div>
+                <svg id="scatterplot"></svg>
+                <div class="legend" id="legend"></div>
+            </div>
+            <div>
+                <div class="state-info" id="stateInfo">
+                    <h2>Select a state</h2>
+                    <p>Click on any state dot in the chart to view detailed information</p>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">Top 10 States by GLP-1 Usage</div>
+                    <svg id="barChart"></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // VERIFIED DATA - All 50 states
+        const rawData = [
+  {
+    "State": "Kentucky",
+    "GLP1_Per_1000": 20.7,
+    "Obesity_Rate": 40.0,
+    "Region": "South"
+  },
+  {
+    "State": "West Virginia",
+    "GLP1_Per_1000": 18.9,
+    "Obesity_Rate": 41.2,
+    "Region": "South"
+  },
+  {
+    "State": "Alaska",
+    "GLP1_Per_1000": 17.5,
+    "Obesity_Rate": 33.6,
+    "Region": "West"
+  },
+  {
+    "State": "Mississippi",
+    "GLP1_Per_1000": 16.1,
+    "Obesity_Rate": 40.1,
+    "Region": "South"
+  },
+  {
+    "State": "Louisiana",
+    "GLP1_Per_1000": 15.4,
+    "Obesity_Rate": 38.1,
+    "Region": "South"
+  },
+  {
+    "State": "Tennessee",
+    "GLP1_Per_1000": 13.8,
+    "Obesity_Rate": 37.6,
+    "Region": "South"
+  },
+  {
+    "State": "Alabama",
+    "GLP1_Per_1000": 13.4,
+    "Obesity_Rate": 39.9,
+    "Region": "South"
+  },
+  {
+    "State": "Idaho",
+    "GLP1_Per_1000": 13.3,
+    "Obesity_Rate": 32.8,
+    "Region": "West"
+  },
+  {
+    "State": "Arkansas",
+    "GLP1_Per_1000": 13.3,
+    "Obesity_Rate": 38.2,
+    "Region": "South"
+  },
+  {
+    "State": "North Dakota",
+    "GLP1_Per_1000": 13.2,
+    "Obesity_Rate": 34.7,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Georgia",
+    "GLP1_Per_1000": 12.5,
+    "Obesity_Rate": 35.5,
+    "Region": "South"
+  },
+  {
+    "State": "Iowa",
+    "GLP1_Per_1000": 12.0,
+    "Obesity_Rate": 36.5,
+    "Region": "Midwest"
+  },
+  {
+    "State": "South Dakota",
+    "GLP1_Per_1000": 11.9,
+    "Obesity_Rate": 34.1,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Texas",
+    "GLP1_Per_1000": 11.6,
+    "Obesity_Rate": 35.8,
+    "Region": "South"
+  },
+  {
+    "State": "Kansas",
+    "GLP1_Per_1000": 11.4,
+    "Obesity_Rate": 35.6,
+    "Region": "Midwest"
+  },
+  {
+    "State": "North Carolina",
+    "GLP1_Per_1000": 11.0,
+    "Obesity_Rate": 34.1,
+    "Region": "South"
+  },
+  {
+    "State": "Vermont",
+    "GLP1_Per_1000": 10.4,
+    "Obesity_Rate": 28.4,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Michigan",
+    "GLP1_Per_1000": 10.0,
+    "Obesity_Rate": 36.0,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Pennsylvania",
+    "GLP1_Per_1000": 9.7,
+    "Obesity_Rate": 33.0,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Wyoming",
+    "GLP1_Per_1000": 9.5,
+    "Obesity_Rate": 29.5,
+    "Region": "West"
+  },
+  {
+    "State": "Oklahoma",
+    "GLP1_Per_1000": 9.1,
+    "Obesity_Rate": 37.1,
+    "Region": "South"
+  },
+  {
+    "State": "South Carolina",
+    "GLP1_Per_1000": 9.1,
+    "Obesity_Rate": 35.4,
+    "Region": "South"
+  },
+  {
+    "State": "Delaware",
+    "GLP1_Per_1000": 8.9,
+    "Obesity_Rate": 37.8,
+    "Region": "South"
+  },
+  {
+    "State": "Indiana",
+    "GLP1_Per_1000": 8.8,
+    "Obesity_Rate": 36.6,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Ohio",
+    "GLP1_Per_1000": 8.5,
+    "Obesity_Rate": 35.5,
+    "Region": "Midwest"
+  },
+  {
+    "State": "New York",
+    "GLP1_Per_1000": 8.4,
+    "Obesity_Rate": 28.0,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Montana",
+    "GLP1_Per_1000": 8.2,
+    "Obesity_Rate": 27.8,
+    "Region": "West"
+  },
+  {
+    "State": "Nebraska",
+    "GLP1_Per_1000": 8.1,
+    "Obesity_Rate": 35.2,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Maine",
+    "GLP1_Per_1000": 8.1,
+    "Obesity_Rate": 31.3,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Missouri",
+    "GLP1_Per_1000": 8.0,
+    "Obesity_Rate": 35.3,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Virginia",
+    "GLP1_Per_1000": 7.6,
+    "Obesity_Rate": 32.2,
+    "Region": "South"
+  },
+  {
+    "State": "Washington",
+    "GLP1_Per_1000": 7.3,
+    "Obesity_Rate": 29.5,
+    "Region": "West"
+  },
+  {
+    "State": "Maryland",
+    "GLP1_Per_1000": 7.2,
+    "Obesity_Rate": 33.4,
+    "Region": "South"
+  },
+  {
+    "State": "New Hampshire",
+    "GLP1_Per_1000": 7.2,
+    "Obesity_Rate": 29.3,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Florida",
+    "GLP1_Per_1000": 7.1,
+    "Obesity_Rate": 29.7,
+    "Region": "South"
+  },
+  {
+    "State": "Oregon",
+    "GLP1_Per_1000": 6.7,
+    "Obesity_Rate": 31.4,
+    "Region": "West"
+  },
+  {
+    "State": "New Jersey",
+    "GLP1_Per_1000": 6.6,
+    "Obesity_Rate": 28.2,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Connecticut",
+    "GLP1_Per_1000": 5.8,
+    "Obesity_Rate": 28.6,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Illinois",
+    "GLP1_Per_1000": 5.8,
+    "Obesity_Rate": 33.5,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Minnesota",
+    "GLP1_Per_1000": 5.8,
+    "Obesity_Rate": 29.8,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Utah",
+    "GLP1_Per_1000": 5.7,
+    "Obesity_Rate": 26.0,
+    "Region": "West"
+  },
+  {
+    "State": "Nevada",
+    "GLP1_Per_1000": 5.7,
+    "Obesity_Rate": 29.1,
+    "Region": "West"
+  },
+  {
+    "State": "California",
+    "GLP1_Per_1000": 5.5,
+    "Obesity_Rate": 28.0,
+    "Region": "West"
+  },
+  {
+    "State": "New Mexico",
+    "GLP1_Per_1000": 5.3,
+    "Obesity_Rate": 32.9,
+    "Region": "West"
+  },
+  {
+    "State": "Colorado",
+    "GLP1_Per_1000": 5.1,
+    "Obesity_Rate": 24.9,
+    "Region": "West"
+  },
+  {
+    "State": "Arizona",
+    "GLP1_Per_1000": 5.1,
+    "Obesity_Rate": 31.4,
+    "Region": "West"
+  },
+  {
+    "State": "Wisconsin",
+    "GLP1_Per_1000": 4.3,
+    "Obesity_Rate": 33.9,
+    "Region": "Midwest"
+  },
+  {
+    "State": "Hawaii",
+    "GLP1_Per_1000": 4.3,
+    "Obesity_Rate": 24.5,
+    "Region": "West"
+  },
+  {
+    "State": "Massachusetts",
+    "GLP1_Per_1000": 4.0,
+    "Obesity_Rate": 26.8,
+    "Region": "Northeast"
+  },
+  {
+    "State": "Rhode Island",
+    "GLP1_Per_1000": 3.7,
+    "Obesity_Rate": 30.1,
+    "Region": "Northeast"
+  }
+];
+
+        // Set up dimensions
+        const margin = {top: 20, right: 20, bottom: 60, left: 60};
+        const width = 800 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        // Color scale for regions
+        const regionColors = {
+            'South': '#e74c3c',
+            'Northeast': '#3498db',
+            'Midwest': '#f39c12',
+            'West': '#27ae60'
+        };
+
+        // Create legend
+        const legend = d3.select('#legend');
+        Object.entries(regionColors).forEach(([region, color]) => {
+            const item = legend.append('div').attr('class', 'legend-item');
+            item.append('div')
+                .attr('class', 'legend-color')
+                .style('background-color', color);
+            item.append('span').text(region);
+        });
+
+        let selectedState = null;
+        let filteredData = rawData;
+
+        // Scatterplot
+        function createScatterplot() {
+            d3.select('#scatterplot').selectAll('*').remove();
+
+            const svg = d3.select('#scatterplot')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+
+            const x = d3.scaleLinear()
+                .domain([20, d3.max(filteredData, d => d.Obesity_Rate) + 2])
+                .range([0, width]);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(filteredData, d => d.GLP1_Per_1000) + 2])
+                .range([height, 0]);
+
+            // Axes
+            svg.append('g')
+                .attr('class', 'axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(x))
+                .append('text')
+                .attr('class', 'axis-label')
+                .attr('x', width / 2)
+                .attr('y', 40)
+                .attr('fill', '#000')
+                .text('Obesity Rate (%)');
+
+            svg.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(y))
+                .append('text')
+                .attr('class', 'axis-label')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -45)
+                .attr('fill', '#000')
+                .text('GLP-1 Prescriptions per 1,000');
+
+            // Data points
+            const tooltip = d3.select('#tooltip');
+
+            svg.selectAll('circle')
+                .data(filteredData)
+                .enter()
+                .append('circle')
+                .attr('cx', d => x(d.Obesity_Rate))
+                .attr('cy', d => y(d.GLP1_Per_1000))
+                .attr('r', 8)
+                .attr('fill', d => regionColors[d.Region])
+                .attr('opacity', 0.7)
+                .classed('selected', d => d === selectedState)
+                .on('mouseover', function(event, d) {
+                    tooltip
+                        .style('opacity', 1)
+                        .html(`<strong>${d.State}</strong><br/>
+                               Obesity: ${d.Obesity_Rate}%<br/>
+                               GLP-1: ${d.GLP1_Per_1000} per 1,000<br/>
+                               Region: ${d.Region}`)
+                        .style('left', (event.pageX + 10) + 'px')
+                        .style('top', (event.pageY - 10) + 'px');
+                })
+                .on('mouseout', function() {
+                    tooltip.style('opacity', 0);
+                })
+                .on('click', function(event, d) {
+                    selectedState = d;
+                    updateStateInfo(d);
+                    createScatterplot();
+                });
+        }
+
+        // Bar chart for top states
+        function createBarChart() {
+            d3.select('#barChart').selectAll('*').remove();
+
+            const barWidth = 300;
+            const barHeight = 300;
+            const barMargin = {top: 10, right: 10, bottom: 40, left: 80};
+
+            const svg = d3.select('#barChart')
+                .attr('width', barWidth + barMargin.left + barMargin.right)
+                .attr('height', barHeight + barMargin.top + barMargin.bottom)
+                .append('g')
+                .attr('transform', `translate(${barMargin.left},${barMargin.top})`);
+
+            const topStates = filteredData
+                .sort((a, b) => b.GLP1_Per_1000 - a.GLP1_Per_1000)
+                .slice(0, 10);
+
+            const y = d3.scaleBand()
+                .domain(topStates.map(d => d.State))
+                .range([0, barHeight])
+                .padding(0.1);
+
+            const x = d3.scaleLinear()
+                .domain([0, d3.max(topStates, d => d.GLP1_Per_1000)])
+                .range([0, barWidth]);
+
+            svg.append('g')
+                .attr('class', 'axis')
+                .call(d3.axisLeft(y))
+                .selectAll('text')
+                .style('font-size', '11px');
+
+            svg.selectAll('rect')
+                .data(topStates)
+                .enter()
+                .append('rect')
+                .attr('x', 0)
+                .attr('y', d => y(d.State))
+                .attr('width', d => x(d.GLP1_Per_1000))
+                .attr('height', y.bandwidth())
+                .attr('fill', d => regionColors[d.Region])
+                .attr('opacity', 0.8);
+        }
+
+        // Update state info panel
+        function updateStateInfo(state) {
+            const info = d3.select('#stateInfo');
+            info.html(`
+                <h2>${state.State}</h2>
+                <div class="stat">
+                    <span class="stat-label">Obesity Rate</span>
+                    <span class="stat-value">${state.Obesity_Rate}%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">GLP-1 Prescriptions</span>
+                    <span class="stat-value">${state.GLP1_Per_1000} per 1,000</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Region</span>
+                    <span class="stat-value">${state.Region}</span>
+                </div>
+            `);
+        }
+
+        // Filters
+        d3.select('#regionFilter').on('change', function() {
+            const region = this.value;
+            filteredData = region === 'all' ? rawData : rawData.filter(d => d.Region === region);
+            updateCharts();
+        });
+
+        d3.select('#obesityFilter').on('input', function() {
+            const threshold = +this.value;
+            d3.select('#obesityValue').text(threshold + '%');
+            filteredData = rawData.filter(d => d.Obesity_Rate >= threshold);
+            const region = d3.select('#regionFilter').node().value;
+            if (region !== 'all') {
+                filteredData = filteredData.filter(d => d.Region === region);
+            }
+            updateCharts();
+        });
+
+        function updateCharts() {
+            createScatterplot();
+            createBarChart();
+        }
+
+        // Initial render
+        updateCharts();
+    </script>
+</body>
+</html>
