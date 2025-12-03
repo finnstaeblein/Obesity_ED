@@ -53,7 +53,8 @@ const state = {
   'exploring-data': { step: 0, totalSteps: 1 },
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
-  inactivity: { step: 0, totalSteps: 5 }
+  inactivity: { step: 0, totalSteps: 5 },
+  glp1: { step: 0, totalSteps: 4 }
 };
 
 // Preset configurations for each step of the unified chart
@@ -64,7 +65,7 @@ const chartPresets = {
   4: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
 };
 
-const sectionOrder = ['global-trends-section', 'map-section', 'exploring-data-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section'];
+const sectionOrder = ['global-trends-section', 'map-section', 'exploring-data-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section', 'glp1-section'];
 
 function updateSection(sectionId) {
   const section = document.getElementById(sectionId);
