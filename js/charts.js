@@ -1482,16 +1482,6 @@ export function createObesityDeclineChart(containerId) {
     .append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Add chart title
-  svg.append('text')
-    .attr('x', width / 2)
-    .attr('y', -30)
-    .attr('text-anchor', 'middle')
-    .attr('font-size', '18px')
-    .attr('font-weight', '600')
-    .attr('fill', '#1f2937')
-    .text('U.S. Obesity and Diabetes Rates (2008-2025)');
-
   // Scales
   const xScale = d3.scaleLinear()
     .domain([2008, 2025])
