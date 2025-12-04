@@ -15,9 +15,9 @@ function setupExploreButton() {
   const exploreBtn = document.getElementById('explore-now-btn');
   if (exploreBtn) {
     exploreBtn.addEventListener('click', () => {
-      const mapSection = document.getElementById('map-section');
-      if (mapSection) {
-        mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const globalPatternsSection = document.getElementById('global-patterns-section');
+      if (globalPatternsSection) {
+        globalPatternsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   }

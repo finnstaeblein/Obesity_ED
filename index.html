@@ -34,500 +34,324 @@
       </div>
     </section>
 
-
-
-    <!-- Navigation buttons -->
-    <div class="nav-buttons" style="margin-top: 30px;">
-      <button class="nav-btn prev-btn" data-section="global-trends-section">← Previous</button>
-      <button class="nav-btn next-btn" data-section="global-trends-section">Next →</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- Piper Block A: Static world snapshot -->
-<section id="piper-block-a" class="graph-section piper-block">
-  <div class="piper-block-inner">
-
-<!-- BOTTOM: TEXT -->
-<div class="text-area">
-  <div class="content-card active">
-    <div class="card-content">
-      <h3 class="card-title">A rising global pattern</h3>
-
-      <p class="card-text">
-        Obesity has increased almost everywhere over the past few decades. 
-        Estimates from the World Health Organization indicate that global adult obesity 
-        has nearly tripled since 1975, reaching about <strong>1 in 8 adults</strong> worldwide by 2022.
-        <span class="source-inline">
-          Source: 
-          <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" 
-             target="_blank" rel="noopener noreferrer">WHO fact sheet</a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        The map above shows the <strong>latest available adult obesity rates by country</strong>. 
-        Darker regions indicate a larger share of adults living with obesity, while lighter regions 
-        indicate lower levels. The data come from standardized NCD surveys, which makes it 
-        possible to compare countries directly.
-        <span class="source-inline">
-          Source: 
-          <a href="https://ncdrisc.org/data-downloads.html" 
-             target="_blank" rel="noopener noreferrer">NCD-RisC</a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        A few patterns to notice: high rates appear in places like the 
-        <strong>United States</strong>, the <strong>Gulf states</strong>, and several 
-        <strong>Pacific Island nations</strong>, while much of <strong>East and Southeast Asia</strong> 
-        remains on the lower end. Many countries in <strong>Africa and South Asia</strong> are still 
-        relatively low but <strong>rising quickly</strong>.
-        <span class="source-inline">
-          Source: 
-          <a href="https://ncdrisc.org/data-downloads.html" 
-             target="_blank" rel="noopener noreferrer">NCD-RisC</a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        Rather than a single global trend, the map suggests very different national trajectories. 
-        That raises a question we’ll return to: are these differences driven more by activity, diet, 
-        economics, or something else? In the next section, you’ll be able to 
-        <strong>click individual countries</strong> to see how their obesity rates have changed over time.
-      </p>
-
-    </div>
-  </div>
-</div>
-
-
-    <!-- TOP: GRAPH -->
-    <div class="graph-area">
-      <div class="chart-wrapper">
-        <!-- TODO: update 'world_today_map' to your actual cell name if different -->
-        <iframe
-          width="100%"
-          height="600"
-          frameborder="0"
-          src="https://observablehq.com/embed/59ceb65501adab5a@414?cells=world_today_map&api_key=8637612648f673a72300bf448324b6dc11cdebab">
-        </iframe>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- Piper Block B: Click-to-explore map + trends -->
-<section id="piper-block-b" class="graph-section piper-block">
-  <div class="piper-block-inner">
-
-<!-- BOTTOM: TEXT -->
-<div class="text-area">
-  <div class="content-card active">
-    <div class="card-content">
-
-      <h3 class="card-title">How obesity has changed over time</h3>
-
-      <p class="card-text">
-        The map above lets you <strong>click any country</strong> to explore how its obesity 
-        rates have changed across adults, women, men, and—when available—children. 
-        This time-series view uses standardized NCD-RisC estimates that track 
-        obesity prevalence from the <strong>late 1970s to today</strong>.
-        <span class="source-inline">
-          Source: 
-          <a href="https://ncdrisc.org/index.html" 
-             target="_blank" rel="noopener noreferrer">NCD-RisC</a>.
-      </p>
-
-      <p class="card-text">
-        What you’ll notice is that almost every country shows an upward trend, but 
-        <strong>the timing, slope and Y axis scale are very different</strong>. Some countries 
-        began rising early, others much later, and some increased more sharply than others. 
-        These differences are the starting point for understanding what might be driving 
-        obesity patterns around the world.
-      </p>
-
-      <p class="card-text">
-        Try clicking countries with contrasting stories—like the United States, Japan, 
-        or the Gulf states. Their trajectories raise important questions about 
-        <strong>why some places surged quickly while others remained low for decades</strong>.
-      </p>
-
-      <p class="card-text">
-        In the next section, we guide you through three of the most interesting examples 
-        to show how these differences set up the deeper question: 
-        <strong>What’s actually driving these trends?</strong>
-      </p>
-    </div>
-  </div>
-</div>
-
-
-    <!-- TOP: GRAPH -->
-    <div class="graph-area">
-      <div class="chart-wrapper">
-        <iframe
-          width="100%"
-          height="600"
-          frameborder="0"
-          src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=country_trends_click_to_explore&embed=1&api_key=8637612648f673a72300bf448324b6dc11cdebab">
-        </iframe>
-      </div>
-    </div>
-
-
-
-  </div>
-</section>
-
-
-<!-- Piper Block C: Guided country comparisons (US, Japan, Gulf) -->
-<section id="piper-block-c" class="graph-section piper-block">
-  <div class="piper-block-inner">
-
-    <!-- BOTTOM: TEXT for Piper Block C (Guided Comparisons) -->
-<div class="text-area">
-  <!-- C1 — United States -->
-  <div class="content-card active" data-step="0">
-    <div class="card-content">
-      <h3 class="card-title">A steep early rise: United States</h3>
-
-      <p class="card-text">
-        When you look at the United States on the chart, the obesity curve starts
-        climbing early and never really flattens. National survey data show that
-        adult obesity has roughly <strong>tripled over the last several decades</strong>, and
-        recent CDC estimates put adult obesity at around <strong>40%</strong> of the population.
-        <span class="source-inline">
-          Sources: 
-          <a href="https://www.cdc.gov/nchs/products/databriefs/db508.htm" target="_blank" rel="noopener noreferrer">
-            CDC data brief (2024)
-          </a>, 
-          <a href="https://usafacts.org/articles/obesity-rate-nearly-triples-united-states-over-last-50-years/" target="_blank" rel="noopener noreferrer">
-            USAFacts summary
-          </a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        In this view, both adults and children in the U.S. show an
-        <strong>early, linear rise</strong> compared with many other countries. The levels are not
-        only high today; they have been high for a long time. That makes the U.S.
-        an example of a country where obesity became common relatively early in the
-        global timeline.
-      </p>
-
-      <p class="card-text">
-        Keep this shape in mind as a reference point when you click through to the
-        next countries: is their curve just as steep, delayed, or surprisingly flat?
-      </p>
-
-      <div class="nav-buttons">
-        <button class="nav-btn next-btn" data-section="piper-block-c" data-target-step="1">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- C2 — Japan -->
-  <div class="content-card" data-step="1">
-    <div class="card-content">
-      <h3 class="card-title">A slow, low curve: Japan</h3>
-
-      <p class="card-text">
-        Japan’s trend looks very different. Even as a high-income country with long-standing
-        urbanization, its adult obesity levels remain much lower than in most OECD peers.
-        Recent analyses find that Japan has one of the <strong>lowest rates of overweight and
-        obesity among OECD countries</strong>, and average BMI has changed only gradually over
-        several decades.
-        <span class="source-inline">
-          Sources:
-          <a href="https://ourworldindata.org/obesity" target="_blank" rel="noopener noreferrer">
-            Our World in Data
-          </a>, 
-          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9163402/" target="_blank" rel="noopener noreferrer">
-            Ikeda et al., 2022 (Japan BMI trends)
-          </a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        On the chart, that shows up as a <strong>flatter, lower line</strong> for adults and children:
-        obesity rises, but much more slowly and from a very low starting point. Compared
-        with the U.S., Japan offers a contrast where economic development did not produce
-        the same jump in obesity levels.
-      </p>
-
-      <p class="card-text">
-        This contrast raises a key question for later: if income or development alone
-        doesn’t explain the gap between the U.S. and Japan, what else might be different
-        in their food environments or daily lives?
-      </p>
-
-      <div class="nav-buttons">
-        <button class="nav-btn prev-btn" data-section="piper-block-c" data-target-step="0">← Previous</button>
-        <button class="nav-btn next-btn" data-section="piper-block-c" data-target-step="2">Next →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- C3 — Gulf states -->
-  <div class="content-card" data-step="2">
-    <div class="card-content">
-      <h3 class="card-title">A rapid surge: Gulf states</h3>
-
-      <p class="card-text">
-        In many Gulf countries, such as <strong>Saudi Arabia, Qatar, Kuwait, and Bahrain</strong>,
-        the pattern is a later but very rapid rise. Recent estimates place adult obesity
-        levels in the <strong>high 30s to low 40s percent</strong> range, putting several of these
-        countries among the highest in the world.
-        <span class="source-inline">
-          Sources:
-          <a href="https://data.worldobesity.org/rankings/" target="_blank" rel="noopener noreferrer">
-            World Obesity Federation rankings
-          </a>, 
-          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4039587/" target="_blank" rel="noopener noreferrer">
-            Al-Nohair, 2014 (Gulf obesity overview)
-          </a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        On the chart, that shows up as a <strong>sharp upswing starting later in time</strong>:
-        obesity was relatively uncommon several decades ago, then increased quickly alongside
-        rapid changes in income, urbanization, and food environments. In some Gulf states,
-        women’s obesity rates in particular reach some of the highest levels globally.
-      </p>
-
-      <p class="card-text">
-        Taken together, these three curves—U.S., Japan, and the Gulf—illustrate that obesity
-        can become common early, stay low for a long time, or surge rapidly once conditions
-        change. In the next section, you’ll be able to explore these patterns more broadly
-        and start asking what might be driving them: <strong>activity, diet, policy, or
-        something else entirely?</strong>
-      </p>
-
-      <div class="nav-buttons">
-        <button class="nav-btn prev-btn" data-section="piper-block-c" data-target-step="1">← Previous</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-   
-
-    <!-- TOP: GRAPH (US / Japan / Gulf swapping) -->
-    <div class="graph-area">
+<!-- Global Obesity Patterns Section -->
+<section id="global-patterns-section" class="graph-section piper-block">
+  <div class="split-layout">
+    <div class="graph-side">
       <div class="chart-wrapper">
 
-        <!-- US -->
-        <div
-          id="guided-us-story"
-          class="piper-guided-graph"
-          data-step="0"
-        >
+        <!-- Graph 0: World today map -->
+        <div class="piper-guided-graph" data-step="0">
           <iframe
-            width="200%"
+            width="100%"
+            height="600"
+            frameborder="0"
+            src="https://observablehq.com/embed/59ceb65501adab5a@414?cells=world_today_map&api_key=8637612648f673a72300bf448324b6dc11cdebab">
+          </iframe>
+        </div>
+
+        <!-- Graph 1: Country trends click to explore -->
+        <div class="piper-guided-graph" data-step="1" style="display:none;">
+          <iframe
+            width="100%"
+            height="600"
+            frameborder="0"
+            src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=country_trends_click_to_explore&embed=1&api_key=8637612648f673a72300bf448324b6dc11cdebab">
+          </iframe>
+        </div>
+
+        <!-- Graph 2: US story -->
+        <div class="piper-guided-graph" data-step="2" style="display:none;">
+          <iframe
+            width="100%"
             height="600"
             frameborder="0"
             src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=us_story&api_key=8637612648f673a72300bf448324b6dc11cdebab">
           </iframe>
         </div>
 
-        <!-- Japan -->
-        <div
-          id="guided-japan-story"
-          class="piper-guided-graph"
-          data-step="1"
-          style="display:none;"
-        >
+        <!-- Graph 3: Japan story -->
+        <div class="piper-guided-graph" data-step="3" style="display:none;">
           <iframe
-            width="200%"
+            width="100%"
             height="600"
             frameborder="0"
             src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=japan_story&api_key=8637612648f673a72300bf448324b6dc11cdebab">
           </iframe>
         </div>
 
-        <!-- Gulf -->
-        <div
-          id="guided-gulf-story"
-          class="piper-guided-graph"
-          data-step="2"
-          style="display:none;"
-        >
+        <!-- Graph 4: Gulf story -->
+        <div class="piper-guided-graph" data-step="4" style="display:none;">
           <iframe
-            width="200%"
+            width="100%"
             height="600"
             frameborder="0"
             src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=gulf_story&api_key=8637612648f673a72300bf448324b6dc11cdebab">
           </iframe>
         </div>
 
+        <!-- Graph 5: Full explorer -->
+        <div class="piper-guided-graph" data-step="5" style="display:none;">
+          <iframe
+            width="100%"
+            height="650"
+            frameborder="0"
+            src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=map&api_key=8637612648f673a72300bf448324b6dc11cdebab">
+          </iframe>
+        </div>
+
       </div>
     </div>
 
+    <div class="content-side">
+
+      <!-- Card 0: A rising global pattern -->
+      <div class="content-card active" data-step="0">
+        <div class="card-content">
+          <div class="step-indicator">1/6</div>
+          <h3 class="card-title">A rising global pattern</h3>
+
+          <p class="card-text">
+            Obesity has increased almost everywhere over the past few decades.
+            Estimates from the World Health Organization indicate that global adult obesity
+            has nearly tripled since 1975, reaching about <strong>1 in 8 adults</strong> worldwide by 2022 <a href="#source-4" class="footnote-link">[4]</a>.
+          </p>
+
+          <p class="card-text">
+            The map shows the <strong>latest available adult obesity rates by country</strong>.
+            Darker regions indicate a larger share of adults living with obesity, while lighter regions
+            indicate lower levels. The data come from standardized NCD surveys, which makes it
+            possible to compare countries directly <a href="#source-5" class="footnote-link">[5]</a>.
+          </p>
+
+          <p class="card-text">
+            A few patterns to notice: high rates appear in places like the
+            <strong>United States</strong>, the <strong>Gulf states</strong>, and several
+            <strong>Pacific Island nations</strong>, while much of <strong>East and Southeast Asia</strong>
+            remains on the lower end. Many countries in <strong>Africa and South Asia</strong> are still
+            relatively low but <strong>rising quickly</strong> <a href="#source-5" class="footnote-link">[5]</a>.
+          </p>
+
+          <p class="card-text">
+            Rather than a single global trend, the map suggests very different national trajectories.
+            That raises a question we'll return to: are these differences driven more by activity, diet,
+            economics, or something else? In the next section, you'll be able to
+            <strong>click individual countries</strong> to see how their obesity rates have changed over time.
+          </p>
+
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" data-section="global-patterns-section">← Previous</button>
+            <button class="nav-btn next-btn" data-section="global-patterns-section">Next →</button>
+          </div>
+          <div class="skip-link-container">
+            <a href="#" class="skip-link" data-section="global-patterns-section" data-target-step="5">Skip to interactive graph →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 1: How obesity has changed over time -->
+      <div class="content-card" data-step="1">
+        <div class="card-content">
+          <div class="step-indicator">2/6</div>
+          <h3 class="card-title">How obesity has changed over time</h3>
+
+          <p class="card-text">
+            The map lets you <strong>click any country</strong> to explore how its obesity
+            rates have changed across adults, women, men, and—when available—children.
+            This time-series view uses standardized NCD-RisC estimates that track
+            obesity prevalence from the <strong>late 1970s to today</strong> <a href="#source-5" class="footnote-link">[5]</a>.
+          </p>
+
+          <p class="card-text">
+            What you'll notice is that almost every country shows an upward trend, but
+            <strong>the timing, slope and Y axis scale are very different</strong>. Some countries
+            began rising early, others much later, and some increased more sharply than others.
+            These differences are the starting point for understanding what might be driving
+            obesity patterns around the world.
+          </p>
+
+          <p class="card-text">
+            Try clicking countries with contrasting stories—like the United States, Japan,
+            or the Gulf states. Their trajectories raise important questions about
+            <strong>why some places surged quickly while others remained low for decades</strong>.
+          </p>
+
+          <p class="card-text">
+            In the next section, we guide you through three of the most interesting examples
+            to show how these differences set up the deeper question:
+            <strong>What's actually driving these trends?</strong>
+          </p>
+
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" data-section="global-patterns-section">← Previous</button>
+            <button class="nav-btn next-btn" data-section="global-patterns-section">Next →</button>
+          </div>
+          <div class="skip-link-container">
+            <a href="#" class="skip-link" data-section="global-patterns-section" data-target-step="5">Skip to interactive graph →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: United States -->
+      <div class="content-card" data-step="2">
+        <div class="card-content">
+          <div class="step-indicator">3/6</div>
+          <h3 class="card-title">A steep early rise: United States</h3>
+
+          <p class="card-text">
+            When you look at the United States on the chart, the obesity curve starts
+            climbing early and never really flattens. National survey data show that
+            adult obesity has roughly <strong>tripled over the last several decades</strong>, and
+            recent CDC estimates put adult obesity at around <strong>40%</strong> of the population <a href="#source-6" class="footnote-link">[6]</a> <a href="#source-7" class="footnote-link">[7]</a>.
+          </p>
+
+          <p class="card-text">
+            In this view, both adults and children in the U.S. show an
+            <strong>early, linear rise</strong> compared with many other countries. The levels are not
+            only high today; they have been high for a long time. That makes the U.S.
+            an example of a country where obesity became common relatively early in the
+            global timeline.
+          </p>
+
+          <p class="card-text">
+            Keep this shape in mind as a reference point when you click through to the
+            next countries: is their curve just as steep, delayed, or surprisingly flat?
+          </p>
+
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" data-section="global-patterns-section">← Previous</button>
+            <button class="nav-btn next-btn" data-section="global-patterns-section">Next →</button>
+          </div>
+          <div class="skip-link-container">
+            <a href="#" class="skip-link" data-section="global-patterns-section" data-target-step="5">Skip to interactive graph →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Japan -->
+      <div class="content-card" data-step="3">
+        <div class="card-content">
+          <div class="step-indicator">4/6</div>
+          <h3 class="card-title">A slow, low curve: Japan</h3>
+
+          <p class="card-text">
+            Japan's trend looks very different. Even as a high-income country with long-standing
+            urbanization, its adult obesity levels remain much lower than in most OECD peers.
+            Recent analyses find that Japan has one of the <strong>lowest rates of overweight and
+            obesity among OECD countries</strong>, and average BMI has changed only gradually over
+            several decades <a href="#source-8" class="footnote-link">[8]</a> <a href="#source-9" class="footnote-link">[9]</a>.
+          </p>
+
+          <p class="card-text">
+            On the chart, that shows up as a <strong>flatter, lower line</strong> for adults and children:
+            obesity rises, but much more slowly and from a very low starting point. Compared
+            with the U.S., Japan offers a contrast where economic development did not produce
+            the same jump in obesity levels.
+          </p>
+
+          <p class="card-text">
+            This contrast raises a key question for later: if income or development alone
+            doesn't explain the gap between the U.S. and Japan, what else might be different
+            in their food environments or daily lives?
+          </p>
+
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" data-section="global-patterns-section">← Previous</button>
+            <button class="nav-btn next-btn" data-section="global-patterns-section">Next →</button>
+          </div>
+          <div class="skip-link-container">
+            <a href="#" class="skip-link" data-section="global-patterns-section" data-target-step="5">Skip to interactive graph →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Gulf states -->
+      <div class="content-card" data-step="4">
+        <div class="card-content">
+          <div class="step-indicator">5/6</div>
+          <h3 class="card-title">A rapid surge: Gulf states</h3>
+
+          <p class="card-text">
+            In many Gulf countries, such as <strong>Saudi Arabia, Qatar, Kuwait, and Bahrain</strong>,
+            the pattern is a later but very rapid rise. Recent estimates place adult obesity
+            levels in the <strong>high 30s to low 40s percent</strong> range, putting several of these
+            countries among the highest in the world <a href="#source-10" class="footnote-link">[10]</a> <a href="#source-11" class="footnote-link">[11]</a>.
+          </p>
+
+          <p class="card-text">
+            On the chart, that shows up as a <strong>sharp upswing starting later in time</strong>:
+            obesity was relatively uncommon several decades ago, then increased quickly alongside
+            rapid changes in income, urbanization, and food environments. In some Gulf states,
+            women's obesity rates in particular reach some of the highest levels globally.
+          </p>
+
+          <p class="card-text">
+            Taken together, these three curves—U.S., Japan, and the Gulf—illustrate that obesity
+            can become common early, stay low for a long time, or surge rapidly once conditions
+            change. In the next section, you'll be able to explore these patterns more broadly
+            and start asking what might be driving them: <strong>activity, diet, policy, or
+            something else entirely?</strong>
+          </p>
+
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" data-section="global-patterns-section">← Previous</button>
+            <button class="nav-btn next-btn" data-section="global-patterns-section">Next →</button>
+          </div>
+          <div class="skip-link-container">
+            <a href="#" class="skip-link" data-section="global-patterns-section" data-target-step="5">Skip to interactive graph →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Explore the patterns yourself -->
+      <div class="content-card" data-step="5">
+        <div class="card-content">
+          <div class="step-indicator">6/6</div>
+          <h3 class="card-title">Explore the patterns yourself</h3>
+
+          <p class="card-text">
+            The explorer lets you <strong>recreate many of the stories we've seen</strong>—and
+            discover new ones. Use the controls to switch between
+            <strong>adults and children</strong>, focus on <strong>women, men, or all sexes</strong>,
+            and slide the <strong>year</strong> control to watch how the map shifts over time.
+            The underlying estimates come from NCD Risk Factor Collaboration <a href="#source-5" class="footnote-link">[5]</a>.
+          </p>
+
+          <p class="card-text">
+            Clicking a country pulls up its <strong>trend lines for women, men, girls, and boys</strong>,
+            when data are available. This makes it easy to compare how quickly obesity has risen,
+            whether children's trends lag behind adults, and whether patterns differ by sex.
+            In many countries, you'll see that childhood obesity is now climbing into ranges
+            that used to be seen mainly in adults <a href="#source-4" class="footnote-link">[4]</a>.
+          </p>
+
+          <p class="card-text">
+            As you explore, you might notice familiar themes: some countries show an
+            <strong>early, steep rise</strong>, others a <strong>late surge</strong>, and some remain
+            relatively low despite economic growth. These differences set up the next part of the project,
+            where we move from national averages to <strong>population-level measurements of activity and diet</strong>
+            to ask which factors best explain these patterns.
+          </p>
+
+          <p class="card-text">
+            A few prompts to try:
+            <ul class="card-text">
+              <li>  Compare countries at the same income level but with different obesity trends.</li>
+              <li>  Toggle between adults and children to see where childhood obesity is catching up fastest.</li>
+              <li>  Look for regions where women's and men's curves diverge.</li>
+            </ul>
+          </p>
+
+          <div class="nav-buttons">
+            <button class="nav-btn prev-btn" data-section="global-patterns-section">← Previous</button>
+            <button class="nav-btn next-btn" data-section="global-patterns-section">Next →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
-
-
-<!-- Piper Block D: Full explorer -->
-<section id="piper-block-d" class="graph-section piper-block">
-  <div class="piper-block-inner">
-
-    <!-- BOTTOM: TEXT for Piper Block D (Full Explorer) -->
-<div class="text-area">
-  <div class="content-card active">
-    <div class="card-content">
-      <h3 class="card-title">Explore the patterns yourself</h3>
-
-      <p class="card-text">
-        The explorer below lets you <strong>recreate many of the stories we’ve seen</strong>—and
-        discover new ones. Use the controls to switch between 
-        <strong>adults and children</strong>, focus on <strong>women, men, or all sexes</strong>, 
-        and slide the <strong>year</strong> control to watch how the map shifts over time.
-        The underlying estimates come from NCD Risk Factor Collaboration.
-        <span class="source-inline">
-          Source:
-          <a href="https://ncdrisc.org/data-downloads.html" target="_blank" rel="noopener noreferrer">
-            NCD-RisC
-          </a>,
-        </span>
-      </p>
-
-      <p class="card-text">
-        Clicking a country pulls up its <strong>trend lines for women, men, girls, and boys</strong>, 
-        when data are available. This makes it easy to compare how quickly obesity has risen, 
-        whether children’s trends lag behind adults, and whether patterns differ by sex. 
-        In many countries, you’ll see that childhood obesity is now climbing into ranges 
-        that used to be seen mainly in adults.
-        <span class="source-inline">
-          Source:
-          <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener noreferrer">
-            WHO – children and adolescents with obesity
-          </a>.
-        </span>
-      </p>
-
-      <p class="card-text">
-        As you explore, you might notice familiar themes: some countries show an 
-        <strong>early, steep rise</strong>, others a <strong>late surge</strong>, and some remain 
-        relatively low despite economic growth. These differences set up the next part of the project, 
-        where we move from national averages to <strong>population-level measurements of activity and diet</strong> 
-        to ask which factors best explain these patterns.
-      </p>
-
-      <p class="card-text">
-        A few prompts to try:
-        <ul class="card-text">
-          <li>  Compare countries at the same income level but with different obesity trends.</li>
-          <li>  Toggle between adults and children to see where childhood obesity is catching up fastest.</li>
-          <li>  Look for regions where women’s and men’s curves diverge.</li>
-        </ul>
-      </p>
-    </div>
-  </div>
-</div>
-
-
-
-        <!-- TOP: GRAPH -->
-    <div class="graph-area">
-      <div class="chart-wrapper">
-        <!-- TODO: update 'map' to your full-explorer cell name if needed -->
-        <iframe
-          width="100%"
-          height="650"
-          frameborder="0"
-          src="https://observablehq.com/embed/59ceb65501adab5a@412?cells=map&api_key=8637612648f673a72300bf448324b6dc11cdebab">
-        </iframe>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-    <!-- Map Section -->
-    <section id="map-section" class="graph-section">
-      <div class="split-layout">
-        <div class="graph-side">
-          <div class="chart-wrapper">
-            <div id="world-map"></div>
-            <div class="trend-section-divider">
-              <div id="multi-country-trend"></div>
-            </div>
-          </div>
-        </div>
-        <div class="content-side">
-          <div class="content-card active" data-step="0">
-            <div class="card-content">
-              <div class="step-indicator">1/4</div>
-              <p class="card-text">
-                (Soon to be added)
-              </p>
-              <div class="nav-buttons">
-                <button class="nav-btn prev-btn" data-section="map-section">← Previous</button>
-                <button class="nav-btn next-btn" data-section="map-section">Next →</button>
-              </div>
-            </div>
-          </div>
-          <div class="content-card" data-step="1">
-            <div class="card-content">
-              <div class="step-indicator">2/4</div>
-              <p class="card-text">
-                (Soon to be added)
-              </p>
-              <div class="nav-buttons">
-                <button class="nav-btn prev-btn" data-section="map-section">← Previous</button>
-                <button class="nav-btn next-btn" data-section="map-section">Next →</button>
-              </div>
-            </div>
-          </div>
-          <div class="content-card" data-step="2">
-            <div class="card-content">
-              <div class="step-indicator">3/4</div>
-              <p class="card-text">
-                (Soon to be added)
-              </p>
-              <div class="nav-buttons">
-                <button class="nav-btn prev-btn" data-section="map-section">← Previous</button>
-                <button class="nav-btn next-btn" data-section="map-section">Next →</button>
-              </div>
-            </div>
-          </div>
-          <div class="content-card" data-step="3">
-            <div class="card-content">
-              <div class="step-indicator">4/4</div>
-              <p class="card-text">
-                (Soon to be added)
-              </p>
-              <div class="nav-buttons">
-                <button class="nav-btn prev-btn" data-section="map-section">← Previous</button>
-                <button class="nav-btn next-btn" data-section="map-section">Next →</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Exploring the Data Section -->
-    <section id="exploring-data-section" class="conclusion-section">
-      <div class="conclusion-content">
-        <h2 class="conclusion-heading">Exploring the Data</h2>
-        <p class="conclusion-text">
-          Content coming soon.
-        </p>
-        <div class="nav-buttons" style="margin-top: 30px;">
-          <button class="nav-btn prev-btn" data-section="exploring-data-section">← Previous</button>
-          <button class="nav-btn next-btn" data-section="exploring-data-section">Next →</button>
-        </div>
-      </div>
-    </section>
 
     <!-- Combined Question Section -->
     <section id="combined-question-section" class="graph-section">
@@ -916,6 +740,38 @@
           <em>American Journal of Public Health</em>, vol. 105, no. 11, Nov. 2015, pp. 2228–2236.
           <em>PMC</em>,
           <a href="https://doi.org/10.2105/AJPH.2015.302819" target="_blank" rel="noopener noreferrer">https://doi.org/10.2105/AJPH.2015.302819</a>.
+        </p>
+        <p class="sources-text" id="source-4">
+          <span class="source-number">[4]</span> "Obesity and Overweight." <em>World Health Organization</em>,
+          <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener noreferrer">https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight</a>.
+        </p>
+        <p class="sources-text" id="source-5">
+          <span class="source-number">[5]</span> "NCD Risk Factor Collaboration (NCD-RisC)." <em>NCD-RisC</em>,
+          <a href="https://ncdrisc.org/" target="_blank" rel="noopener noreferrer">https://ncdrisc.org/</a>.
+        </p>
+        <p class="sources-text" id="source-6">
+          <span class="source-number">[6]</span> "Prevalence of Obesity and Severe Obesity Among Adults: United States, August 2021–August 2023." <em>Centers for Disease Control and Prevention</em>, Data Brief No. 508, Mar. 2024,
+          <a href="https://www.cdc.gov/nchs/products/databriefs/db508.htm" target="_blank" rel="noopener noreferrer">https://www.cdc.gov/nchs/products/databriefs/db508.htm</a>.
+        </p>
+        <p class="sources-text" id="source-7">
+          <span class="source-number">[7]</span> "Obesity Rate Nearly Triples in the United States Over Last 50 Years." <em>USAFacts</em>,
+          <a href="https://usafacts.org/articles/obesity-rate-nearly-triples-united-states-over-last-50-years/" target="_blank" rel="noopener noreferrer">https://usafacts.org/articles/obesity-rate-nearly-triples-united-states-over-last-50-years/</a>.
+        </p>
+        <p class="sources-text" id="source-8">
+          <span class="source-number">[8]</span> Roser, Max, and Hannah Ritchie. "Obesity." <em>Our World in Data</em>,
+          <a href="https://ourworldindata.org/obesity" target="_blank" rel="noopener noreferrer">https://ourworldindata.org/obesity</a>.
+        </p>
+        <p class="sources-text" id="source-9">
+          <span class="source-number">[9]</span> Ikeda, Nayu, et al. "Adult Mortality Attributable to Preventable Risk Factors for Non-Communicable Diseases and Injuries in Japan: A Comparative Risk Assessment." <em>PLOS Medicine</em>, vol. 9, no. 1, Jan. 2012, e1001160. <em>PMC</em>,
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9163402/" target="_blank" rel="noopener noreferrer">https://pmc.ncbi.nlm.nih.gov/articles/PMC9163402/</a>.
+        </p>
+        <p class="sources-text" id="source-10">
+          <span class="source-number">[10]</span> "World Obesity Atlas 2023." <em>World Obesity Federation</em>,
+          <a href="https://data.worldobesity.org/rankings/" target="_blank" rel="noopener noreferrer">https://data.worldobesity.org/rankings/</a>.
+        </p>
+        <p class="sources-text" id="source-11">
+          <span class="source-number">[11]</span> Al-Nohair, Sulaiman. "Obesity in Gulf Countries." <em>International Journal of Health Sciences</em>, vol. 8, no. 1, Jan. 2014, pp. V–VI. <em>PMC</em>,
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4039587/" target="_blank" rel="noopener noreferrer">https://pmc.ncbi.nlm.nih.gov/articles/PMC4039587/</a>.
         </p>
       </div>
     </section>

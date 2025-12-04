@@ -48,9 +48,7 @@ function updateChartFromControls() {
 }
 
 const state = {
-  'global-trends': { step: 0, totalSteps: 1 },
-  map: { step: 0, totalSteps: 4, currentYear: 2022 },
-  'exploring-data': { step: 0, totalSteps: 1 },
+  'global-patterns': { step: 0, totalSteps: 6 },
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
   inactivity: { step: 0, totalSteps: 5 },
@@ -65,7 +63,7 @@ const chartPresets = {
   4: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
 };
 
-const sectionOrder = ['global-trends-section', 'map-section', 'exploring-data-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section', 'glp1-section'];
+const sectionOrder = ['global-patterns-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section', 'glp1-section', 'glp1-medications-section'];
 
 function updateSection(sectionId) {
   const section = document.getElementById(sectionId);
@@ -108,16 +106,16 @@ function updateSection(sectionId) {
 
 function updateChart(sectionKey, step) {
   switch (sectionKey) {
-    case 'map':
-      // Hide the map for all steps - show placeholder
-      const mapContainer = document.getElementById('world-map');
-      if (mapContainer) {
-        mapContainer.innerHTML = '';
-      }
-      const trendContainer = document.getElementById('multi-country-trend');
-      if (trendContainer) {
-        trendContainer.innerHTML = '';
-      }
+    case 'global-patterns':
+      // Show/hide graphs based on current step
+      const globalGraphs = document.querySelectorAll('#global-patterns-section .piper-guided-graph');
+      globalGraphs.forEach((graph, index) => {
+        if (index === step) {
+          graph.style.display = 'block';
+        } else {
+          graph.style.display = 'none';
+        }
+      });
       break;
     case 'inactivity':
       const chartTitle = document.getElementById('inactivity-chart-title');
@@ -240,9 +238,10 @@ export function setupNavigation() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetStep = parseInt(link.dataset.targetStep);
-      navigateToCard('inactivity-section', targetStep);
+      const sectionId = link.dataset.section || 'inactivity-section';
+      navigateToCard(sectionId, targetStep);
 
-      const section = document.getElementById('inactivity-section');
+      const section = document.getElementById(sectionId);
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
