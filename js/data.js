@@ -119,3 +119,47 @@ export const PAL_TEE_UPF_HDI_Data_Elsa = [
   {Population:"Yakut","ISO":"YAK","HDI_score":null,"HDI_rank":200,"Economy":"lowHDI",N_M:14,"BodyMass_M":72.19,"Height_M":"169.48","BMI_M":"25.12","Fat_M":25.26,TEE_M:13.29,"BEEmeas_M":"7.73","BEEest_M":null,"AEE_M":4.22,PAL_M:1.72,"adj_BMI_TEE_slope_M":"-0.358","adj_Fat_TEE_slope_M":"6.245",N_F:"14","BodyMass_F":"65.19","Height_F":"155.34","BMI_F":"26.91",Fat_F:"41.44",TEE_F:"9.81",BEEmeas_F:"6.42",BEEest_F:null,AEE_F:"2.41",PAL_F:"1.53",adj_BMI_TEE_slope_F:"36.488",adj_Fat_TEE_slope_F:"26.96",PercUPF:null,UPF_source:null,kg_meat:null,meat_source:null,lat:62,lon:129},
   {Population:"South Africa","ISO":"ZAF","HDI_score":"0.713","HDI_rank":102,"Economy":"midHDI",N_M:37,"BodyMass_M":62.03,"Height_M":"169.16","BMI_M":"21.68","Fat_M":23.11,TEE_M:10.04,"BEEmeas_M":null,"BEEest_M":"6.37","AEE_M":2.67,PAL_M:1.59,"adj_BMI_TEE_slope_M":"-7.929","adj_Fat_TEE_slope_M":"-2.365",N_F:"59","BodyMass_F":"83.05","Height_F":"160.54","BMI_F":"32.06",Fat_F:"44.11",TEE_F:"9.97",BEEmeas_F:null,BEEest_F:"6.28",AEE_F:"2.69",PAL_F:"1.6",adj_BMI_TEE_slope_F:"1.38",adj_Fat_TEE_slope_F:"-0.447",PercUPF:"39.4",UPF_source:"15",kg_meat:"61.54",meat_source:"2",lat:-30.5595,lon:22.9375}
 ]
+
+// U.S. Obesity and Diabetes decline data from Gallup
+export const usObesityDiabetesData = {
+  obesity: [
+    { year: 2008, value: 25.5 },
+    { year: 2009, value: 26.5 },
+    { year: 2010, value: 26.6 },
+    { year: 2011, value: 26.1 },
+    { year: 2012, value: 26.2 },
+    { year: 2013, value: 27.1 },
+    { year: 2014, value: 27.7 },
+    { year: 2015, value: 28.0 },
+    { year: 2016, value: 28.4 },
+    { year: 2017, value: 29.2 },
+    { year: 2018, value: 31.4 },
+    { year: 2019, value: 32.4 },
+    { year: 2020, value: 33.4 },
+    { year: 2021, value: 36.1 },
+    { year: 2022, value: 39.9 },
+    { year: 2023, value: 38.4 },
+    { year: 2024, value: 37.5 },
+    { year: 2025, value: 37.0 }
+  ],
+  diabetes: [
+    { year: 2008, value: 10.6 },
+    { year: 2009, value: 11.0 },
+    { year: 2010, value: 11.3 },
+    { year: 2011, value: 10.9 },
+    { year: 2012, value: 10.9 },
+    { year: 2013, value: 11.1 },
+    { year: 2014, value: 11.4 },
+    { year: 2015, value: 11.4 },
+    { year: 2016, value: 11.6 },
+    { year: 2017, value: 11.4 },
+    { year: 2018, value: 12.9 },
+    { year: 2019, value: 12.5 },
+    { year: 2020, value: 13.0 },
+    { year: 2021, value: 12.3 },
+    { year: 2022, value: 12.8 },
+    { year: 2023, value: 13.6 },
+    { year: 2024, value: 13.4 },
+    { year: 2025, value: 13.8 }
+  ]
+};

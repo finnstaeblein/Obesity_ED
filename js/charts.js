@@ -1,4 +1,4 @@
-import { countryData, obesityTrends, topObeseCountries, getObesityForYear, trendYears, PAL_TEE_UPF_HDI_Data_Elsa } from './data.js';
+import { countryData, obesityTrends, topObeseCountries, getObesityForYear, trendYears, PAL_TEE_UPF_HDI_Data_Elsa, usObesityDiabetesData } from './data.js';
 
 // Create a single global tooltip for all charts
 const globalTooltip = d3.select('body').append('div')
@@ -1461,6 +1461,233 @@ export function toggleHighlight(population) {
 
   // Redraw chart
   createUnifiedInteractiveChart('inactivity-chart');
+}
+
+// Create obesity/diabetes decline chart
+export function createObesityDeclineChart(containerId) {
+  // Use data from data.js
+  const obesityData = usObesityDiabetesData.obesity;
+  const diabetesData = usObesityDiabetesData.diabetes;
+
+  const container = d3.select(`#${containerId}`);
+  container.selectAll('*').remove();
+
+  const margin = { top: 60, right: 120, bottom: 60, left: 60 };
+  const width = 900 - margin.left - margin.right;
+  const height = 500 - margin.top - margin.bottom;
+
+  const svg = container.append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+  // Add chart title
+  svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', -30)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '18px')
+    .attr('font-weight', '600')
+    .attr('fill', '#1f2937')
+    .text('U.S. Obesity and Diabetes Rates (2008-2025)');
+
+  // Scales
+  const xScale = d3.scaleLinear()
+    .domain([2008, 2025])
+    .range([0, width]);
+
+  const yScale = d3.scaleLinear()
+    .domain([0, 45])
+    .range([height, 0]);
+
+  // Axes
+  const xAxis = d3.axisBottom(xScale)
+    .tickFormat(d3.format('d'))
+    .ticks(9);
+
+  const yAxis = d3.axisLeft(yScale)
+    .tickFormat(d => d + '%');
+
+  svg.append('g')
+    .attr('transform', `translate(0,${height})`)
+    .call(xAxis)
+    .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+    .selectAll('text')
+    .style('font-size', '12px')
+    .style('fill', '#64748b');
+
+  svg.append('g')
+    .call(yAxis)
+    .call(g => g.select('.domain').attr('stroke', '#cbd5e1'))
+    .selectAll('text')
+    .style('font-size', '12px')
+    .style('fill', '#64748b');
+
+  // Grid lines
+  svg.append('g')
+    .attr('class', 'grid')
+    .selectAll('line')
+    .data(yScale.ticks(9))
+    .join('line')
+    .attr('x1', 0)
+    .attr('x2', width)
+    .attr('y1', d => yScale(d))
+    .attr('y2', d => yScale(d))
+    .attr('stroke', '#e2e8f0')
+    .attr('stroke-dasharray', '2,2');
+
+  // Line generators
+  const obesityLine = d3.line()
+    .x(d => xScale(d.year))
+    .y(d => yScale(d.value))
+    .curve(d3.curveMonotoneX);
+
+  const diabetesLine = d3.line()
+    .x(d => xScale(d.year))
+    .y(d => yScale(d.value))
+    .curve(d3.curveMonotoneX);
+
+  // Draw obesity line
+  svg.append('path')
+    .datum(obesityData)
+    .attr('fill', 'none')
+    .attr('stroke', '#f97316')
+    .attr('stroke-width', 3)
+    .attr('d', obesityLine);
+
+  // Draw diabetes line
+  svg.append('path')
+    .datum(diabetesData)
+    .attr('fill', 'none')
+    .attr('stroke', '#3b82f6')
+    .attr('stroke-width', 3)
+    .attr('d', diabetesLine);
+
+  // Add dots for obesity data
+  svg.selectAll('.obesity-dot')
+    .data(obesityData)
+    .join('circle')
+    .attr('class', 'obesity-dot')
+    .attr('cx', d => xScale(d.year))
+    .attr('cy', d => yScale(d.value))
+    .attr('r', 4)
+    .attr('fill', '#f97316')
+    .style('cursor', 'pointer')
+    .on('mouseover', function(event, d) {
+      d3.select(this).attr('r', 6);
+      globalTooltip
+        .html(`<strong>${d.year}</strong><br/>Obesity: ${d.value}%`)
+        .style('left', (event.pageX + 10) + 'px')
+        .style('top', (event.pageY - 10) + 'px')
+        .classed('visible', true);
+    })
+    .on('mouseout', function() {
+      d3.select(this).attr('r', 4);
+      globalTooltip.classed('visible', false);
+    });
+
+  // Add dots for diabetes data
+  svg.selectAll('.diabetes-dot')
+    .data(diabetesData)
+    .join('circle')
+    .attr('class', 'diabetes-dot')
+    .attr('cx', d => xScale(d.year))
+    .attr('cy', d => yScale(d.value))
+    .attr('r', 4)
+    .attr('fill', '#3b82f6')
+    .style('cursor', 'pointer')
+    .on('mouseover', function(event, d) {
+      d3.select(this).attr('r', 6);
+      globalTooltip
+        .html(`<strong>${d.year}</strong><br/>Diabetes: ${d.value}%`)
+        .style('left', (event.pageX + 10) + 'px')
+        .style('top', (event.pageY - 10) + 'px')
+        .classed('visible', true);
+    })
+    .on('mouseout', function() {
+      d3.select(this).attr('r', 4);
+      globalTooltip.classed('visible', false);
+    });
+
+  // Highlight the peak and decline for obesity
+  const peakYear = 2022;
+  const peakData = obesityData.find(d => d.year === peakYear);
+
+  // Vertical line at peak
+  svg.append('line')
+    .attr('x1', xScale(peakYear))
+    .attr('x2', xScale(peakYear))
+    .attr('y1', yScale(peakData.value))
+    .attr('y2', height)
+    .attr('stroke', '#f97316')
+    .attr('stroke-width', 1)
+    .attr('stroke-dasharray', '4,4')
+    .attr('opacity', 0.5);
+
+  // Peak annotation
+  svg.append('text')
+    .attr('x', xScale(peakYear))
+    .attr('y', yScale(peakData.value) - 10)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '11px')
+    .attr('font-weight', '600')
+    .attr('fill', '#f97316')
+    .text(`Peak: ${peakData.value}%`);
+
+  // Legend
+  const legend = svg.append('g')
+    .attr('transform', `translate(${width + 10}, 20)`);
+
+  legend.append('line')
+    .attr('x1', 0)
+    .attr('x2', 30)
+    .attr('y1', 0)
+    .attr('y2', 0)
+    .attr('stroke', '#f97316')
+    .attr('stroke-width', 3);
+
+  legend.append('text')
+    .attr('x', 35)
+    .attr('y', 0)
+    .attr('dominant-baseline', 'middle')
+    .attr('font-size', '13px')
+    .attr('fill', '#1f2937')
+    .text('Obesity');
+
+  legend.append('line')
+    .attr('x1', 0)
+    .attr('x2', 30)
+    .attr('y1', 25)
+    .attr('y2', 25)
+    .attr('stroke', '#3b82f6')
+    .attr('stroke-width', 3);
+
+  legend.append('text')
+    .attr('x', 35)
+    .attr('y', 25)
+    .attr('dominant-baseline', 'middle')
+    .attr('font-size', '13px')
+    .attr('fill', '#1f2937')
+    .text('Diabetes');
+
+  // Axis labels
+  svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', height + 45)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '13px')
+    .attr('fill', '#64748b')
+    .text('Year');
+
+  svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', -height / 2)
+    .attr('y', -45)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '13px')
+    .attr('fill', '#64748b')
+    .text('Percentage of U.S. Adults (%)');
 }
 
 

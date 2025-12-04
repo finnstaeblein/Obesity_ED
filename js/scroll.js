@@ -1,4 +1,4 @@
-import { createWorldMap, createDataCollectionMap, createUnifiedInteractiveChart, setUnifiedChartFilters, getUnifiedChartFilters, toggleHighlight } from './charts.js';
+import { createWorldMap, createDataCollectionMap, createUnifiedInteractiveChart, setUnifiedChartFilters, getUnifiedChartFilters, toggleHighlight, createObesityDeclineChart } from './charts.js';
 import { PAL_TEE_UPF_HDI_Data_Elsa } from './data.js';
 
 // Get all unique population names for the selector
@@ -52,7 +52,7 @@ const state = {
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
   inactivity: { step: 0, totalSteps: 5 },
-  glp1: { step: 0, totalSteps: 4 }
+  glp1: { step: 0, totalSteps: 2 }
 };
 
 // Preset configurations for each step of the unified chart
@@ -165,6 +165,13 @@ function updateChart(sectionKey, step) {
 
         // Setup control listeners for all chart steps (users can modify)
         setupUnifiedChartControls();
+      }
+      break;
+    case 'glp1':
+      // Show obesity decline chart only on step 0
+      const glp1ChartContainer = document.getElementById('glp1-decline-chart');
+      if (step === 0 && glp1ChartContainer) {
+        createObesityDeclineChart('glp1-decline-chart');
       }
       break;
   }
