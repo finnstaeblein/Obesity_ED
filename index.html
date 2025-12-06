@@ -353,63 +353,74 @@
               </h3>
             </div>
             <div id="inactivity-chart"></div>
-            <div class="chart-controls-row" id="unified-controls-container" style="display: none;">
-              <div class="unified-controls">
-                <div class="control-row">
-                  <div class="control-item">
-                    <label class="control-label-small">Y-axis:</label>
-                    <select id="unified-y-select" class="unified-select">
-                      <option value="TEE">Total Energy Expenditure (TEE) MJ/day</option>
-                      <option value="PAL">Physical Activity Level (PAL)</option>
-                      <option value="PercUPF">Percentage of Energy Intake from Ultra-processed Foods</option>
-                      <option value="Fat" selected>Body Fat Percentage</option>
-                    </select>
-                  </div>
-                  <div class="control-item">
-                    <label class="control-label-small">Sex:</label>
-                    <div class="sex-toggle">
-                      <label class="toggle-label">
-                        <input type="checkbox" id="unified-male-cb" checked>
-                        <span>M</span>
-                      </label>
-                      <label class="toggle-label">
-                        <input type="checkbox" id="unified-female-cb" checked>
-                        <span>F</span>
-                      </label>
+            <div class="chart-controls-wrapper" id="unified-controls-container" style="display: none;">
+              <div class="chart-controls-section filters-section">
+                <div class="unified-controls">
+                  <div class="stats-header">Filters</div>
+                  <div class="control-row">
+                    <div class="control-item">
+                      <label class="control-label-small">Y-axis:</label>
+                      <select id="unified-y-select" class="unified-select">
+                        <option value="TEE">Total Energy Expenditure (TEE) MJ/day</option>
+                        <option value="PAL">Physical Activity Level (PAL)</option>
+                        <option value="PercUPF">Percentage of Energy Intake from Ultra-processed Foods</option>
+                        <option value="Fat" selected>Body Fat Percentage</option>
+                      </select>
+                    </div>
+                    <div class="control-item">
+                      <label class="control-label-small">Sex:</label>
+                      <div class="sex-toggle">
+                        <label class="toggle-label">
+                          <input type="checkbox" id="unified-male-cb" checked>
+                          <span>M</span>
+                        </label>
+                        <label class="toggle-label">
+                          <input type="checkbox" id="unified-female-cb" checked>
+                          <span>F</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="control-item">
+                      <label class="control-label-small">X-axis:</label>
+                      <select id="unified-x-select" class="unified-select">
+                        <option value="Economy_Type">Economy Type</option>
+                        <option value="HDI_rank" selected>Human Development Index (HDI) Rank</option>
+                        <option value="TEE">Total Energy Expenditure (TEE) MJ/day</option>
+                        <option value="PAL">Physical Activity Level (PAL)</option>
+                        <option value="PercUPF">Percentage of Energy Intake from Ultra-processed Foods</option>
+                        <option value="Fat">Body Fat Percentage</option>
+                      </select>
+                    </div>
+                    <div class="control-item" id="chart-type-control" style="display: none;">
+                      <label class="control-label-small">View:</label>
+                      <div class="view-tabs-wrapper">
+                        <div class="view-tabs">
+                          <button class="view-tab active" data-view="box" id="box-view-btn">Box</button>
+                          <button class="view-tab" data-view="scatter" id="scatter-view-btn">Scatter</button>
+                        </div>
+                        <div class="disabled-tooltip" id="view-disabled-tooltip">Select "Economy (HDI)" as X-axis to
+                          enable box plot view</div>
+                      </div>
                     </div>
                   </div>
-                  <div class="control-item">
-                    <label class="control-label-small">X-axis:</label>
-                    <select id="unified-x-select" class="unified-select">
-                      <option value="Economy_Type">Economy Type</option>
-                      <option value="HDI_rank" selected>Human Development Index (HDI) Rank</option>
-                      <option value="TEE">Total Energy Expenditure (TEE) MJ/day</option>
-                      <option value="PAL">Physical Activity Level (PAL)</option>
-                      <option value="PercUPF">Percentage of Energy Intake from Ultra-processed Foods</option>
-                      <option value="Fat">Body Fat Percentage</option>
-                    </select>
-                  </div>
-                  <div class="control-item" id="chart-type-control" style="display: none;">
-                    <label class="control-label-small">View:</label>
-                    <div class="view-tabs-wrapper">
-                      <div class="view-tabs">
-                        <button class="view-tab active" data-view="box" id="box-view-btn">Box</button>
-                        <button class="view-tab" data-view="scatter" id="scatter-view-btn">Scatter</button>
+                  <div class="control-row">
+                    <div class="population-selector-control">
+                      <label class="control-label-small">Highlight populations:</label>
+                      <div class="population-selector-wrapper">
+                        <select id="population-select" class="unified-select population-select">
+                          <option value="">Select to highlight...</option>
+                        </select>
+                        <div class="selected-populations" id="selected-populations"></div>
                       </div>
-                      <div class="disabled-tooltip" id="view-disabled-tooltip">Select "Economy (HDI)" as X-axis to
-                        enable box plot view</div>
                     </div>
                   </div>
                 </div>
-                <div class="control-row">
-                  <div class="population-selector-control">
-                    <label class="control-label-small">Highlight populations:</label>
-                    <div class="population-selector-wrapper">
-                      <select id="population-select" class="unified-select population-select">
-                        <option value="">Select to highlight...</option>
-                      </select>
-                      <div class="selected-populations" id="selected-populations"></div>
-                    </div>
+              </div>
+              <div class="chart-controls-section stats-section" id="regression-stats-container" style="display: none;">
+                <div class="unified-controls">
+                  <div class="stats-header">Regression Statistics</div>
+                  <div class="stats-grid" id="regression-stats-grid">
+                    <!-- Statistics will be populated by JavaScript -->
                   </div>
                 </div>
               </div>

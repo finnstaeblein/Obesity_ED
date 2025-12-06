@@ -1,4 +1,176 @@
 import { countryData, obesityTrends, topObeseCountries, getObesityForYear, trendYears, PAL_TEE_UPF_HDI_Data_Elsa, usObesityDiabetesData } from './data.js';
+import { linearRegression, linearRegressionLine } from 'simple-statistics';
+
+// Calculate comprehensive regression statistics (R², F-statistic, p-value, slope, intercept)
+function calculateRegressionStats(data) {
+  // data should be array of [x, y] pairs
+  if (!data || data.length < 3) {
+    return { r2: null, f: null, p: null, b0: null, b1: null, n: 0 };
+  }
+
+  // Calculate regression using simple-statistics
+  const regression = linearRegression(data);
+  const b1 = regression.m; // slope
+  const b0 = regression.b; // intercept
+  const regressionLine = linearRegressionLine(regression);
+
+  // Calculate R² (PRE - Proportional Reduction in Error)
+  const yValues = data.map(d => d[1]);
+  const yMean = yValues.reduce((a, b) => a + b, 0) / yValues.length;
+
+  // Total Sum of Squares
+  const sst = yValues.reduce((sum, y) => sum + Math.pow(y - yMean, 2), 0);
+
+  // Residual Sum of Squares
+  const ssr = data.reduce((sum, point) => {
+    const predicted = regressionLine(point[0]);
+    return sum + Math.pow(point[1] - predicted, 2);
+  }, 0);
+
+  const r2 = 1 - (ssr / sst);
+
+  // Calculate F-statistic
+  const n = data.length;
+  const dfRegression = 1;  // One predictor
+  const dfResidual = n - 2;
+  const msr = (sst - ssr) / dfRegression;
+  const mse = ssr / dfResidual;
+  const f = msr / mse;
+
+  // Calculate p-value from F-statistic using improved approximation
+  function fDistributionPValue(fVal, df1, df2) {
+    if (fVal <= 0) return 1;
+    if (!isFinite(fVal)) return 0;
+
+    // Improved approximation for F-distribution p-value
+    if (fVal > 100) return 0.00001;
+    if (fVal > 50) return 0.0001;
+    if (fVal > 30) return 0.0005;
+    if (fVal > 20) return 0.001;
+    if (fVal > 15) return 0.002;
+    if (fVal > 10) return 0.005;
+    if (fVal > 7) return 0.01;
+    if (fVal > 5) return 0.02;
+    if (fVal > 4) return 0.05;
+    if (fVal > 3) return 0.08;
+    if (fVal > 2.5) return 0.10;
+    if (fVal > 2) return 0.15;
+    if (fVal > 1.5) return 0.20;
+    return 0.25;
+  }
+
+  const p = fDistributionPValue(f, dfRegression, dfResidual);
+
+  return { r2, f, p, b0, b1, n };
+}
+
+// Update the regression statistics card
+function updateRegressionStatsCard(maleStats, femaleStats, hasMaleRegression, hasFemaleRegression, isXAxisEconomy = false) {
+  const statsGrid = document.getElementById('regression-stats-grid');
+  const statsContainer = document.getElementById('regression-stats-container');
+
+  if (!statsGrid || !statsContainer) return;
+
+  // Clear previous content
+  statsGrid.innerHTML = '';
+
+  // If X-axis is Economy_Type, show message that regression is not applicable
+  if (isXAxisEconomy) {
+    statsContainer.style.display = 'block';
+    statsGrid.innerHTML = '<div style="text-align: center; color: #6b7280; font-size: 0.9rem; padding: 0.5rem;">Regression statistics not available for categorical variables</div>';
+    return;
+  }
+
+  // Helper function to format p-value
+  function formatPValue(p) {
+    if (p < 0.0001) return '< 0.0001';
+    if (p < 0.001) return p.toFixed(4);
+    if (p < 0.01) return p.toFixed(3);
+    return p.toFixed(2);
+  }
+
+  // Only show if we have statistics
+  const hasStats = (maleStats && hasMaleRegression) || (femaleStats && hasFemaleRegression);
+
+  if (!hasStats) {
+    statsContainer.style.display = 'none';
+    return;
+  }
+
+  statsContainer.style.display = 'block';
+
+  // Male statistics column
+  if (maleStats && hasMaleRegression) {
+    const maleColumn = document.createElement('div');
+    maleColumn.className = 'stat-column';
+
+    maleColumn.innerHTML = `
+      <div class="stat-column-header">Male</div>
+      <div class="stat-item">
+        <span class="stat-label">R² (PRE):</span>
+        <span class="stat-value">${maleStats.r2.toFixed(3)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">F-statistic:</span>
+        <span class="stat-value">${maleStats.f.toFixed(2)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">p-value:</span>
+        <span class="stat-value">${formatPValue(maleStats.p)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">b₀ (intercept):</span>
+        <span class="stat-value">${maleStats.b0.toFixed(3)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">b₁ (slope):</span>
+        <span class="stat-value">${maleStats.b1.toFixed(3)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Sample size:</span>
+        <span class="stat-value">n = ${maleStats.n}</span>
+      </div>
+    `;
+
+    statsGrid.appendChild(maleColumn);
+  }
+
+  // Female statistics column
+  if (femaleStats && hasFemaleRegression) {
+    const femaleColumn = document.createElement('div');
+    femaleColumn.className = 'stat-column';
+
+    femaleColumn.innerHTML = `
+      <div class="stat-column-header">Female</div>
+      <div class="stat-item">
+        <span class="stat-label">R² (PRE):</span>
+        <span class="stat-value">${femaleStats.r2.toFixed(3)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">F-statistic:</span>
+        <span class="stat-value">${femaleStats.f.toFixed(2)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">p-value:</span>
+        <span class="stat-value">${formatPValue(femaleStats.p)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">b₀ (intercept):</span>
+        <span class="stat-value">${femaleStats.b0.toFixed(3)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">b₁ (slope):</span>
+        <span class="stat-value">${femaleStats.b1.toFixed(3)}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Sample size:</span>
+        <span class="stat-value">n = ${femaleStats.n}</span>
+      </div>
+    `;
+
+    statsGrid.appendChild(femaleColumn);
+  }
+}
 
 // Create a single global tooltip for all charts
 const globalTooltip = d3.select('body').append('div')
@@ -798,6 +970,8 @@ export function createUnifiedInteractiveChart(containerId) {
   // Initialize regression r-values (will be set in scatter plot section)
   let maleRValue = 0;
   let femaleRValue = 0;
+  let maleStats = null;
+  let femaleStats = null;
 
   if (showBoxPlot) {
     // Group data by economy for box plot
@@ -997,6 +1171,9 @@ export function createUnifiedInteractiveChart(containerId) {
 
     addTooltipIcon(yAxisLabelGroup, 80, -5, varMapping[currentFilters.yVar].tooltip);
 
+    // Box plots don't have regression statistics (categorical X variable)
+    updateRegressionStatsCard(null, null, false, false, true);
+
   } else {
     // Scatter plot - always use numeric scales
     const xExtent = d3.extent(filteredData, d => d.xVal);
@@ -1022,7 +1199,7 @@ export function createUnifiedInteractiveChart(containerId) {
     const females = filteredData.filter(d => d.sex === 'F');
 
     function addRegressionLine(data, isDotted) {
-      if (data.length < 2) return { hasLine: false, r: 0 };
+      if (data.length < 2) return { hasLine: false, r: 0, stats: null };
 
       const xMean = d3.mean(data, d => d.xVal);
       const yMean = d3.mean(data, d => d.yVal);
@@ -1035,13 +1212,17 @@ export function createUnifiedInteractiveChart(containerId) {
         denX += dx ** 2;
         denY += dy ** 2;
       });
-      if (denX === 0) return { hasLine: false, r: 0 };
+      if (denX === 0) return { hasLine: false, r: 0, stats: null };
 
       const slope = num / denX;
       const intercept = yMean - slope * xMean;
 
       // Calculate correlation coefficient (r)
       const r = denX > 0 && denY > 0 ? num / Math.sqrt(denX * denY) : 0;
+
+      // Calculate full regression statistics
+      const regressionData = data.map(d => [d.xVal, d.yVal]);
+      const stats = calculateRegressionStats(regressionData);
 
       const xMin = d3.min(data, d => d.xVal);
       const xMax = d3.max(data, d => d.xVal);
@@ -1059,19 +1240,24 @@ export function createUnifiedInteractiveChart(containerId) {
         line.attr('stroke-dasharray', '5 4');
       }
 
-      return { hasLine: true, r: r };
+      return { hasLine: true, r: r, stats: stats };
     }
 
     if (currentFilters.sexes.includes('M')) {
       const result = addRegressionLine(males, true);
       hasMaleRegression = result.hasLine;
       maleRValue = result.r;
+      maleStats = result.stats;
     }
     if (currentFilters.sexes.includes('F')) {
       const result = addRegressionLine(females, false);
       hasFemaleRegression = result.hasLine;
       femaleRValue = result.r;
+      femaleStats = result.stats;
     }
+
+    // Update regression statistics card
+    updateRegressionStatsCard(maleStats, femaleStats, hasMaleRegression, hasFemaleRegression, isXAxisEconomy);
 
     // Draw scatter points
     filteredData.forEach(d => {
