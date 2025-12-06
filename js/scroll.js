@@ -51,16 +51,15 @@ const state = {
   'global-patterns': { step: 0, totalSteps: 3 },
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
-  inactivity: { step: 0, totalSteps: 5 },
+  inactivity: { step: 0, totalSteps: 4 },
   glp1: { step: 0, totalSteps: 1 }
 };
 
 // Preset configurations for each step of the unified chart
 const chartPresets = {
-  1: { xVar: 'HDI_rank', yVar: 'Fat', chartType: 'auto' },          // Body fat over HDI rank
-  2: { xVar: 'PAL', yVar: 'Fat', chartType: 'auto' },               // Fat vs PAL
-  3: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' },           // Fat vs UPF
-  4: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
+  1: { xVar: 'PAL', yVar: 'Fat', chartType: 'auto' },               // Fat vs PAL
+  2: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' },           // Fat vs UPF
+  3: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
 };
 
 const sectionOrder = ['global-patterns-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section', 'glp1-section', 'glp1-medications-section'];
@@ -139,8 +138,8 @@ function updateChart(sectionKey, step) {
         if (noDataSection) noDataSection.remove();
 
         createDataCollectionMap('inactivity-chart');
-      } else if (step >= 1 && step <= 4) {
-        // Steps 1-4 use the unified chart
+      } else if (step >= 1 && step <= 3) {
+        // Steps 1-3 use the unified chart
         const preset = chartPresets[step];
 
         // Apply preset configuration (keep highlighted populations)
@@ -154,10 +153,9 @@ function updateChart(sectionKey, step) {
 
         // Update chart title based on step
         const titles = {
-          1: 'Body Fat % by HDI Rank',
-          2: 'Body Fat % vs Physical Activity Level (PAL)',
-          3: 'Body Fat % vs Ultra-Processed Food (UPF) %',
-          4: 'Interactive Data Explorer'
+          1: 'Body Fat % vs Physical Activity Level (PAL)',
+          2: 'Body Fat % vs Ultra-Processed Food (UPF) %',
+          3: 'Interactive Data Explorer'
         };
         if (chartTitle) chartTitle.textContent = titles[step];
 
