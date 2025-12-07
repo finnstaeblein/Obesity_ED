@@ -1,9 +1,7 @@
 import { countryData, obesityTrends, topObeseCountries, getObesityForYear, trendYears, PAL_TEE_UPF_HDI_Data_Elsa, usObesityDiabetesData } from './data.js';
-// import { linearRegression, linearRegressionLine } from 'simple-statistics';
+//import { linearRegression, linearRegressionLine } from 'simple-statistics';
 
-import { linearRegression, linearRegressionLine } from "https://cdn.jsdelivr.net/npm/simple-statistics@7.8.0/dist/simple-statistics.esm.min.js";
-
-
+//import { linearRegression, linearRegressionLine } from "https://cdn.jsdelivr.net/npm/simple-statistics@7.8.0/dist/simple-statistics.esm.min.js";
 
 // Calculate comprehensive regression statistics (R², F-statistic, p-value, slope, intercept)
 function calculateRegressionStats(data) {
@@ -13,10 +11,10 @@ function calculateRegressionStats(data) {
   }
 
   // Calculate regression using simple-statistics
-  const regression = linearRegression(data);
+  const regression = ss.linearRegression(data);
   const b1 = regression.m; // slope
   const b0 = regression.b; // intercept
-  const regressionLine = linearRegressionLine(regression);
+  const regressionLine = ss.linearRegressionLine(regression);
 
   // Calculate R² (PRE - Proportional Reduction in Error)
   const yValues = data.map(d => d[1]);
