@@ -1145,7 +1145,7 @@ export function createUnifiedInteractiveChart(containerId) {
     const xAxisLabelGroup = svg.append('g')
       .attr('transform', `translate(${width / 2}, ${height + 45})`);
 
-    xAxisLabelGroup.append('text')
+    const xAxisLabelText = xAxisLabelGroup.append('text')
       .attr('x', 0)
       .attr('y', 0)
       .attr('text-anchor', 'middle')
@@ -1154,13 +1154,14 @@ export function createUnifiedInteractiveChart(containerId) {
       .attr('fill', '#2d1810')
       .text('Economy');
 
-    addTooltipIcon(xAxisLabelGroup, 50, -5, 'Economy type classification based on HDI and subsistence strategy');
+    const xAxisTextWidth = xAxisLabelText.node().getComputedTextLength();
+    addTooltipIcon(xAxisLabelGroup, xAxisTextWidth / 2 + 8, -5, 'Economy type classification based on HDI and subsistence strategy');
 
     // Y-axis label with tooltip
     const yAxisLabelGroup = svg.append('g')
       .attr('transform', `rotate(-90) translate(${-height / 2}, -45)`);
 
-    yAxisLabelGroup.append('text')
+    const yAxisLabelText = yAxisLabelGroup.append('text')
       .attr('x', 0)
       .attr('y', 0)
       .attr('text-anchor', 'middle')
@@ -1169,7 +1170,8 @@ export function createUnifiedInteractiveChart(containerId) {
       .attr('fill', '#2d1810')
       .text(varMapping[currentFilters.yVar].label);
 
-    addTooltipIcon(yAxisLabelGroup, 80, -5, varMapping[currentFilters.yVar].tooltip);
+    const yAxisTextWidth = yAxisLabelText.node().getComputedTextLength();
+    addTooltipIcon(yAxisLabelGroup, yAxisTextWidth / 2 + 8, -5, varMapping[currentFilters.yVar].tooltip);
 
     // Box plots don't have regression statistics (categorical X variable)
     updateRegressionStatsCard(null, null, false, false, true);
@@ -1352,7 +1354,7 @@ export function createUnifiedInteractiveChart(containerId) {
     const xAxisLabelGroup = svg.append('g')
       .attr('transform', `translate(${width / 2}, ${height + 45})`);
 
-    xAxisLabelGroup.append('text')
+    const xAxisLabelText = xAxisLabelGroup.append('text')
       .attr('x', 0)
       .attr('y', 0)
       .attr('text-anchor', 'middle')
@@ -1361,13 +1363,14 @@ export function createUnifiedInteractiveChart(containerId) {
       .attr('fill', '#2d1810')
       .text(varMapping[currentFilters.xVar].label);
 
-    addTooltipIcon(xAxisLabelGroup, 60, -5, varMapping[currentFilters.xVar].tooltip);
+    const xAxisTextWidth = xAxisLabelText.node().getComputedTextLength();
+    addTooltipIcon(xAxisLabelGroup, xAxisTextWidth / 2 + 8, -5, varMapping[currentFilters.xVar].tooltip);
 
     // Y-axis label with tooltip
     const yAxisLabelGroup = svg.append('g')
       .attr('transform', `rotate(-90) translate(${-height / 2}, -45)`);
 
-    yAxisLabelGroup.append('text')
+    const yAxisLabelText = yAxisLabelGroup.append('text')
       .attr('x', 0)
       .attr('y', 0)
       .attr('text-anchor', 'middle')
@@ -1376,7 +1379,8 @@ export function createUnifiedInteractiveChart(containerId) {
       .attr('fill', '#2d1810')
       .text(varMapping[currentFilters.yVar].label);
 
-    addTooltipIcon(yAxisLabelGroup, 80, -5, varMapping[currentFilters.yVar].tooltip);
+    const yAxisTextWidth = yAxisLabelText.node().getComputedTextLength();
+    addTooltipIcon(yAxisLabelGroup, yAxisTextWidth / 2 + 8, -5, varMapping[currentFilters.yVar].tooltip);
   }
 
   // Legend
