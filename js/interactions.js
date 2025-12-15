@@ -108,7 +108,7 @@ export function setupInteractions() {
 
       const bar = document.createElement('div');
       bar.className = 'bar';
-      if (item.key === 'exercise') {
+      if (userGuess && item.key === userGuess) {
         bar.classList.add('bar-highlighted');
       }
       bar.style.width = `${(item.veryImportant / maxValue) * 100}%`;

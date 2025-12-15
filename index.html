@@ -9,7 +9,7 @@
   <script src="https://d3js.org/d3-geo.v3.min.js"></script>
   <script src="https://d3js.org/topojson.v3.min.js"></script>
   <script src="https://unpkg.com/simple-statistics@7.8.8/dist/simple-statistics.min.js"></script>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=8">
 </head>
 
 <body>
@@ -17,9 +17,11 @@
     <!-- Hero Section -->
     <section id="hero-section" class="hero-section">
       <div class="hero-content">
-        <h1 class="hero-title">The Obesity Myth:</h1>
-        <h2 class="hero-subtitle">Why Our Assumptions About Obesity Deserve a Closer Look</h2>
-        <p class="card-text">Obesity has been rising across many countries, and the reasons behind that rise are still
+        <h1 class="hero-title">The Obesity Myths:</h1>
+        <h2 class="hero-subtitle">We have to be more clear about the <br> Cause of Obesity</h2>
+        <p class="card-text" style="margin-bottom: 9rem;"> Global obesity has risen dramtically over the past several decades. Despite substantial
+          knowledge about the mechanism behind obesity,
+          the reasons behind this rise are still heavily
           debated. Scroll to explore why what Americans believe about obesity might not match the data.</p>
         <div class="scroll-cta">
           <button id="explore-now-btn" class="explore-now-btn">
@@ -92,19 +94,19 @@
                 Obesity has increased almost everywhere over the past few decades.
                 Estimates from the World Health Organization indicate that global adult obesity
                 has nearly tripled since 1975, reaching about 1 in 8 adults
-                worldwide by 2022 <a href="#source-4" class="footnote-link">[4]</a>.
+                worldwide by 2022. <a href="#source-4" class="footnote-link">[4]</a>
               </p>
 
               <p class="card-text">
-                The interactive visualization on the left uses standardized data from the NCD Risk Factor Collaboration
-                tracking obesity prevalence from 1990 to 2022 <a href="#source-5" class="footnote-link">[5]</a>.
+                The interactive visualization on the left uses standardized data from the NCD (non-communicable diseases) Risk Factor Collaboration
+                tracking obesity prevalence from 1990 to 2022. <a href="#source-5" class="footnote-link">[5]</a>
                 Try pressing the "play" button to watch how obesity has become more common over time.
                 Notice how different regions change color (from lighter to darker shades) as obesity rates increase.
               </p>
 
               <p class="card-text">
                 While the timing and speed of rising obesity differ across countries, obesity is
-                becoming more common. That raises two questions: why is it increasing at all, and what explains the
+                becoming more prevelant globally. This raises two questions: 1) why is it increasing, and 2) what explains the
                 differences between countries?
               </p>
 
@@ -130,24 +132,24 @@
               <p class="card-text">
                 Notice how the timing, slope, and scale vary dramatically. Some countries like
                 the United States show an early, steady rise. Adult obesity roughly tripled
-                over several decades, reaching around 40% today
-                <a href="#source-6" class="footnote-link">[6]</a> <a href="#source-7" class="footnote-link">[7]</a>.
+                over several decades, reaching around 40% today.
+                <a href="#source-6" class="footnote-link">[6]</a> <a href="#source-7" class="footnote-link">[7]</a>
                 Others like Japan show a much slower increase from a lower starting point,
-                remaining among the lowest rates in the OECD
-                <a href="#source-8" class="footnote-link">[8]</a> <a href="#source-9" class="footnote-link">[9]</a>.
+                remaining among the lowest rates in the OECD.
+                <a href="#source-8" class="footnote-link">[8]</a> <a href="#source-9" class="footnote-link">[9]</a>
               </p>
 
               <p class="card-text">
                 Some Gulf countries like Saudi Arabia, Qatar, and Kuwait experienced a
                 rapid late surge; obesity was relatively uncommon decades ago, then shot up to
-                30-40% of adults as income and food environments changed dramatically
-                <a href="#source-10" class="footnote-link">[10]</a> <a href="#source-11" class="footnote-link">[11]</a>.
+                30-40% of adults as income and food environments changed dramatically.
+                <a href="#source-10" class="footnote-link">[10]</a> <a href="#source-11" class="footnote-link">[11]</a>
               </p>
 
               <p class="card-text">
-                As you explore, ask yourself: What patterns do you notice in which regions have higher obesity?
+                As you explore, ask yourself: What patterns do you notice in regions with higher obesity?
                 What might be driving this sudden rise across so many countries? Is it reduced physical activity?
-                Changes in diet? Economic development? Something else entirely?
+                Changes in diet? Is economic development correlated? 
               </p>
 
               <div class="nav-buttons">
@@ -173,8 +175,8 @@
                 At its core, obesity occurs when energy intake is consistently higher than energy expenditure.
                 The harder question is which side of that balance has shifted in the last few decades. Public health
                 organizations typically point to two possibilities: people may be burning less energy through daily
-                activity, or they may be consuming more energy as diets shift <a href="#source-1"
-                  class="footnote-link">[1]</a>.</p>
+                activity, or they may be consuming more energy as diets shift.
+                  <a href="#source-1" class="footnote-link">[1]</a></p>
               <h2 class="card-title">What do most you think is the most important reason many Americans are very
                 overweight?</h2>
               <div class="options-container">
@@ -197,12 +199,13 @@
               <p class="card-text">
                 A 2006 Pew survey captured Americans’ beliefs about what was causing obesity. Most respondents pointed
                 to personal behavior as the main driver, and they overwhelmingly pointed to one explanation in
-                particular: not getting enough exercise. In fact, they rated lack of activity as the most important
-                reason people are overweight, ahead of diet, marketing, or genetics <a href="#source-2"
-                  class="footnote-link">[2]</a>. Although the study is almost a decade old, it captures a then dominant
-                view among Americans, shared with health organizations, that declining physical activity could be a
+                particular: not getting enough exercise. Specifically, they rated lack of activity as the most important
+                reason people are overweight, ahead of diet, marketing, or genetics.
+                  <a href="#source-2" class="footnote-link">[2]</a> Although the study is almost a decade old, it captures a then dominant
+                view among Americans, shared with health organizations, that declining physical activity is the
                 major
-                contributor to rising obesity <a href="#source-1" class="footnote-link">[1]</a>.
+                contributor to rising obesity.
+                <a href="#source-1" class="footnote-link">[1]</a>
               </p>
               <div id="belief-result" class="result-message"></div>
               <div class="nav-buttons">
@@ -216,35 +219,35 @@
     </section>
 
     <!-- Bridging Text Section -->
-    <section id="bridge-section" class="conclusion-section">
+    <section id="bridge-section" class="conclusion-section" style="background: linear-gradient(to bottom, #111827, #1f2937) !important; color: white !important;">
       <div class="conclusion-content">
         <h2 class="conclusion-heading">Examining the Activity Hypothesis</h2>
 
         <p class="conclusion-text">
-          A cross-cultural study in PNAS directly tested the assumption that rising obesity is driven by declines in
+          A cross-cultural study published in PNAS directly tested the assumption that rising obesity is driven by declines in
           physical activity. The researchers measured total daily energy expenditure using the doubly labeled water
-          method, drawing from the International Atomic Energy Agency’s global database and adding three additional
-          populations: the Aymara in Bolivia, the Tuvan in Siberia, and the Daasanach in northern Kenya <a
-            href="#source-1" class="footnote-link">[1]</a>.
+          method,  which captures how much energy people actually burn in their everyday lives. The data were drawn from the International 
+          Atomic Energy Agency’s global database and supplemented with three additional populations: the Aymara in Bolivia,
+          the Tuvan in Siberia, and the Daasanach in northern Kenya.
+          <a href="#source-1" class="footnote-link">[1]</a>
         </p>
         <p class="conclusion-text">
-          The final study sample included 4,213 adults across 34 population groups. The original team had access to
-          individual level measurements, but access to that data requires a formal application. This analysis uses only
-          the
-          published population means from their study. Also, each population represents a community sample, not a
-          national estimate.
+          TThe final study sample included 4,213 adults across 34 population groups. While the original researchers had 
+          access to individual-level measurements, access to those data requires a formal application. This analysis 
+          therefore relies on the published population means. Importantly, each population represents a community-level 
+          sample rather than a national estimate.
         </p>
         <p class="conclusion-text">
           We included hunter gatherers, pastoralists, horticulturalists, small scale farmers, and industrialized groups
           because they differ in lifestyle, and market integration. These differences allow
-          better comparisons across variables that may predict obesity levels. To measure obesity we did not use body
-          mass index but body fat percentage to avoid penalizing individuals with higher muscle mass.
+          meaningful comparisons across variables that may predict obesity levels. To measure obesity, we used body fat 
+          percentage rather than body mass index to avoid misclassifying individuals with higher muscle mass.
         </p>
         <!-- Nonindustrialized groups were placed on the Human Development Index spectrum using their level of market
           integration. Industrialized groups used standard UN HDI thresholds. All HDI values were converted into ranks
           to place the 34 groups on a single development continuum. -->
 
-        <!-- <p class="conclusion-text">
+        <!-- <p class="conclusion-text" style="color: #1f2937;">
           Given how common this assumption is, the next step is to look at it with data. Given how common this
           assumption is, the next step is to look at it with actual measurements rather than beliefs. A recent cross
           cultural study published in PNAS did this by using the doubly labeled water method, the leading approach for
@@ -253,14 +256,14 @@
           additional pastoralist groups: the Aymara in Bolivia, the Tuvan in Siberia, and the Daasanach in northern
           Kenya.
           <p />
-        <p class="conclusion-text">The initial dataset contained more than 10,000 adults. The team then filtered out
+        <p class="conclusion-text" style="color: #1f2937;">The initial dataset contained more than 10,000 adults. The team then filtered out
           anyone with missing sex, reported health conditions, athletic status, implausibly high energy expenditure, or
           ages outside 18 to 60. This produced a final analytic sample of 4,213 adults across 34 population groups.
           These
           groups are specific community samples, not nationally representative estimates. The goal was to compare energy
           expenditure across different subsistence ecologies and economic contexts, not to characterize whole countries.
           <p />
-        <p class="conclusion-text">The populations span hunter gatherers, pastoralists, horticulturalists, small
+        <p class="conclusion-text" style="color: #1f2937;">The populations span hunter gatherers, pastoralists, horticulturalists, small
           scale farmers, and industrialized groups. Because nonindustrialized groups do not have formal Human
           Development
           Index scores, the researchers placed them on the HDI spectrum based on their level of market integration.
@@ -268,11 +271,11 @@
           development. HDI values were then converted into rank order, so the analysis uses each population’s relative
           position along the development spectrum.
         </p>
-        <p class="conclusion-text">Basal energy expenditure came from indirect calorimetry when available or from
+        <p class="conclusion-text" style="color: #1f2937;">Basal energy expenditure came from indirect calorimetry when available or from
           size-based predictive equations when not. Activity energy expenditure and physical activity level were derived
           from the total and basal expenditure values.
         </p>
-        <p class="conclusion-text">Because access to the individual level dataset requires a formal research
+        <p class="conclusion-text" style="color: #1f2937;">Because access to the individual level dataset requires a formal research
           application, this analysis uses only the publicly available population means. Working with means makes it
           possible to compare broad patterns across populations, but it introduces important limitations. The underlying
           distributions for each group are not available, so measures such as standard deviations, confidence intervals,
@@ -282,7 +285,7 @@
           how
           precise the reported averages are.
         </p>
-        <p class="conclusion-text">The visualizations below examine how activity levels vary across economic
+        <p class="conclusion-text" style="color: #1f2937;">The visualizations below examine how activity levels vary across economic
           contexts and whether those differences track with body fat percentage or whether another factor explains body
           fat more strongly.
         </p> -->
@@ -377,8 +380,8 @@
 
           <div class="content-card active" data-step="0">
             <div class="card-content">
-              <div class="step-indicator">1/4</div>
-              <h4 class="card-title">Data collection and Filtering</h4>
+              <div class="step-indicator">1/5</div>
+              <h4 class="card-title">Data Collection and Filtering</h4>
               <p class="card-text">
                 The map shows where the 34 sampled communities are located. Populations are categorized using the Human
                 Development Index, which ranks groups by life expectancy, education, and income, along with other
@@ -403,21 +406,21 @@
 
           <div class="content-card" data-step="1">
             <div class="card-content">
-              <div class="step-indicator">2/4</div>
-              <h4 class="card-title">Body fat vs Physical Activity Level (PAL)</h4>
+              <div class="step-indicator">2/5</div>
+              <h4 class="card-title">Body Fat vs Physical Activity Level</h4>
               <p class="card-text">
                 This plot compares body fat percentage with Physical Activity Level (PAL), which is total energy
                 expenditure divided by basal energy expenditure. PAL gives a size-adjusted measure of daily activity.
               </p>
               <p class="card-text">
                 For men, the slope is strongly negative and statistically significant. The p value is 0.01 and R² is
-                about 0.21, so PAL explains around 21% of the variation in body fat which is a moderate amount, but not
-                large. For women, the slope is not significant. The p value is 0.25 and
+                about 0.21, so PAL explains around 21% of the variation in body fat which is a moderate amount. 
+                For women, the slope is not significant. The p value is 0.25 and
                 R² is near zero, which means PAL has no detectable linear relationship with body fat in this sample.
               </p>
               <p class="card-text">
-                The main takeaway is that higher PAL may predict lower body fat for men, but the effect is
-                still only moderate. For women, PAL did not meaningfully predict body fat.
+                The main takeaway is that higher PAL - to a moderate degree - helps predict lower body fat for men. 
+                For women, PAL did not meaningfully predict body fat.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -431,8 +434,8 @@
 
           <div class="content-card" data-step="2">
             <div class="card-content">
-              <div class="step-indicator">3/4</div>
-              <h4 class="card-title">Body fat vs Ultra-Processed Food (UPF)</h4>
+              <div class="step-indicator">3/5</div>
+              <h4 class="card-title">Body Fat vs Ultra-Processed Food</h4>
               <p class="card-text">
                 This plot compares body fat percentage with the share of ultra-processed foods (UPF) in the diet. Unlike
                 the activity plots, the points line up more clearly here. For both men and women, the relationship
@@ -441,21 +444,22 @@
                 body fat across sexes.
               </p>
               <p class="card-text">
-                For men, PRE is about 0.31. For women, it is about 0.44. These are much higher than what you saw with
-                PAL. They are still moderate, not huge, but they indicate that UPF explains a meaningful share of the
-                variation in body fat, especially for women. There is still variation. Some groups eat relatively little
-                UPF and differ in body fat, and some high-UPF groups sit below the trend line, but the overall slope is
-                stronger than what we saw for PAL.
+                For men, PRE is about 0.31. For women, it is about 0.44. These are much higher than the correlation you saw between
+                PAL and obesity. They are still moderate, but indicate that amount of UPF consumption explains a meaningful share of the
+                variation in body fat, especially for women. Of course, there is still variation: some groups eat relatively little
+                UPF and have a higher body fat percentage, whereas some high-UPF groups sit below the trend line.
               </p>
               <p class="card-text">
-                One additional pattern also starts to emerge. Populations with higher UPF intake tend to have higher HDI
-                scores. As countries industrialize, they usually shift toward more processed and packaged foods, and
-                that transition aligns with the higher-UPF, higher-body-fat clusters in the plot.
+                One additional pattern starts to emerge: populations with higher UPF intake tend to have higher HDI
+                (Human Development Index) scores — a composite measure of a country’s income, education, and life expectancy.
+                The reason for this is that as countries industrialize, they usually shift toward more processed and packaged foods.
+                You can examine this by looking at the U.S. and South Africa in the plot above — both lie in the higher-UPF,
+                higher-body-fat clusters.
               </p>
               <p class="card-text">
                 It’s also worth noting that UPF data were available for only 25 of the 34 populations, so the coverage
-                is not complete. Even with that limitation, the relationship appears more consistent than the activity
-                based measures. This doesn’t prove that UPF is the cause, but it suggests that dietary composition may
+                isn't complete. Even with that limitation, the relationship between UPFs and obesity appears more consistent 
+                than the that between obesity and physical activity. This doesn’t prove that UPF causes obesity, but suggests that dietary composition may
                 align more closely with differences in body fat across populations than physical activity does.
               </p>
               <div class="nav-buttons">
@@ -470,22 +474,47 @@
 
           <div class="content-card" data-step="3">
             <div class="card-content">
-              <div class="step-indicator">4/4</div>
-              <h4 class="card-title">Explore the data</h4>
+              <div class="step-indicator">4/5</div>
+              <h4 class="card-title">Explore the Data</h4>
               <p class="card-text">
                 You can change both the x and y axes to test how any two variables relate. When you switch axes, check
                 three things: whether the relationship is statistically significant (p values is less than 0.05), whether
                 the line goes up or down, and how spread out the points are around the line.
               </p>
               <p class="card-text">
-                Try pairing different x and y axes and ask yourself what each comparison reveals. </br>
+                Try pairing different x and y axes and ask yourself what each comparison reveals: 
+              </br>
+            </br>
                 • HDI Rank vs UPF</br>
                 As HDI improves, does UPF intake rise? Does this match the idea that industrialization shifts diets more
                 than it changes activity?</br>
+              </br>
                 • TEE vs PAL</br>
                 Does burning more total energy actually mean being more physically active?</br>
+              </br>
                 • Economy Type vs Any Metric</br>
                 Where do you see the most or least variance within a Economy Type?
+              </p>
+              <div class="nav-buttons">
+                <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
+                <button class="nav-btn next-btn" data-section="inactivity-section">Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card" data-step="4">
+            <div class="card-content">
+              <div class="step-indicator">5/5</div>
+              <h4 class="card-title">Limitations</h4>
+              <p class="card-text">
+                Dietary data cover only 25 of the 34 populations, so any dietary pattern is based on a partial sample.
+                The analysis relies on population means, which prevents us from seeing how much variation exists within
+                each group or how precise the averages are. The data are cross sectional and correlational, meaning they
+                describe differences between populations at one point in time and cannot establish causation or track
+                changes over time. Energy expenditure measurements come from different studies that used slightly different
+                methods, adding measurement noise. These limits narrow what we can infer, but the broad patterns still
+                point toward the need for better dietary data, long term studies, and policy approaches that address UPFs
+                directly.
               </p>
               <div class="nav-buttons">
                 <button class="nav-btn prev-btn" data-section="inactivity-section">← Previous</button>
@@ -497,51 +526,213 @@
       </div>
     </section>
 
-
-    <!-- Conclusion Section -->
-    <section id="conclusion-section" class="conclusion-section">
+    <!-- Bridging Text Section -->
+    <section class="conclusion-section" style="background: #f4d9a6 !important; color: #1f2937 !important; padding: 3rem 0;">
       <div class="conclusion-content">
-        <h2 class="conclusion-heading">Why this matters</h2>
-        <p class="conclusion-text">
-          Across populations, physical activity did not show a clear pattern that explains large differences in body
-          fat. In the subset of groups with dietary data,
-          higher intake of ultra processed foods shows a more consistent link with higher body fat. This is
-          correlational, not causal proof, but it suggests diet composition may explain population level differences
-          better than activity.
+        <p class="conclusion-text" style="font-size: 1.25rem; font-weight: 600; text-align: center; margin-bottom: 0;">
+          These population patterns suggest that, contrary to the belief of the majority of Americans,
+          diet may play a far more important role in obesity than physical activity. Below we examine the
+          biological mechanisms for this.
         </p>
-
-        <p class="conclusion-text">
-          Public discussions often blame inactivity or willpower. Some of that framing has been shaped by industry
-          funded messaging that emphasized exercise over diet <a href="#source-3" class="footnote-link">[3]</a>. If UPFs
-          track more closely with body fat than activity does, strategies focused mainly on individual behavior will
-          have limited effect. Policies that target food environments, marketing, and UPF availability likely offer a
-          stronger lever.</p>
-
-        <h2 class="conclusion-heading">Limitations</h2>
-        <p class="conclusion-text">
-          Dietary data cover only 25 of the 34 populations, so any dietary pattern is based on a partial sample. The
-          analysis relies on population means, which prevents us from seeing how much variation exists within each group
-          or how precise the averages are. The data are cross sectional and correlational, meaning they describe
-          differences between populations at one point in time and cannot establish causation or track changes over
-          time. Energy expenditure measurements come from different studies that used slightly different methods, adding
-          measurement noise. These limits narrow what we can infer, but the broad patterns still point toward the need
-          for better dietary data, long term studies, and policy approaches that address UPFs directly.
-          </ul>
-          </br>
-
-        <p class="conclusion-text">
-          <b>These population patterns suggest that diet may play a far more important role in obesity than many public
-            health organizations initially recognized. This growing recognition of diet’s influence also frames how we
-            interpret the recent decline in U.S. obesity rates, which further challenges the old notion that physical
-            activity was the main driver of rising obesity.</b>
-        </p>
+      </div>
     </section>
+
+    <!-- Bridging Text Section -->
+    <section id="willpower-bridge-section" class="conclusion-section" style="background: #111827 !important; color: white !important;">
+      <div class="conclusion-content">
+        <h2 class="conclusion-heading">Examining the Genetic and Willpower Myths</h2>
+      </div>
+    </section>
+
+    <!-- ========================================
+         Willpower and Genetic Hypothesis Section
+         ======================================== -->
+    <section id="willpower-genetic-section" class="graph-section piper-block" style="background-color: #111827;">
+      <div class="piper-block-inner">
+
+        <!-- TEXT AREA -->
+        <div class="text-area">
+          <div class="content-card active" data-step="0">
+            <div class="card-content">
+              <div class="step-indicator">1/4</div>
+              <h3 class="card-title">The Genetic Myth</h3>
+
+              <p class="card-text">
+                In the survey above, we have seen that many Americans believe that genetics are a key factor in the obesity epidemic.
+                However, looking at the timespan of this epidemic (namely global obesity tripling over the last five decades)
+                makes one point unmistakably clear: this epidemic cannot be explained by genetics.
+                The reason for this is that genetic frequencies (the makeup of our DNA) change
+                over thousands or even millions of years, not within a single human lifetime, meaning that our DNA today is not
+                different in any significant way than it was 50 years ago. While there is a genetic
+                component to individual obesity, focusing on this might seem entirely misguided given that the cause of
+                the obesity pandemic clearly lies elsewhere.
+              </p>
+
+              <p class="card-text">
+                This perspective is flawed, however, since understanding the mechanism that makes some individuals are more susceptible to obesity
+                will help us understand mechanisms underlying the meteoric rise in the general population. Historically, scientists viewed
+                obesity as two distinct conditions: 1) severe, early-onset obesity which is caused by detrimental
+                alterations in single genes; and 2) 'common' obesity which results from small alterations in many genes.
+                More recently scientists came to understand that both point towards the same underlying biological
+                mechanism: the leptin–melanocortin pathway, a hormonal-neuronal circuit in the hypothalamus that tells
+                your brain how much energy your body has, whether to feel hungry or full, and whether to burn calories
+                or conserve them (i.e. it regulates your metabolism).
+                <a href="#source-13" class="footnote-link">[12]</a> <a href="#source-23" class="footnote-link">[22]</a>
+              </p>
+
+              <div class="nav-buttons">
+                <button class="nav-btn prev-btn" data-section="willpower-genetic-section" disabled>← Previous</button>
+                <button class="nav-btn next-btn" data-section="willpower-genetic-section">Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card" data-step="1">
+            <div class="card-content">
+              <div class="step-indicator">2/4</div>
+              <h3 class="card-title">The leptin–melanocortin pathway</h3>
+
+              <img src="./leptin_pathway.jpeg" alt="Leptin-melanocortin pathway diagram" style="max-width: 600px; display: block; margin: 5px auto;">
+
+              <p class="card-text">
+                The preceding image visualizes this neuronal circuitry. It illustrates how hormonal signals such as
+                leptin (released from fat tissue) and insulin (released from the pancreas) enter the brain and
+                bind to specific neurons in the hypothalamus: POMC neurons and AgRP neurons.
+                In POMC cells, leptin and insulin stimulate the production of α-MSH,
+                a peptide that activates MC4R receptors on downstream neurons to promote satiety and increase energy
+                expenditure.
+                In AgRP neurons, by contrast, the same hormonal signals suppress firing and reduce the
+                release of AgRP and NPY, two potent drivers of hunger and metabolic conservation.
+                When this cascade
+                works as intended, the brain accurately gauges the body's energy state and maintains a balanced regulation
+                of appetite, fullness, and energy expenditure.
+                <a href="#source-27" class="footnote-link">[23]</a>
+              </p>
+
+              <p class="card-text">
+                But when perturbed – whether by a rare, high-impact mutation or the cumulative effect of many small
+                genetic variants – this energy-sensing system becomes distorted, leading, for instance, to less
+                responsive POMC and AgRP neurons.
+                As a result, the hypothalamus begins to misinterpret normal or even elevated leptin levels as if
+                they were low, effectively reading the body as under-fed when it is not. Affected individuals then receive
+                skewed biological signals that increase hunger, blunt satiety, and reduce metabolic rate. In other words, they suffer from
+                a biological imbalance towards higher weight.
+                <a href="#source-28" class="footnote-link">[24]</a>
+              </p>
+
+              <div class="nav-buttons">
+                <button class="nav-btn prev-btn" data-section="willpower-genetic-section">← Previous</button>
+                <button class="nav-btn next-btn" data-section="willpower-genetic-section">Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card" data-step="2">
+            <div class="card-content">
+              <div class="step-indicator">3/4</div>
+              <h3 class="card-title">UPFs disrupt the same pathway</h3>
+
+              <p class="card-text">
+                Importantly, the same leptin–melanocortin pathway is disrupted by diets dominated by ultra-processed foods.
+              </p>
+
+              <p class="card-text">
+                UPFs are energy-dense, rapidly absorbable, and engineered to be hyper-palatable. When consumed regularly,
+                they drive repeated spikes in glucose, insulin, inflammatory signals, and leptin. Over time, this barrage
+                leads the hypothalamus to become progressively less responsive to leptin and insulin.
+                <a href="#source-29" class="footnote-link">[25]</a> In this state of leptin and insulin resistance,
+                the brain perceives the body as having less stored energy than it actually does. The result is the
+                same as in genetically linked obesity: hunger increases, satiety decreases, and metabolic rate slows.
+              </p>
+
+              <div class="nav-buttons">
+                <button class="nav-btn prev-btn" data-section="willpower-genetic-section">← Previous</button>
+                <button class="nav-btn next-btn" data-section="willpower-genetic-section">Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-card" data-step="3">
+            <div class="card-content">
+              <div class="step-indicator">4/4</div>
+              <h3 class="card-title">Why UPFs affect both sides of the energy equation</h3>
+
+              <p class="card-text">
+                Critically, eating UPFs does not only lead to impaired satiety regulation and thus likely to a higher
+                caloric intake, but also disrupt the other side of the energy balance equation. Chronic consumption
+                lowers your metabolic rate by:
+              </p>
+
+              <ul class="card-text">
+                <li>Shifting your brain towards energy conversion mode (as the hypothalamus assumes a need to conserve
+                    energy because of its resistance to leptin)</li>
+                <li>Causing chronic, low-grade inflammation in the hypothalamus, which suppresses basal metabolic rate.
+                    <a href="#source-15" class="footnote-link">[13]</a></li>
+                <li>Requiring minimal energy to digest (e.g. 100g of almonds need ~30kcal to digest, whereas 100g of
+                    UPFs need ~5kcal).
+                    <a href="#source-30" class="footnote-link">[26]</a></li>
+                <li>Lowering non-exercise caloric burn as the hypothalamus controls spontaneous movement (such as fidgeting),
+                    which you're less likely to engage in when the leptin–melanocortin pathway is impaired.
+                    <a href="#source-31" class="footnote-link">[27]</a></li>
+              </ul>
+
+              <p class="card-text">
+                <strong>The key takeaway here is that the same satiety-regulating neuronal pathway that rare gene
+                mutations disrupt in a few individuals is disrupted by UPFs in entire populations.</strong>
+              </p>
+
+              <div class="nav-buttons">
+                <button class="nav-btn prev-btn" data-section="willpower-genetic-section">← Previous</button>
+                <button class="nav-btn next-btn" data-section="willpower-genetic-section">Next →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Willpower and Food Consumption Section -->
+    <section id="willpower-food-section" class="conclusion-section" style="background: linear-gradient(to bottom, #111827, #1f2937) !important; color: white !important;">
+      <div class="conclusion-content">
+        <h2 class="conclusion-heading">Biological Impairment vs Wilpower</h2>
+
+        <p class="conclusion-text">
+          Above we have seen that ultra-processed foods disrupt the leptin-melanocortin pathway, and in doing so
+          disable the body's ability to accurately regulate hunger, while also lowering your metabolic rate.
+          What this means is that when regularly consuming UPFs overeating isn't primarily about willpower—it 
+          is the natural course of action as you simply stop receiving signals that you are full.
+        </p>
+
+        <p class="conclusion-text">
+          On the flipside, it is very unlikely to become obese when only eating non-processed foods because
+          your body is able to accurately regulate hunger — an ability it has perfected over hundreds
+          of thousands of years of evolution. After reaching your caloric needs, you simply don't want 
+          o eat more fruits, vegetables, chicken, or bulgur.
+        </p>
+
+        <p class="conclusion-text">
+          While it's true that fast food chains are the epitome of ultra-processing, many common foods are also substantially processed — including pasta,
+          cheese, almost all types of bread (certainly in the US), sausage, and many protein bars.
+          Not all processed food is necessarily 'bad' for you and vice versa, there are unprocessed foods you shouldn't have too much of.
+          However, when it comes to satiety regulation, most (ultra-)processed foods impair this mechanism.
+        </p>
+
+        <p class="conclusion-text">
+          The satiety regulating mechanism is also why optimal diets for weight loss are both rich in unprocessed fruits and vegetables
+          (meaning high in fiber) as well as high in (unprocessed) protein: fiber and protein are extremely good at regulating hunger.
+          <a href="#source-32" class="footnote-link">[28]</a> <a href="#source-33" class="footnote-link">[29]</a>
+        </p>
+      </div>
+    </section>
+
 
     <!-- ========================================
          GLP-1 Section
          ======================================== -->
-    <section id="glp1-section" class="graph-section">
-      <div class="split-layout">
+    <section id="glp1-section" class="graph-section" style="flex-direction: column;">
+      <h2 class="conclusion-heading" style="text-align: center; margin-bottom: 2rem; margin-top: 4rem; color:black; width: 100%;">GLP-1s target the same pathway</h2>
+      <div class="split-layout glp1-split" style="grid-template-columns: 1fr 1fr !important; display: grid !important;">
         <div class="graph-side">
           <div class="chart-wrapper">
             <h3 class="card-title">U.S. Obesity Rates (2008-2025)</h3>
@@ -552,30 +743,74 @@
         <div class="content-side">
           <div class="content-card active" data-step="0">
             <div class="card-content">
-              <div class="step-indicator">1/1</div>
+              <div class="step-indicator">1/2</div>
               <h3 class="card-title">Obesity Showing Signs of Decline in U.S.</h3>
 
               <p class="card-text">
                 Since 2022, U.S. obesity rates have been declining! Gallup's 2025 National Health
                 and Well-Being Index reports a drop from 39.9 percent in 2022 to 37.0 percent in 2025, an estimated 7.6
-                million fewer adults with obesity <a href="#glp1-source-14" class="footnote-link">[14]</a>.
+                million fewer adults with obesity.
+                <a href="#glp1-source-14" class="footnote-link">[18]</a>
               </p>
 
               <p class="card-text">
                 The decline aligns with the rapid uptake of GLP-1 drugs, which help people feel full sooner and eat
                 less. National spending on these medications
-                increased from $13.7 billion in 2018 to $71.7 billion in 2023 <a href="#glp1-source-12"
-                  class="footnote-link">[12]</a>. Survey data indicate that roughly 40% of prescriptions are for weight
+                increased from $13.7 billion in 2018 to $71.7 billion in 2023.
+                  <a href="#glp1-source-12" class="footnote-link">[17]</a> Survey data indicate that roughly 40% of prescriptions are for weight
                 management, and adult use has risen from 5.8% in early
-                2024 to 12.4% in 2025 <a href="#glp1-source-15" class="footnote-link">[15]</a> <a href="#glp1-source-14"
-                  class="footnote-link">[14]</a>.
+                2024 to 12.4% in 2025.
+                  <a href="#glp1-source-15" class="footnote-link">[19]</a> <a href="#glp1-source-14" class="footnote-link">[18]</a>
               </p>
 
               <p class="card-text">
                 The steepest reductions in obesity are occurring in the very age groups with the highest GLP-1 usage
-                (ages 40–64),suggesting these medications may be contributing to the first sustained population-level
-                decline in U.S <a href="#glp1-source-14" class="footnote-link">[14]</a>.
-                obesity rates.
+                (ages 40–64), suggesting these medications may be contributing to the first sustained population-level
+                decline in U.S. obesity rates.
+                <a href="#glp1-source-14" class="footnote-link">[18]</a>
+              </p>
+
+              <div class="nav-buttons">
+                <button class="nav-btn prev-btn" data-section="glp1-section">← Previous</button>
+                <button class="nav-btn next-btn" data-section="glp1-section">Next →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: How GLP-1s work -->
+          <div class="content-card" data-step="1">
+            <div class="card-content">
+              <div class="step-indicator">2/2</div>
+              <h3 class="card-title">How GLP-1s Target the Same Pathway</h3>
+
+              <p class="card-text">
+                Importantly, the leptin–melanocortin pathway we explored above enables us to understand why GLP-1s are so effective.
+                Although GLP-1 receptor agonists (such as semaglutide, the active drug molecule found in Ozempic and Wegovy; as well as
+                tirzepatide, found in Rybelsus and Zepbound) do not directly repair the leptin–melanocortin pathway, they effectively bypass its
+                dysfunction by activating downstream circuits that compensate for its impaired signaling.
+              </p>
+
+              <p class="card-text">
+                GLP-1 receptors are expressed on several of the same hypothalamic neurons involved in the leptin–melanocortin
+                system, including POMC neurons—the neurons that normally promote satiety when leptin binds to them.
+                <a href="#source-22" class="footnote-link">[21]</a> <a href="#source-17" class="footnote-link">[15]</a>
+                In individuals with genetic susceptibility or leptin resistance, these neurons receive a weakened signal from leptin.
+                GLP-1 agonists step in by stimulating these satiety-promoting neurons through
+                a different hormonal channel, restoring the fullness signal the brain would otherwise be missing.
+              </p>
+
+              <p class="card-text">
+                In addition, GLP-1 agonists reduce activity in AgRP/NPY "hunger neurons," the counterparts that normally
+                elevate appetite when the brain thinks energy stores are low.
+                <a href="#source-17" class="footnote-link">[15]</a> By dampening these neurons and simultaneously
+                enhancing POMC activity, GLP-1 drugs re-establish a functional imbalance in favor of satiety — essentially
+                overriding the biased signals coming from a disrupted leptin–melanocortin system.
+              </p>
+
+              <p class="card-text">
+                This dual action explains why GLP-1 medications so effectively reduce appetite, increase fullness, and
+                shift energy expenditure in a direction that supports weight loss, even in individuals whose central
+                regulatory circuits are environmentally (or in rare cases genetically) impaired.
               </p>
 
               <div class="nav-buttons">
@@ -593,113 +828,42 @@
     <!-- ========================================
          GLP-1 Medications Section
          ======================================== -->
-    <section id="glp1-medications-section" class="conclusion-section" style="display: block;">
+    <section id="glp1-medications-section" class="conclusion-section" style="display: block; background: linear-gradient(to bottom, #111827, #1f2937) !important; color: white !important;">
       <div class="conclusion-content">
         <h3 class="conclusion-heading">UPFs disrupt and GLP-1s restore</h3>
 
         <p class="conclusion-text">
-          As shown earlier, the populations with the highest intake of ultra processed foods also tend to have the
-          highest body fat percentages. The effectiveness of GLP-1 drugs helps explain why. UPFs interfere with the
-          leptin–melanocortin pathway, the brain circuit that regulates hunger, fullness, and metabolism
-          <a href="#source-16" class="footnote-link">[16]</a>. GLP-1 drugs
-          work by boosting signals in the same pathway
-          <a href="#source-17" class="footnote-link">[17]</a>, which makes it clear why disrupting that system with UPFs
-          can
-          drive weight gain in the first place.
+          The TL;DR is that GLP1s bypass the dysfunction of the
+          leptin–melanocortin pathway, which is caused by regular ultra-processed food consumption
+          and affects - to different degrees - the majority of the population in most industrialized conutries.
+          <a href="#source-16" class="footnote-link">[14]</a> <a href="#source-17" class="footnote-link">[15]</a>
+         By stimulating satiety-promoting neurons and dampening hunger-promoting neurons,
+          GLP1s essentially
+          override the dysfunctional signals that arise from leptin resistance and in doing so, help change eating behavior.
+          <a href="#source-19" class="footnote-link">[20]</a>
         </p>
 
         <p class="conclusion-text">
-          UPFs are energy-dense, rapidly absorbable, and engineered to be hyper-palatable. When consumed
-          regularly, they drive repeated spikes in glucose, insulin, inflammatory signals, and leptin. Over time, this
-          barrage leads the hypothalamus to become progressively less responsive to leptin and insulin, a state called
-          leptin and insulin resistance
-          <a href="#source-18" class="footnote-link">[18]</a>. In this state, the brain perceives the body as having
-          less stored energy than
-          it actually does, triggering the same biological response seen in genetic obesity:
-          hunger increases, satiety decreases, and metabolic rate slows.
+          This is likely why we're seeing the first
+          slight population level obesity decline in U.S history. <strong> It's not about willpower or exercise. It's about
+          correcting a biological dysfunction caused by consumption of ultra processed foods that drives overconsumption. </strong>
         </p>
 
-        <p class="conclusion-text">
-          Here's why the obesity decline matters, GLP-1 medications act on this same
-          energy-regulation circuitry. They stimulate satiety-promoting neurons and dampen hunger-promoting neurons,
-          essentially
-          overriding the dysfunctional signals that arise from leptin resistance. By counteracting the dysfunction
-          of this pathway caused by UPFs, GLP1s help change eating behavior. Specifically, they restore satiety signals
-          and in
-          doing so reduce the appeal and consumption of hyper-palatable ultra-processed foods
-          <a href="#source-19" class="footnote-link">[19]</a>.
-        </p>
+        <!-- <h3 class="conclusion-heading">Implications: Where GLP-1s Are Needed Most</h3>
 
-        <p class="conclusion-text">
-          This dual mechanism, restoring satiety and reducing UPF consumption, is likely why we’re seeing the recent
-          sustained population level obesity decline in the U.S. It’s not about willpower or exercise. It’s about
-          correcting a biological dysfunction caused by UPFs that drives overconsumption.
-        </p>
-
-        <h3 class="conclusion-heading">Implications: Where GLP-1s Are Needed Most</h3>
-
-        <p class="conclusion-text">
+        <p class="conclusion-text" style="color: #1f2937;">
           Understanding that GLP-1 medications work by targeting the same biological pathway disrupted by
           UPF has important policy implications. Since UPF consumption drives obesity through pathway dysfunction, and
           GLP-1s restore that pathway, then ensuring access to these medications in regions with the highest obesity
           rates
           becomes a public health priority.
         </p>
+      -->
+       
+        <h3 class="conclusion-heading" style="margin-top: 40px;">GLP-1s Are Not a Silver Bullet</h3>
 
         <p class="conclusion-text">
-          The interactive state-by-state visualization below shows an encouraging pattern: states with higher obesity
-          rates tend to have higher GLP-1 prescription counts. This suggests that GLP-1 medications are reaching the
-          locations
-          where they are needed most. However, it's important to note that this data reflects only prescription
-          patterns and does not account for off-label usage or non-prescription access, which may be substantial
-          in some regions.
-        </p>
-
-        <p class="conclusion-text">
-          Despite this limitation, the alignment between obesity rates and prescription patterns is a positive sign. It
-          indicates that clinical need is driving adoption. However, access remains unequal. Monthly out-of-pocket costs
-          often
-          range from $1,000–$1,300 without insurance
-          <a href="#source-20" class="footnote-link">[20]</a>, making these medications unaffordable for many people in
-          the regions with
-          highest obesity rates (Midwest and Southern) as respective states are mostly also the ones with much lower
-          average incomes (feel free to check this out by clicking the 'Size by Income' button in the visualization). As
-          a result, the
-          true distribution of GLP-1 usage is almost certainly more uneven than the prescription patterns alone suggest.
-        </p>
-
-        <p class="conclusion-text">
-          <strong>The visualization below shows GLP-1 prescription patterns across all 50 U.S. states and how
-            they relate to state-level obesity rates. Use the interactive controls to explore regional patterns
-            and identify which states have the highest adoption of these medications.</strong>
-        </p>
-      </div>
-
-      <!-- GLP-1 VISUALIZATION - Full Width with white background, positioned below text -->
-      <div
-        style="width: 100%; max-width: 1200px; margin: 30px auto 0 auto; padding: 0 20px; box-sizing: border-box; display: block; clear: both;">
-        <div
-          style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); width: 100%;">
-          <iframe src="./glp1_viz.html" width="100%" height="600" frameborder="0"
-            style="border: none; display: block; width: 100%;">
-          </iframe>
-        </div>
-      </div>
-
-
-      <div class="conclusion-content" style="margin-top: 40px;">
-        <p class="conclusion-text">
-          This emphasis a crucial role for government intervention: expanding access to GLP-1 medications in
-          high-obesity regions should be a policy priority. If we understand obesity as a biological dysfunction
-          caused by environmental factors (namely, UPF-dominated food environments), then treating it requires
-          systemic solutions that include making effective medications accessible
-          to those who need them most, regardless of income or geography.
-        </p>
-
-        <h3 class="conclusion-heading" style="margin-top: 40px;">A Cautionary Note: GLP-1s Are Not a Silver Bullet</h3>
-
-        <p class="conclusion-text">
-          While this encouraging decline in obesity rates is significant, it does not address the underlying drivers of
+          While this decline in obesity rates is awesome, it does not address the underlying driver of
           the
           epidemic. GLP-1s can counteract a dysfunctional leptin–melanocortin pathway and restore satiety signals, but
           relying
@@ -710,42 +874,67 @@
         <p class="conclusion-text">
           The goal should not simply be to eat less, it should be to eat better. UPF don't just
           drive weight gain; they are independently associated with cardiovascular disease, Type 2 diabetes, metabolic
-          dysfunction, chronic inflammation, and many cancers
-          <a href="#source-21" class="footnote-link">[21]</a>. A person on GLP-1 medication who continues consuming a
+          dysfunction, chronic inflammation, and many cancers.
+          <a href="#source-21" class="footnote-link">[16]</a> A person on GLP-1 medication who continues consuming a
           diet dominated
-          by UPFs may lose weight, but they remain exposed to the broader health consequences that obesity, and body
-          fat, metrics
-          alone don't capture.
+          by UPFs may lose weight (which is awesome, bot for their pysical and mental health),
+          but they remain exposed to the broader health consequences that obesity, and body
+          fat, metrics alone don't capture.
         </p>
 
         <p class="conclusion-text">
-          This emphasis the importance of policy action when it comes to our food system. While expanding access to
-          GLP-1 medications is a crucial public health intervention, it must be paired with efforts to address the root
-          cause: the pervasive availability and
-          aggressive marketing of ultra-processed foods that makes unhealthy eating the default choice. Policy solutions
-          should
-          include improving food environments, especially in underserved communities, supporting nutrition education,
-          regulating misleading health claims on processed
-          foods, and incentivizing the production and accessibility of whole, minimally processed foods.
+          This emphasis the importance of policy action when it comes to our food system. Specifically,
+          the pervasive availability and
+          aggressive marketing of ultra-processed foods that makes unhealthy eating the default choice.
+        </p>
+      </div>
+    </section>
+
+    <!-- Conclusion Section -->
+    <section id="conclusion-section" class="conclusion-section" style="background: #f4d9a6 !important; color: #1f2937 !important;">
+      <div class="conclusion-content">
+        <h2 class="conclusion-heading" style="color: #5c2e1e;">Conclusion</h2>
+        <p class="conclusion-text">
+          Across this report, we challenged the widespread assumption that obesity is primarily caused by a lack of
+          physical activity.
+          Instead, we saw that ultra processed food consumption more accurately predict differences in body fat,
+          because it disrupts the brain
+          circuts that regulate satiefty. Consequently, the recent U.S. decline in obesity rates (the first sustained one in its history)
+          can likely be attributed to the spread of GLP-1 drugs that target the downstream brain circuits UPFs disrupt.
         </p>
         <p class="conclusion-text">
-          Across this report, we challenged the familiar assumption that obesity is a failure to exercise and showed
-          that, when we compare physical activity across populations, activity levels do not strongly predict
-          differences in
-          body fat. Instead, we saw how UPF align far more closely with body fat patterns and how the
-          recent U.S. decline in obesity lines up with the spread of GLP-1 drugs that target the brain circuits UPFs
-          disrupt. By exploring these relationships, we see that understanding obesity requires looking beyond
-          individual effort and toward the biological and environmental forces that shape our behaviors and bodies.
+          Public discussions often blame inactivity or willpower. Some of that framing has been shaped by industry
+          funded messaging that emphasized exercise over diet.
+          <a href="#source-3" class="footnote-link">[3]</a>
+          Because of the biological changes in satieety regulation from consuming UPFs, strategies focused mainly on individual behavior will
+          have limited effect. Policies that target food environments, marketing, and UPF availability offer a
+          stronger lever.
         </p>
+      </div>
+    </section>
+
+    <!-- Sources Section -->
+    <section class="conclusion-section" style="background: #000000 !important; color: white !important;">
+        <div class="conclusion-content">
+
+
+
+
+
+
+
+
+
         <h2 class="conclusion-heading">Sources</h2>
 
         <p class="sources-text" id="source-1">
           <span class="source-number">[1]</span> Pontzer, Herman, et al. "Energy Expenditure, Dietary Energy Intake, and
           Body Composition Across Populations." <em>Proceedings of the National Academy of Sciences</em>, vol. 122, no.
-          3, 2025, e2420902122. <em>PNAS</em>,
+          3, 2025, e2420902122.
           <a href="https://doi.org/10.1073/pnas.2420902122" target="_blank"
             rel="noopener noreferrer">https://doi.org/10.1073/pnas.2420902122</a>.
         </p>
+
         <p class="sources-text" id="source-2">
           <span class="source-number">[2]</span> "Americans See Weight Problems Everywhere But In the Mirror."
           <em>Pew Research Center</em>, 11 Apr. 2006,
@@ -753,135 +942,189 @@
             target="_blank"
             rel="noopener noreferrer">https://www.pewresearch.org/social-trends/2006/04/11/americans-see-weight-problems-everywhere-but-in-the-mirror/</a>.
         </p>
+
         <p class="sources-text" id="source-3">
           <span class="source-number">[3]</span> Nixon, Laura, et al. "We're Part of the Solution: Evolution of the Food
           and Beverage Industry's Framing of Obesity Concerns Between 2000 and 2012."
           <em>American Journal of Public Health</em>, vol. 105, no. 11, Nov. 2015, pp. 2228–2236.
-          <em>PMC</em>,
           <a href="https://doi.org/10.2105/AJPH.2015.302819" target="_blank"
             rel="noopener noreferrer">https://doi.org/10.2105/AJPH.2015.302819</a>.
         </p>
+
         <p class="sources-text" id="source-4">
-          <span class="source-number">[4]</span> "Obesity and Overweight." <em>World Health Organization</em>,
+          <span class="source-number">[4]</span> "Obesity and Overweight." <em>World Health Organization</em>, 2024,
           <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank"
             rel="noopener noreferrer">https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight</a>.
         </p>
+
         <p class="sources-text" id="source-5">
-          <span class="source-number">[5]</span> "NCD Risk Factor Collaboration (NCD-RisC)." <em>NCD-RisC</em>,
-          <a href="https://ncdrisc.org/" target="_blank" rel="noopener noreferrer">https://ncdrisc.org/</a>.
+          <span class="source-number">[5]</span> NCD Risk Factor Collaboration. "Worldwide Trends in Body-Mass Index, Underweight, Overweight, and Obesity from 1975 to 2016: A Pooled Analysis of 2416 Population-Based Measurement Studies in 128·9 Million Children, Adolescents, and Adults." <em>The Lancet</em>, vol. 390, no. 10113, 2017, pp. 2627-2642.
+          <a href="https://doi.org/10.1016/S0140-6736(17)32129-3" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/S0140-6736(17)32129-3</a>.
         </p>
+
         <p class="sources-text" id="source-6">
-          <span class="source-number">[6]</span> "Prevalence of Obesity and Severe Obesity Among Adults: United States,
-          August 2021–August 2023." <em>Centers for Disease Control and Prevention</em>, Data Brief No. 508, Mar. 2024,
+          <span class="source-number">[6]</span> Fryar, Cheryl D., et al. "Prevalence of Obesity and Severe Obesity Among Adults: United States, August 2021–August 2023." <em>Centers for Disease Control and Prevention</em>, NCHS Data Brief No. 508, Mar. 2024,
           <a href="https://www.cdc.gov/nchs/products/databriefs/db508.htm" target="_blank"
             rel="noopener noreferrer">https://www.cdc.gov/nchs/products/databriefs/db508.htm</a>.
         </p>
+
         <p class="sources-text" id="source-7">
           <span class="source-number">[7]</span> "Obesity Rate Nearly Triples in the United States Over Last 50 Years."
-          <em>USAFacts</em>,
+          <em>USAFacts</em>, 2024,
           <a href="https://usafacts.org/articles/obesity-rate-nearly-triples-united-states-over-last-50-years/"
             target="_blank"
             rel="noopener noreferrer">https://usafacts.org/articles/obesity-rate-nearly-triples-united-states-over-last-50-years/</a>.
         </p>
+
         <p class="sources-text" id="source-8">
-          <span class="source-number">[8]</span> Roser, Max, and Hannah Ritchie. "Obesity." <em>Our World in Data</em>,
+          <span class="source-number">[8]</span> Roser, Max, and Hannah Ritchie. "Obesity." <em>Our World in Data</em>, 2024,
           <a href="https://ourworldindata.org/obesity" target="_blank"
             rel="noopener noreferrer">https://ourworldindata.org/obesity</a>.
         </p>
+
         <p class="sources-text" id="source-9">
-          <span class="source-number">[9]</span> Ikeda, Nayu, et al. "Adult Mortality Attributable to Preventable Risk
-          Factors for Non-Communicable Diseases and Injuries in Japan: A Comparative Risk Assessment." <em>PLOS
-            Medicine</em>, vol. 9, no. 1, Jan. 2012, e1001160. <em>PMC</em>,
-          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9163402/" target="_blank"
-            rel="noopener noreferrer">https://pmc.ncbi.nlm.nih.gov/articles/PMC9163402/</a>.
+          <span class="source-number">[9]</span> Ikeda, Nayu, et al. "What Has Made the Population of Japan Healthy?"
+          <em>The Lancet</em>, vol. 378, no. 9796, Sept. 2011, pp. 1094-1105.
+          <a href="https://doi.org/10.1016/S0140-6736(11)61055-6" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1016/S0140-6736(11)61055-6</a>.
         </p>
+
         <p class="sources-text" id="source-10">
-          <span class="source-number">[10]</span> "World Obesity Atlas 2023." <em>World Obesity Federation</em>,
-          <a href="https://data.worldobesity.org/rankings/" target="_blank"
-            rel="noopener noreferrer">https://data.worldobesity.org/rankings/</a>.
+          <span class="source-number">[10]</span> "World Obesity Atlas 2023." <em>World Obesity Federation</em>, Mar. 2023,
+          <a href="https://data.worldobesity.org/publications/WOF-Obesity-Atlas-v5.pdf" target="_blank"
+            rel="noopener noreferrer">https://data.worldobesity.org/publications/WOF-Obesity-Atlas-v5.pdf</a>.
         </p>
+
         <p class="sources-text" id="source-11">
           <span class="source-number">[11]</span> Al-Nohair, Sulaiman. "Obesity in Gulf Countries." <em>International
-            Journal of Health Sciences</em>, vol. 8, no. 1, Jan. 2014, pp. V–VI. <em>PMC</em>,
+            Journal of Health Sciences</em>, vol. 8, no. 1, Jan. 2014, pp. V–VI.
           <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4039587/" target="_blank"
             rel="noopener noreferrer">https://pmc.ncbi.nlm.nih.gov/articles/PMC4039587/</a>.
         </p>
 
+        <p class="sources-text" id="source-13">
+          <span class="source-number">[12]</span> Farooqi, I. Sadaf, and Stephen O'Rahilly. "Monogenic Obesity in Humans." <em>Annual Review of Medicine</em>, vol. 56, 2005, pp. 443-458.
+          <a href="https://doi.org/10.1146/annurev.med.56.062904.144924" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1146/annurev.med.56.062904.144924</a>.
+        </p>
+
+        <p class="sources-text" id="source-15">
+          <span class="source-number">[13]</span> Thaler, Joshua P., et al. "Obesity is Associated with Hypothalamic Injury in Rodents and Humans." <em>Journal of Clinical Investigation</em>, vol. 122, no. 1, Jan. 2012, pp. 153-162.
+          <a href="https://doi.org/10.1172/JCI59660" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1172/JCI59660</a>.
+        </p>
+
+        <p class="sources-text" id="source-16">
+          <span class="source-number">[14]</span> Hall, Kevin D., et al. "Ultra-Processed Diets Cause Excess Calorie
+          Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake."
+          <em>Cell Metabolism</em>, vol. 30, no. 1, July 2019, pp. 67-77.e3.
+          <a href="https://doi.org/10.1016/j.cmet.2019.05.008" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1016/j.cmet.2019.05.008</a>.
+        </p>
+
+        <p class="sources-text" id="source-17">
+          <span class="source-number">[15]</span> Müller, Timo D., et al. "Glucagon-like Peptide 1 (GLP-1)."
+          <em>Molecular Metabolism</em>, vol. 30, Dec. 2019, pp. 72-130.
+          <a href="https://doi.org/10.1016/j.molmet.2019.09.010" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1016/j.molmet.2019.09.010</a>.
+        </p>
+
+        <p class="sources-text" id="source-21">
+          <span class="source-number">[16]</span> Pagliai, Giuditta, et al. "Consumption of Ultra-Processed Foods and
+          Health Status: A Systematic Review and Meta-Analysis."
+          <em>British Journal of Nutrition</em>, vol. 125, no. 3, Feb. 2021, pp. 308-318.
+          <a href="https://doi.org/10.1017/S0007114520002688" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1017/S0007114520002688</a>.
+        </p>
+
         <p class="sources-text" id="glp1-source-12">
-          <span class="source-number">[12]</span> "Spending on GLP-1s has grown dramatically. Here are the details."
-          <em>American Medical Association</em>,
+          <span class="source-number">[17]</span> "Spending on GLP-1s Has Grown Dramatically. Here Are the Details."
+          <em>American Medical Association</em>, 2024,
           <a href="https://www.ama-assn.org/public-health/behavioral-health/spending-glp-1s-has-grown-dramatically-here-are-details"
             target="_blank"
             rel="noopener noreferrer">https://www.ama-assn.org/public-health/behavioral-health/spending-glp-1s-has-grown-dramatically-here-are-details</a>.
         </p>
-        <p class="sources-text" id="glp1-source-13">
-          <span class="source-number">[13]</span> "United States of Ozempic: Where anti-obesity drugs are taking off."
-          <em>Axios</em>, 18 Jan. 2024,
-          <a href="https://www.axios.com/2024/01/18/ozempic-wegovy-weight-loss-drugs-states-map" target="_blank"
-            rel="noopener noreferrer">https://www.axios.com/2024/01/18/ozempic-wegovy-weight-loss-drugs-states-map</a>.
-        </p>
+
         <p class="sources-text" id="glp1-source-14">
-          <span class="source-number">[14]</span> "Obesity Rate Declining in U.S."
-          <em>Gallup</em>,
+          <span class="source-number">[18]</span> Jones, Jeffrey M. "Obesity Rate Declining in U.S."
+          <em>Gallup</em>, 13 Feb. 2025,
           <a href="https://news.gallup.com/poll/696599/obesity-rate-declining.aspx" target="_blank"
             rel="noopener noreferrer">https://news.gallup.com/poll/696599/obesity-rate-declining.aspx</a>.
         </p>
+
         <p class="sources-text" id="glp1-source-15">
-          <span class="source-number">[15]</span> Montero, Alex, et al. "KFF Health Tracking Poll May 2024: The Public's
+          <span class="source-number">[19]</span> Montero, Alex, et al. "KFF Health Tracking Poll May 2024: The Public's
           Use and Views of GLP-1 Drugs."
           <em>KFF</em>, 10 May 2024,
           <a href="https://www.kff.org/health-costs/kff-health-tracking-poll-may-2024-the-publics-use-and-views-of-glp-1-drugs/"
             target="_blank"
             rel="noopener noreferrer">https://www.kff.org/health-costs/kff-health-tracking-poll-may-2024-the-publics-use-and-views-of-glp-1-drugs/</a>.
         </p>
-        <p class="sources-text" id="source-16">
-          <span class="source-number">[16]</span> Hall, Kevin D., et al. "Ultra-Processed Diets Cause Excess Calorie
-          Intake and Weight Gain: An Inpatient Randomized Controlled Trial of Ad Libitum Food Intake."
-          <em>Cell Metabolism</em>, vol. 30, no. 1, July 2019, pp. 67-77.e3.
-          <em>PMC</em>,
-          <a href="https://doi.org/10.1016/j.cmet.2019.05.008" target="_blank"
-            rel="noopener noreferrer">https://doi.org/10.1016/j.cmet.2019.05.008</a>.
-        </p>
-        <p class="sources-text" id="source-17">
-          <span class="source-number">[17]</span> Müller, Timo D., et al. "Glucagon-like Peptide 1 (GLP-1)."
-          <em>Molecular Metabolism</em>, vol. 30, Dec. 2019, pp. 72-130.
-          <em>PMC</em>,
-          <a href="https://doi.org/10.1016/j.molmet.2019.09.010" target="_blank"
-            rel="noopener noreferrer">https://doi.org/10.1016/j.molmet.2019.09.010</a>.
-        </p>
-        <p class="sources-text" id="source-18">
-          <span class="source-number">[18]</span> Farooqi, I. Sadaf, and Julia M. O'Rahilly. "Leptin: A Pivotal
-          Regulator of Human Energy Homeostasis."
-          <em>The American Journal of Clinical Nutrition</em>, vol. 89, no. 3, Mar. 2009, pp. 980S-984S.
-          <em>PMC</em>,
-          <a href="https://doi.org/10.3945/ajcn.2008.26788C" target="_blank"
-            rel="noopener noreferrer">https://doi.org/10.3945/ajcn.2008.26788C</a>.
-        </p>
+
         <p class="sources-text" id="source-19">
-          <span class="source-number">[19]</span> Semaglutide Effects on Cardiovascular Outcomes in People With
-          Overweight or Obesity (SELECT) Trial.
-          <em>New England Journal of Medicine</em>, vol. 389, Nov. 2023, pp. 2221-2232.
+          <span class="source-number">[20]</span> Lincoff, A. Michael, et al. "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes." <em>New England Journal of Medicine</em>, vol. 389, no. 24, Nov. 2023, pp. 2221-2232.
           <a href="https://doi.org/10.1056/NEJMoa2307563" target="_blank"
             rel="noopener noreferrer">https://doi.org/10.1056/NEJMoa2307563</a>.
         </p>
-        <p class="sources-text" id="source-20">
-          <span class="source-number">[20]</span> "How Much Do GLP-1 Injections Cost? Average Prices, Savings Tips, and
-          More."
-          <em>CallOnDoc</em>, 2025,
-          <a href="https://www.callondoc.com/en/blogs/how-much-do-glp-1-injections-cost-average-prices-savings-tips-and-more"
-            target="_blank"
-            rel="noopener noreferrer">https://www.callondoc.com/en/blogs/how-much-do-glp-1-injections-cost-average-prices-savings-tips-and-more</a>.
+
+        <p class="sources-text" id="source-22">
+          <span class="source-number">[21]</span> Secher, Anna, et al. "The Arcuate Nucleus Mediates GLP-1 Receptor Agonist Liraglutide-Dependent Weight Loss." <em>Journal of Clinical Investigation</em>, vol. 124, no. 10, Oct. 2014, pp. 4473-4488.
+          <a href="https://doi.org/10.1172/JCI75276" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1172/JCI75276</a>.
         </p>
-        <p class="sources-text" id="source-21">
-          <span class="source-number">[21]</span> Pagliai, Giuditta, et al. "Consumption of Ultra-Processed Foods and
-          Health Status: A Systematic Review and Meta-Analysis."
-          <em>British Journal of Nutrition</em>, vol. 125, no. 3, Feb. 2021, pp. 308-318.
-          <a href="https://doi.org/10.1017/S0007114520002688" target="_blank"
-            rel="noopener noreferrer">https://doi.org/10.1017/S0007114520002688</a>.
+
+        <p class="sources-text" id="source-23">
+          <span class="source-number">[22]</span> Farooqi, I. Sadaf, and Julia M. O'Rahilly. "Leptin: A Pivotal Regulator of Human Energy Homeostasis."
+          <em>American Journal of Clinical Nutrition</em>, vol. 89, no. 3, Mar. 2009, pp. 980S-984S.
+          <a href="https://doi.org/10.3945/ajcn.2008.26788C" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.3945/ajcn.2008.26788C</a>.
         </p>
-      </div>
-    </section>
-  </div>
+
+        <p class="sources-text" id="source-27">
+          <span class="source-number">[23]</span> Cowley, Michael A., et al. "Leptin Activates Anorexigenic POMC Neurons Through a Neural Network in the Arcuate Nucleus." <em>Nature</em>, vol. 411, no. 6836, May 2001, pp. 480-484.
+          <a href="https://doi.org/10.1038/35078085" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1038/35078085</a>.
+        </p>
+
+        <p class="sources-text" id="source-28">
+          <span class="source-number">[24]</span> Myers, Martin G., et al. "Mechanisms of Leptin Action and Leptin Resistance." <em>Annual Review of Physiology</em>, vol. 70, 2008, pp. 537-556.
+          <a href="https://doi.org/10.1146/annurev.physiol.70.113006.100707" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1146/annurev.physiol.70.113006.100707</a>.
+        </p>
+
+        <p class="sources-text" id="source-29">
+          <span class="source-number">[25]</span> Könner, A. Christine, and Jens C. Brüning. "Selective Insulin and Leptin Resistance in Metabolic Disorders." <em>Cell Metabolism</em>, vol. 16, no. 2, Aug. 2012, pp. 144-152.
+          <a href="https://doi.org/10.1016/j.cmet.2012.07.004" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1016/j.cmet.2012.07.004</a>.
+        </p>
+
+        <p class="sources-text" id="source-30">
+          <span class="source-number">[26]</span> Barr, Susan B., and Jonathan C. Wright. "Postprandial Energy Expenditure in Whole-Food and Processed-Food Meals: Implications for Daily Energy Expenditure." <em>Food & Nutrition Research</em>, vol. 54, July 2010.
+          <a href="https://doi.org/10.3402/fnr.v54i0.5144" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.3402/fnr.v54i0.5144</a>.
+        </p>
+
+        <p class="sources-text" id="source-31">
+          <span class="source-number">[27]</span> Levine, James A. "Non-Exercise Activity Thermogenesis (NEAT)." <em>Best Practice & Research Clinical Endocrinology & Metabolism</em>, vol. 16, no. 4, Dec. 2002, pp. 679-702.
+          <a href="https://doi.org/10.1053/beem.2002.0227" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1053/beem.2002.0227</a>.
+        </p>
+
+        <p class="sources-text" id="source-32">
+          <span class="source-number">[28]</span> Slavin, Joanne L. "Dietary Fiber and Body Weight." <em>Nutrition</em>, vol. 21, no. 3, Mar. 2005, pp. 411-418.
+          <a href="https://doi.org/10.1016/j.nut.2004.08.018" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1016/j.nut.2004.08.018</a>.
+        </p>
+
+        <p class="sources-text" id="source-33">
+          <span class="source-number">[29]</span> Astrup, Arne. "The Satiating Power of Protein—A Key to Obesity Prevention?" <em>American Journal of Clinical Nutrition</em>, vol. 82, no. 1, July 2005, pp. 1-2.
+          <a href="https://doi.org/10.1093/ajcn/82.1.1" target="_blank"
+            rel="noopener noreferrer">https://doi.org/10.1093/ajcn/82.1.1</a>.
+        </p>
+        </div>
+      </section>
+
+  </div><!-- Close app-container -->
 
   <script type="module" src="./js/data.js"></script>
   <!-- index.html -->

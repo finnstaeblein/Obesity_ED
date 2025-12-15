@@ -51,8 +51,11 @@ const state = {
   'global-patterns': { step: 0, totalSteps: 2 },
   'combined-question': { step: 0, totalSteps: 2 },
   bridge: { step: 0, totalSteps: 1 },
-  inactivity: { step: 0, totalSteps: 4 },
-  glp1: { step: 0, totalSteps: 1 }
+  inactivity: { step: 0, totalSteps: 5 },
+  'willpower-bridge': { step: 0, totalSteps: 1 },
+  'willpower-genetic': { step: 0, totalSteps: 4 },
+  'willpower-food': { step: 0, totalSteps: 1 },
+  glp1: { step: 0, totalSteps: 2 }
 };
 
 // Preset configurations for each step of the unified chart
@@ -62,7 +65,7 @@ const chartPresets = {
   3: { xVar: 'PercUPF', yVar: 'Fat', chartType: 'auto' }            // Exploration (user controlled)
 };
 
-const sectionOrder = ['global-patterns-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'conclusion-section', 'glp1-section', 'glp1-medications-section'];
+const sectionOrder = ['global-patterns-section', 'combined-question-section', 'bridge-section', 'inactivity-section', 'willpower-bridge-section', 'willpower-genetic-section', 'willpower-food-section', 'glp1-section', 'glp1-medications-section', 'conclusion-section'];
 
 function updateSection(sectionId) {
   const section = document.getElementById(sectionId);
@@ -108,10 +111,10 @@ function updateChart(sectionKey, step) {
     case 'global-patterns':
       // Show/hide graphs based on current step
       const globalGraphs = document.querySelectorAll('#global-patterns-section .piper-guided-graph');
-      // Map steps to graph indices: step 0 & 1 show graph 1 (country trends), step 2 shows graph 5 (full explorer)
+      // Map steps to graph indices: step 0 & 1 show graph 0 (country trends), step 2 shows graph 5 (full explorer)
       const graphIndexMap = {
-        0: 1,  // Show country trends click to explore (has play button)
-        1: 1,  // Keep showing same graph so users can continue exploring
+        0: 0,  // Show country trends click to explore (has play button)
+        1: 0,  // Keep showing same graph so users can continue exploring
         2: 5   // Show full explorer
       };
       const targetGraphIndex = graphIndexMap[step];
